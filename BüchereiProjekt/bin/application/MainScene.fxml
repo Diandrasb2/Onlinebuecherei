@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="fläche" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #1d1d1b;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainSceneController">
+   <children>
+      <Label fx:id="labelOnlineBücherei" layoutX="200.0" layoutY="128.0" prefHeight="37.0" prefWidth="218.0" text="ONLINE BÜCHEREI" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Medium Cond" size="31.0" />
+         </font></Label>
+      <Button fx:id="buttonLogIn" layoutX="144.0" layoutY="209.0" mnemonicParsing="false" onAction="#handleButtonLogInAction" prefHeight="49.0" prefWidth="152.0" style="-fx-background-color: #ff9900;" text="log in " textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Demi Cond" size="26.0" />
+         </font>
+      </Button>
+      <Button fx:id="buttonRegistrieren" layoutX="339.0" layoutY="210.0" mnemonicParsing="false" onAction="#handleButtonRegistrierenAction" style="-fx-background-color: #ff9900;" text="registrieren" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Demi" size="26.0" />
+         </font>
+      </Button>
+      <Button fx:id="buttonAdmin" layoutX="283.0" layoutY="361.0" mnemonicParsing="false" onAction="#handleButtonAdminAction" prefHeight="22.0" prefWidth="60.0" style="-fx-background-color: #4e4f4d;" text="Admin" textFill="#1d1d1b">
+         <font>
+            <Font name="Franklin Gothic Demi Cond" size="12.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
