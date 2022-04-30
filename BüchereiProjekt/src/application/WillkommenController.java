@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class WillkommenController {
 	@FXML
-	private AnchorPane flächeWillkommen;
+	private AnchorPane flaecheWillkommen;
 	@FXML
 	private Label labelWillkommen;
 	@FXML
@@ -18,11 +18,11 @@ public class WillkommenController {
 	private Button buttonOK;
 	@FXML
 	private void handleTfSucheAction(ActionEvent event) {
-		System.out.println("Gib hier einen Suchbegriff ein");
+		System.out.println("Gebe hier einen Suchbegriff ein");
 	}
 
 	@FXML
 	private void handleButtonOkAction(ActionEvent event) {
-		System.out.println("Du hast deine Eingabe bestätigt");
+		System.out.println("Du hast deine Eingabe bestaetigt");
 	}
 }

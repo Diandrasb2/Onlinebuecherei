@@ -15,7 +15,7 @@ public class Main extends Application {
 			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("MainScene.fxml"));
 			Scene scene = new Scene(root, 600,400);
 					
-			primaryStage.setTitle("Online Bücherei");
+			primaryStage.setTitle("Online Buecherei");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {

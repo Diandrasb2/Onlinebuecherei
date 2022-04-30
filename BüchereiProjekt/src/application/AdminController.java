@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class AdminController {
 	@FXML
-	private AnchorPane flächeAdmin;
+	private AnchorPane flaecheAdmin;
 	@FXML
 	private Label labelAdmin;
 	@FXML
@@ -20,7 +20,7 @@ public class AdminController {
 	@FXML
 	private Button buttonOK;
 	@FXML
-	private Button buttonZurück;
+	private Button buttonZurueck;
 
 	@FXML
 	private void handleTfNameAction(ActionEvent event) {
@@ -34,11 +34,11 @@ public class AdminController {
 
 	@FXML
 	private void handleButtonOkAction(ActionEvent event) {
-		System.out.println("Du hast deine Eingabe bestätigt");
+		System.out.println("Du hast deine Eingabe bestaetigt");
 	}
 
 	@FXML
-	private void handleButtonZurückAction(ActionEvent event) {
-		System.out.println("Du hast den Zurück-button gedrückt");
+	private void handleButtonZurÃ¼ckAction(ActionEvent event) {
+		System.out.println("Du hast den Zurueck-Button gedrueckt");
 	}
 }

@@ -16,9 +16,9 @@ import javafx.stage.Stage;
 
 public class MainSceneController {
 	@FXML
-	private AnchorPane fläche;
+	private AnchorPane flaeche;
 	@FXML
-	private Label labelOnlineBücherei;
+	private Label labelOnlineBuecherei;
 	@FXML
 	private Button buttonLogIn;
 	@FXML
@@ -28,7 +28,7 @@ public class MainSceneController {
 
 	@FXML
 	private void handleButtonLogInAction(ActionEvent event){
-		System.out.println("Hier neues Fenster zum Login öffnen");
+		System.out.println("Hier neues Fenster zum Login oeffnen");
 		
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
@@ -38,18 +38,18 @@ public class MainSceneController {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LogInFenster.fxml"));
 		AnchorPane root1 = (AnchorPane) fxmlLoader.load();
 		Stage stage=new Stage();
-		stage.setTitle("Online Bücherei - Log in");
+		stage.setTitle("Online Buecherei - Log in");
 		stage.setScene(new Scene(root1));
 		stage.show();
 	}catch (IOException iOException) {
-		System.out.println("Fenster wurde nicht geöffnet");
+		System.out.println("Fenster wurde nicht geoeffnet");
 	}
 	
 	}
 
 	@FXML
 	private void handleButtonRegistrierenAction(ActionEvent event) {
-		System.out.println("Hier neues Fenster zum Registrieren öffnen");
+		System.out.println("Hier neues Fenster zum Registrieren oeffnen");
 		
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
@@ -59,11 +59,11 @@ public class MainSceneController {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("RegistrierenFenster.fxml"));
 			AnchorPane root2 = (AnchorPane) fxmlLoader.load();
 			Stage stage=new Stage();
-			stage.setTitle("Online Bücherei - Registrieren");
+			stage.setTitle("Online Buecherei - Registrieren");
 			stage.setScene(new Scene(root2));
 			stage.show();
 		}catch (IOException iOException) {
-			System.out.println("Fenster wurde nicht geöffnet");
+			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
 

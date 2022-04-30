@@ -10,27 +10,32 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class LogInFensterController {
 @FXML
-private AnchorPane flächeLogInFenster;
+private AnchorPane flaecheLogInFenster;
 @FXML
 private Label labelLogIn;
 @FXML
+private Label labelEmail;
+@FXML
 private TextField tfEmail;
 @FXML
-private TextField tfPasswort;
+private Label labelPasswort;
+@FXML
+private PasswordField pfPasswort;
 @FXML
 private Button buttonOK;
 @FXML
-private Button buttonZurück;
+private Button buttonZurueck;
 
 @FXML
 private void handleTfEmailAction(ActionEvent event) {
-	System.out.println("Tippe deine Email ein");
+	System.out.println("Tippe deine E-Mail ein");
 }
 @FXML
 private void handlePfPasswortAction(ActionEvent event) {
@@ -38,8 +43,8 @@ private void handlePfPasswortAction(ActionEvent event) {
 }
 
 @FXML
-private void handleButtonZurückAction(ActionEvent event) {
-	System.out.println("Du hast den Zurück-button gedrückt");
+private void handleButtonZurÃ¼ckAction(ActionEvent event) {
+	System.out.println("Du hast den Zurueck-Button gedrueckt");
 	
 	Node source = (Node) event.getSource();
 	Stage oldStage = (Stage) source.getScene().getWindow();
@@ -49,11 +54,11 @@ private void handleButtonZurückAction(ActionEvent event) {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainScene.fxml"));
 		AnchorPane root3 = (AnchorPane) fxmlLoader.load();
 		Stage stage = new Stage();
-		stage.setTitle("Online Bücherei");
+		stage.setTitle("Online Buecherei");
 		stage.setScene(new Scene(root3));
 		stage.show();
 	} catch (IOException iOException) {
-		System.out.println("Fenster wurde nicht geöffnet");
+		System.out.println("Fenster wurde nicht geoeffnet");
 	}
 }
 
@@ -69,11 +74,11 @@ private void handleButtonOkAction(ActionEvent event) {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Willkommen.fxml"));
 		AnchorPane root3 = (AnchorPane) fxmlLoader.load();
 		Stage stage=new Stage();
-		stage.setTitle("Online Bücherei - Willkommen");
+		stage.setTitle("Online Buecherei - Willkommen");
 		stage.setScene(new Scene(root3));
 		stage.show();
 	}catch (IOException iOException) {
-		System.out.println("Fenster wurde nicht geöffnet");
+		System.out.println("Fenster wurde nicht geoeffnet");
 	}
 }
     
