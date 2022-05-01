@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="flaecheLogInFenster" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #1d1d1b;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LogInFensterController">
+<AnchorPane fx:id="flächeLogInFenster" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #1d1d1b;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LogInFensterController">
    <children>
       <Label fx:id="labelLogIn" alignment="CENTER" layoutX="227.0" layoutY="90.0" prefHeight="37.0" prefWidth="171.0" text="LOG IN" textAlignment="CENTER" textFill="WHITE">
          <font>
@@ -24,7 +24,7 @@
             <Font name="Franklin Gothic Demi Cond" size="26.0" />
          </font>
       </Button>
-      <Button fx:id="buttonZurueck" alignment="CENTER" layoutX="14.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonZurückAction" prefHeight="37.0" prefWidth="81.0" style="-fx-background-color: #4d4e4f;" text="back" textFill="WHITE">
+      <Button fx:id="buttonZurück" alignment="CENTER" layoutX="14.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonZurückAction" prefHeight="37.0" prefWidth="81.0" style="-fx-background-color: #4d4e4f;" text="zurück" textFill="WHITE">
          <font>
             <Font name="Franklin Gothic Demi Cond" size="21.0" />
          </font>
