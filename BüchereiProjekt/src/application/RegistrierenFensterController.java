@@ -36,49 +36,40 @@ public class RegistrierenFensterController {
 	private Button buttonOK;
 	@FXML
 	private Button buttonZurück;
-
 	@FXML
-	private void handleTfNameAction(ActionEvent event) {
-		System.out.println("Tippe deinen Vor- und Nachnamen ein");
-	}
-
+	private Label rPasswortAnforderung;
 	@FXML
-	private void handleTfEmailAction(ActionEvent event) {
-		System.out.println("Tippe deine Email ein");
-	}
-
-	@FXML
-	void handlePfPasswortAction(ActionEvent event) {
-		System.out.println("Tippe dein Passwort ein");
-		 name = tfName.getText();
-		email = tfEmail.getText();
-		passwort = pfPasswort.getText();
-
-//		System.out.println("Deine Eingaben waren folgende: " + name + ", " + email + ", " + passwort);
-		// Nach jeder eingabe enter drücken damit eingabe übernommen wird
-
-		if (passwort.length() == 6) {
-			System.out.println("Gültige Passwortwahl. Wiederhole das gewählte Passwort.");
-			System.out.println(passwort);
-		} else {
-			System.out.println("Passwort muss 6 Zeichen lang sein.");
+	private void registrationsCheckOk(ActionEvent event) throws IOException{
+		
+		if(tfName.getText().isEmpty()) {
+		rPasswortAnforderung.setText("Bitte Name Eingeben.");
+		return;
 		}
-	}
-
-	@FXML
-	private void handlePfPasswortWAction(ActionEvent event) {
-		System.out.println("Bestätige dein Passwort durch Wiederholung der Passworteingabe.");
-
-		passwort2 = pfPasswortW.getText();
-		System.out.println(passwort + ", " + passwort2);
-		if (passwort.equals(passwort2)) {
-
-			System.out.println("Erfolgreiche Bestätigung des Passworts.");
-		} else {
-			System.out.println("Deine Eingabe stimmt nicht überein. Wiederhole bitte.");
+		else if(tfEmail.getText().isEmpty()) {
+		rPasswortAnforderung.setText("Bitte Email Eingeben.");
+		return;
 		}
+		else if(pfPasswort.getText().isEmpty()) {
+		rPasswortAnforderung.setText("Bitte Passwort Eingeben.");
+		return;
+		}
+		else if(pfPasswort.getLength() < 7) {
+		rPasswortAnforderung.setText("Passwort zu Kurz.");
+		return;
+		}
+		else if(pfPasswortW.getText().isEmpty()) {
+		rPasswortAnforderung.setText("Bitte Paswort nochmal Eingeben.");
+		return;
+		}
+	
+		else if(!pfPasswortW.getText().equals(pfPasswort.getText()) ) {
+		rPasswortAnforderung.setText("Passwort muss übereinstimmen!");
+		return;
+		}
+	  
+		rPasswortAnforderung.setText("Registrierung Erfolgreich!");
+	
 	}
-
 	@FXML
 	private void handleButtonOkAction(ActionEvent event) {
 //Plan: bei OK drücken alles prüfen und nicht schon vorher
