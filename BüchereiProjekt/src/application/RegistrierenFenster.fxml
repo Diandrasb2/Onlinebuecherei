@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -19,30 +21,49 @@
             <Font name="Franklin Gothic Demi Cond" size="26.0" />
          </font>
       </TextField>
-      <Button fx:id="buttonOK" layoutX="243.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleButtonOkAction" prefHeight="47.0" prefWidth="117.0" style="-fx-background-color: #ff9900;" text="OK!" textFill="WHITE">
-         <font>
-            <Font name="Franklin Gothic Demi Cond" size="26.0" />
-         </font>
-      </Button>
-      <Button fx:id="buttonZurück" alignment="CENTER" layoutX="14.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonZurückAction" prefHeight="37.0" prefWidth="81.0" style="-fx-background-color: #4d4e4f;" text="zurück" textFill="WHITE">
-         <font>
-            <Font name="Franklin Gothic Demi Cond" size="21.0" />
-         </font>
-      </Button>
-      <PasswordField fx:id="pfPasswort" alignment="CENTER" layoutX="242.0" layoutY="206.0" prefHeight="47.0" prefWidth="295.0">
-         <font>
-            <Font name="Franklin Gothic Demi Cond" size="26.0" />
-         </font>
-      </PasswordField>
       <TextField fx:id="tfEmail" alignment="CENTER" layoutX="242.0" layoutY="152.0" prefHeight="47.0" prefWidth="295.0">
          <font>
             <Font name="Franklin Gothic Demi Cond" size="26.0" />
          </font>
       </TextField>
+      <Button fx:id="buttonOK" layoutX="243.0" layoutY="317.0" mnemonicParsing="false" onAction="#handleButtonOkAction" prefHeight="47.0" prefWidth="117.0" style="-fx-background-color: #ff9900;" text="OK!" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Demi Cond" size="26.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="buttonZurück" alignment="CENTER" layoutX="14.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleButtonZurückAction" prefHeight="37.0" prefWidth="81.0" style="-fx-background-color: #4d4e4f;" text="zurück" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Demi Cond" size="21.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <PasswordField fx:id="pfPasswort" alignment="CENTER" layoutX="242.0" layoutY="206.0" prefHeight="47.0" prefWidth="295.0">
+         <font>
+            <Font name="Franklin Gothic Demi Cond" size="26.0" />
+         </font>
+         <tooltip>
+            <Tooltip fx:id="ttHinweisPwReg" text="Erstelltes Passwort muss &#10;8 Zeichen lang sein">
+               <font>
+                  <Font name="Franklin Gothic Demi" size="12.0" />
+               </font>
+            </Tooltip>
+         </tooltip>
+      </PasswordField>
       <PasswordField fx:id="pfPasswortW" alignment="CENTER" layoutX="242.0" layoutY="260.0" prefHeight="47.0" prefWidth="295.0">
          <font>
             <Font name="Franklin Gothic Demi Cond" size="26.0" />
          </font>
+         <tooltip>
+            <Tooltip fx:id="ttHinweisPwWiedReg" text="Wiederholtes Passwort muss&#10;mit dem erstellten Passwort &#10;übereinstimmen.">
+               <font>
+                  <Font name="Franklin Gothic Demi" size="12.0" />
+               </font></Tooltip>
+         </tooltip>
       </PasswordField>
       <Label fx:id="labelName" layoutX="95.0" layoutY="109.0" text="name, vorname:" textAlignment="RIGHT" textFill="#ff9900">
          <font>
@@ -64,9 +85,9 @@
             <Font name="Franklin Gothic Demi Cond" size="21.0" />
          </font>
       </Label>
-      <Label fx:id="rPasswortAnforderung" layoutX="319.0" layoutY="393.0" textFill="RED">
+      <Label fx:id="rPasswortAnforderung" alignment="TOP_LEFT" layoutX="376.0" layoutY="323.0" prefHeight="37.0" prefWidth="203.0" textFill="RED">
          <font>
-            <Font size="21.0" />
+            <Font name="Franklin Gothic Demi" size="12.0" />
          </font>
       </Label>
    </children>
