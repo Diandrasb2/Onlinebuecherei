@@ -21,7 +21,7 @@ public class RegistrierenFensterController {
 	String passwort2;
 
 	@FXML
-	private AnchorPane flächeRegistrierenFenster;
+	private AnchorPane flÃ¤cheRegistrierenFenster;
 	@FXML
 	private Label labelRegistrieren;
 	@FXML
@@ -39,7 +39,7 @@ public class RegistrierenFensterController {
 	@FXML
 	private Button buttonOK;
 	@FXML
-	private Button buttonZurück;
+	private Button buttonZurÃ¼ck;
 	@FXML
 	private Label labelPasswort;
 	@FXML
@@ -49,14 +49,15 @@ public class RegistrierenFensterController {
 
 	@FXML
 	private void handleButtonOkAction(ActionEvent event) {
-//Plan: bei OK drücken alles prüfen und nicht schon vorher
+//Plan: bei OK drï¿½cken alles prï¿½fen und nicht schon vorher
+		
 
 		if (tfName.getText().isEmpty()) {
 			rPasswortAnforderung.setText("Geben Sie bitte Ihren Namen ein.");
 			return;
 
 		} else if (tfEmail.getText().isEmpty()) {
-			rPasswortAnforderung.setText("Geben Sie bitte Ihre Email ein.");
+			rPasswortAnforderung.setText("Geben Sie bitte Ihre E-Mail ein.");
 			return;
 		} else if (pfPasswort.getText().isEmpty()) {
 			rPasswortAnforderung.setText("Erstellen Sie bitte ein Passwort.");
@@ -70,11 +71,11 @@ public class RegistrierenFensterController {
 		} else if (pfPasswortW.getText().isEmpty()) {
 			rPasswortAnforderung.setText("Bitte Passworteingabe wiederholen.");
 			return;
-		}
-
-		else if (!pfPasswortW.getText().equals(pfPasswort.getText())) {
-			rPasswortAnforderung.setText("Das Passwort muss übereinstimmen.");
+		} else if (!pfPasswortW.getText().equals(pfPasswort.getText())) {
+			rPasswortAnforderung.setText("Das Passwort muss Ã¼bereinstimmen.");
 			return;
+		} else if (!tfEmail.getText().contains("@")) {
+			rPasswortAnforderung.setText("Diese E-Mail ist ungÃ¼ltig.");
 		}
 
 		else {
@@ -88,18 +89,18 @@ public class RegistrierenFensterController {
 				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainScene.fxml"));
 				AnchorPane root3 = (AnchorPane) fxmlLoader.load();
 				Stage stage = new Stage();
-				stage.setTitle("Online Bücherei");
+				stage.setTitle("Online Bï¿½cherei");
 				stage.setScene(new Scene(root3));
 				stage.show();
 			} catch (IOException iOException) {
-				System.out.println("Fenster wurde nicht geöffnet");
+				System.out.println("Fenster wurde nicht geï¿½ffnet");
 			}
 		}
 	}
 
 	@FXML
-	private void handleButtonZurückAction(ActionEvent event) {
-		System.out.println("Du hast den Zurück-button gedrückt");
+	private void handleButtonZurÃ¼ckAction(ActionEvent event) {
+		System.out.println("Du hast den Zurï¿½ck-button gedrï¿½ckt");
 
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
@@ -109,11 +110,11 @@ public class RegistrierenFensterController {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainScene.fxml"));
 			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
 			Stage stage = new Stage();
-			stage.setTitle("Online Bücherei");
+			stage.setTitle("Online Bï¿½cherei");
 			stage.setScene(new Scene(root3));
 			stage.show();
 		} catch (IOException iOException) {
-			System.out.println("Fenster wurde nicht geöffnet");
+			System.out.println("Fenster wurde nicht geï¿½ffnet");
 		}
 	}
 
