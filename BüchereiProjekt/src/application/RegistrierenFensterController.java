@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -21,7 +22,7 @@ public class RegistrierenFensterController {
 	String passwort2;
 
 	@FXML
-	private AnchorPane flächeRegistrierenFenster;
+	private AnchorPane flaecheRegistrierenFenster;
 	@FXML
 	private Label labelRegistrieren;
 	@FXML
@@ -39,25 +40,29 @@ public class RegistrierenFensterController {
 	@FXML
 	private Button buttonOK;
 	@FXML
-	private Button buttonZurück;
+	private Button buttonZurueck;
 	@FXML
 	private Label labelPasswort;
 	@FXML
 	private Label labelPasswortWiederholen;
 	@FXML
 	private Label rPasswortAnforderung;
+	@FXML 
+	private Tooltip ttHinweisPwReg;
+	@FXML 
+	private Tooltip ttHinweisPwWiedReg;
+	
 
 	@FXML
 	private void handleButtonOkAction(ActionEvent event) {
-//Plan: bei OK dr�cken alles pr�fen und nicht schon vorher
-		
+//Plan: bei OK dr�cken alles pr�fen und nicht schon vorher
 
 		if (tfName.getText().isEmpty()) {
 			rPasswortAnforderung.setText("Geben Sie bitte Ihren Namen ein.");
 			return;
 
 		} else if (tfEmail.getText().isEmpty()) {
-			rPasswortAnforderung.setText("Geben Sie bitte Ihre E-Mail ein.");
+			rPasswortAnforderung.setText("Geben Sie bitte Ihre Email ein.");
 			return;
 		} else if (pfPasswort.getText().isEmpty()) {
 			rPasswortAnforderung.setText("Erstellen Sie bitte ein Passwort.");
@@ -71,11 +76,15 @@ public class RegistrierenFensterController {
 		} else if (pfPasswortW.getText().isEmpty()) {
 			rPasswortAnforderung.setText("Bitte Passworteingabe wiederholen.");
 			return;
-		} else if (!pfPasswortW.getText().equals(pfPasswort.getText())) {
-			rPasswortAnforderung.setText("Das Passwort muss übereinstimmen.");
+		} else if (!tfEmail.getText().contains("@"))
+
+		{
+			rPasswortAnforderung.setText("Diese E-Mail ist ungueltig.");
+		}
+
+		else if (!pfPasswortW.getText().equals(pfPasswort.getText())) {
+			rPasswortAnforderung.setText("Das Passwort muss uebereinstimmen.");
 			return;
-		} else if (!tfEmail.getText().contains("@")) {
-			rPasswortAnforderung.setText("Diese E-Mail ist ungültig.");
 		}
 
 		else {
@@ -89,18 +98,18 @@ public class RegistrierenFensterController {
 				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainScene.fxml"));
 				AnchorPane root3 = (AnchorPane) fxmlLoader.load();
 				Stage stage = new Stage();
-				stage.setTitle("Online B�cherei");
+				stage.setTitle("Online Buecherei");
 				stage.setScene(new Scene(root3));
 				stage.show();
 			} catch (IOException iOException) {
-				System.out.println("Fenster wurde nicht ge�ffnet");
+				System.out.println("Fenster wurde nicht geoeffnet");
 			}
 		}
 	}
 
 	@FXML
-	private void handleButtonZurückAction(ActionEvent event) {
-		System.out.println("Du hast den Zur�ck-button gedr�ckt");
+	private void handleButtonZurueckAction(ActionEvent event) {
+		System.out.println("Du hast den Zurueck-button gedrueckt");
 
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
@@ -110,11 +119,11 @@ public class RegistrierenFensterController {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainScene.fxml"));
 			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
 			Stage stage = new Stage();
-			stage.setTitle("Online B�cherei");
+			stage.setTitle("Online Buecherei");
 			stage.setScene(new Scene(root3));
 			stage.show();
 		} catch (IOException iOException) {
-			System.out.println("Fenster wurde nicht ge�ffnet");
+			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
 

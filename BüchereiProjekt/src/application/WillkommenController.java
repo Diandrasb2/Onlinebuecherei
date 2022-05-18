@@ -6,11 +6,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 
 public class WillkommenController {
 	@FXML
-	private AnchorPane flächeWillkommen;
+	private AnchorPane flaecheWillkommen;
 	@FXML
 	private Label labelBuecherei;
 	@FXML
@@ -33,7 +34,8 @@ public class WillkommenController {
 	private TitledPane sprache;
 	@FXML
 	private AnchorPane feldSprache;
-	
+	@FXML 
+	private Tooltip ttHinweisSuche;
 	@FXML
 	private Label labelWillkommen;
 	@FXML
