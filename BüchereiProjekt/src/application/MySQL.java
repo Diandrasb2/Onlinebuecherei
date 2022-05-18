@@ -1,3 +1,5 @@
+//Erstellung MySQL: Timm
+
 package application;
 
 import java.sql.Connection;
@@ -6,7 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class MySQL {
-
+	
+	//Aufbau Connection mit Datenbank: Timm
 	static Connection connection = null;
 	private static final String host = "localhost";
 	private static final String port = "3306";

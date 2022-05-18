@@ -1,4 +1,4 @@
-
+//Erstellung RegistrierenFenster und Controller-Klasse: Anastasia
 package application;
 
 import java.io.IOException;
@@ -16,11 +16,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class RegistrierenFensterController {
+
 	String passwort;
 	String name;
 	String email;
 	String passwort2;
 
+	// Aufrufe FXML: Anastasia
 	@FXML
 	private AnchorPane flaecheRegistrierenFenster;
 	@FXML
@@ -47,16 +49,17 @@ public class RegistrierenFensterController {
 	private Label labelPasswortWiederholen;
 	@FXML
 	private Label rPasswortAnforderung;
-	@FXML 
+	@FXML
 	private Tooltip ttHinweisPwReg;
-	@FXML 
+	@FXML
 	private Tooltip ttHinweisPwWiedReg;
-	
 
+	// Verknüpfungen Funktionen: Anastasia
 	@FXML
 	private void handleButtonOkAction(ActionEvent event) {
 //Plan: bei OK drücken alles prüfen und nicht schon vorher
 
+		// Abfragen: Semih und Timm
 		if (tfName.getText().isEmpty()) {
 			rPasswortAnforderung.setText("Geben Sie bitte Ihren Namen ein.");
 			return;
@@ -76,18 +79,19 @@ public class RegistrierenFensterController {
 		} else if (pfPasswortW.getText().isEmpty()) {
 			rPasswortAnforderung.setText("Bitte Passworteingabe wiederholen.");
 			return;
-		} else if (!tfEmail.getText().contains("@"))
-
-		{
-			rPasswortAnforderung.setText("Diese E-Mail ist ungueltig.");
-		}
-
-		else if (!pfPasswortW.getText().equals(pfPasswort.getText())) {
+		} else if (!pfPasswortW.getText().equals(pfPasswort.getText())) {
 			rPasswortAnforderung.setText("Das Passwort muss uebereinstimmen.");
 			return;
 		}
 
-		else {
+		// Email-Abfrage: Diandra
+		else if (!tfEmail.getText().contains("@"))
+
+		{
+			rPasswortAnforderung.setText("Diese E-Mail ist ungueltig.");
+
+			// Neues Fenster: Anastasia
+		} else {
 			System.out.println("Hier musst du dich nun einloggen um fortzufahren.");
 
 			Node source = (Node) event.getSource();
@@ -110,7 +114,7 @@ public class RegistrierenFensterController {
 	@FXML
 	private void handleButtonZurueckAction(ActionEvent event) {
 		System.out.println("Du hast den Zurueck-button gedrueckt");
-
+		//Neues Fenster: Anastasia
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
 		oldStage.close();

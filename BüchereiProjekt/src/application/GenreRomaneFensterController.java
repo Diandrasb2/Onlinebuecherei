@@ -1,26 +1,24 @@
-//Erstellung Willkommen und Controller-Klasse: Anastasia
+//Erstellung GenreRomaneFenster und Controller-Klasse: Anastasia
 
 package application;
 
-import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
+import javafx.scene.layout.Pane;
 
-public class WillkommenController {
+public class GenreRomaneFensterController {
+	
 	//Aufrufe FXML: Anastasia
 	@FXML
-	private AnchorPane flaecheWillkommen;
+	private AnchorPane flaecheSuche;
 	@FXML
 	private Label labelBuecherei;
 	@FXML
@@ -49,7 +47,22 @@ public class WillkommenController {
 	private Label labelWillkommen;
 	@FXML
 	private TextField tfSuche;
-	
+	@FXML
+	private Tooltip ttKonto;
+	@FXML
+	private Tooltip ttStartfenster;
+	@FXML
+	private Tooltip ttAusloggen;
+	@FXML
+	private Tooltip ttHilfe;
+	@FXML
+	private Separator separatorLinie;
+	@FXML
+	private Label labelRomane;
+	@FXML
+	private Pane paneScrollbereich;
+	@FXML
+	private ScrollBar scrollbarScroll;
 	@FXML
 	private Button buttonOK;
 	@FXML
@@ -74,12 +87,10 @@ public class WillkommenController {
 	private Button buttonEn;
 	@FXML
 	private Button buttonKo;
-	
 	@FXML
 	private Label labelBeschreibung1;
 	@FXML
 	private Label labelBeschreibung2;
-
 	@FXML
 	private TextField tfJahr;
 	@FXML
@@ -112,22 +123,6 @@ public class WillkommenController {
 	@FXML
 	private void handleButtonRomaneAction(ActionEvent event) {
 		System.out.println("Filter Romane");
-		
-		//Aufruf neues Fenster: Anastasia
-		Node source = (Node) event.getSource();
-		Stage oldStage = (Stage) source.getScene().getWindow();
-		oldStage.close();
-
-		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GenreRomaneFenster.fxml"));
-			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-			Stage stage = new Stage();
-			stage.setTitle("Online Buecherei - Romane");
-			stage.setScene(new Scene(root3));
-			stage.show();
-		} catch (IOException iOException) {
-			System.out.println("Fenster wurde nicht geoeffnet");
-		}
 	}
 	@FXML
 	private void handleButtonThrillerAction(ActionEvent event) {
