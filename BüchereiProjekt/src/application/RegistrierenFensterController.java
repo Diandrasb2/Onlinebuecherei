@@ -14,6 +14,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 
 public class RegistrierenFensterController {
 
@@ -57,6 +60,9 @@ public class RegistrierenFensterController {
 	// Verknüpfungen Funktionen: Anastasia
 	@FXML
 	private void handleButtonOkAction(ActionEvent event) {
+		String tfNameR = tfName.getText();
+        String tfEmailR = tfEmail.getText();
+        String pfPasswortR = pfPasswort.getText();
 //Plan: bei OK drücken alles prüfen und nicht schon vorher
 
 		// Abfragen: Semih und Timm
@@ -73,7 +79,7 @@ public class RegistrierenFensterController {
 		} else if (pfPasswort.getLength() < 7) {
 			rPasswortAnforderung.setText("Das erstellte Passwort ist zu kurz.");
 			return;
-		} else if (pfPasswort.getLength() > 8) {
+		} else if (pfPasswort.getLength() > 30) {
 			rPasswortAnforderung.setText("Das erstellte Passwort ist zu lang.");
 			return;
 		} else if (pfPasswortW.getText().isEmpty()) {
@@ -83,16 +89,15 @@ public class RegistrierenFensterController {
 			rPasswortAnforderung.setText("Das Passwort muss uebereinstimmen.");
 			return;
 		}
-
 		// Email-Abfrage: Diandra
-		else if (!tfEmail.getText().contains("@"))
-
-		{
+		else if (!tfEmail.getText().contains("@")){
 			rPasswortAnforderung.setText("Diese E-Mail ist ungueltig.");
 
 			// Neues Fenster: Anastasia
-		} else {
-			System.out.println("Hier musst du dich nun einloggen um fortzufahren.");
+		} else		             
+		       
+		
+	{	System.out.println("Hier musst du dich nun einloggen um fortzufahren.");
 
 			Node source = (Node) event.getSource();
 			Stage oldStage = (Stage) source.getScene().getWindow();
@@ -109,7 +114,22 @@ public class RegistrierenFensterController {
 				System.out.println("Fenster wurde nicht geoeffnet");
 			}
 		}
-	}
+		   try {
+               Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/benutzerdatabase", "root", "");
+
+               String query = "INSERT INTO benutzer(username, email, passwort) VALUES('"+tfNameR+"','"+tfEmailR+"','"+pfPasswortR+"')";
+               Statement sta = connection.createStatement();
+               int x = sta.executeUpdate(query);
+               if (x == 0) {
+               	rPasswortAnforderung.setText("Sie sind bereits registriert");
+               } else {
+               	rPasswortAnforderung.setText("Erfolgreich regisrtriert");
+               }
+               connection.close();
+           } catch (Exception exception) {
+               exception.printStackTrace();
+           }
+       }
 
 	@FXML
 	private void handleButtonZurueckAction(ActionEvent event) {
