@@ -1,4 +1,4 @@
-//Erstellung GenreRomaneFenster und Controller-Klasse: Anastasia
+//Erstellung JahrFenster und Controller-Klasse: Diandra (Vorlage: Anastasis)
 
 package application;
 
@@ -14,7 +14,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-public class GenreRomaneFensterController {
+public class JahrFensterController {
 	
 	//Aufrufe FXML: Anastasia
 	@FXML
@@ -58,7 +58,7 @@ public class GenreRomaneFensterController {
 	@FXML
 	private Separator separatorLinie;
 	@FXML
-	private Label labelRomane;
+	private Label labelJahr;
 	@FXML
 	private Pane paneScrollbereich;
 	@FXML
@@ -97,8 +97,13 @@ public class GenreRomaneFensterController {
 	private TextField tfJahrBis;
 	@FXML
 	private TextField tfISBN;
+	@FXML
+	private Label labelBis;
 	
-	//Verkn�pfung Funktionen: Anastasia
+	private String jahrVon;
+	private String jahrBis;
+	
+	//Verknüpfung Funktionen: Anastasia
 	@FXML
 	private void handleTfSucheAction(ActionEvent event) {
 		System.out.println("Gebe hier einen Suchbegriff ein");
@@ -140,7 +145,13 @@ public class GenreRomaneFensterController {
 	}
 	@FXML
 	private void handleTfJahrAction(ActionEvent event) {
+	//Diandra
 		System.out.println("Filter Erscheinungsjahr");
+		
+		jahrVon = tfJahrVon.getText();
+		jahrBis = tfJahrBis.getText();
+		
+		labelJahr.setText("Jahr: " + jahrVon + " - " + jahrBis); //Problem: funktioniert erst, wenn man bereits Jahre eingegeben hat und dann erneut Jahre eingibt
 	}
 	@FXML
 	private void handleTfISBNAction(ActionEvent event) {

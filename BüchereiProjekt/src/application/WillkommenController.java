@@ -79,13 +79,17 @@ public class WillkommenController {
 	private Label labelBeschreibung1;
 	@FXML
 	private Label labelBeschreibung2;
+	@FXML
+	private Label labelBis;
 
 	@FXML
-	private TextField tfJahr;
+	private TextField tfJahrVon;
+	@FXML
+	private TextField tfJahrBis;
 	@FXML
 	private TextField tfISBN;
 	
-	//Verknüpfung Funktionen: Anastasia
+	//Verknï¿½pfung Funktionen: Anastasia
 	@FXML
 	private void handleTfSucheAction(ActionEvent event) {
 		System.out.println("Gebe hier einen Suchbegriff ein");
@@ -144,6 +148,22 @@ public class WillkommenController {
 	@FXML
 	private void handleTfJahrAction(ActionEvent event) {
 		System.out.println("Filter Erscheinungsjahr");
+		
+		//Aufruf neues Fenster: Diandra
+				Node source = (Node) event.getSource();
+				Stage oldStage = (Stage) source.getScene().getWindow();
+				oldStage.close();
+
+				try {
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JahrFenster.fxml"));
+					AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+					Stage stage = new Stage();
+					stage.setTitle("Online Buecherei - Jahr");
+					stage.setScene(new Scene(root3));
+					stage.show();
+				} catch (IOException iOException) {
+					System.out.println("Fenster wurde nicht geoeffnet");
+				}
 	}
 	@FXML
 	private void handleTfISBNAction(ActionEvent event) {

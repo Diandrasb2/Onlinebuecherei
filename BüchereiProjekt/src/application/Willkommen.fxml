@@ -131,15 +131,21 @@
                   <content>
                     <AnchorPane fx:id="feldJahr" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #4d4e4f;">
                            <children>
-                              <Label fx:id="labelBeschreibung1" layoutX="12.0" layoutY="21.0" text="Geben SIe hier das &#10;Erscheinungsjahr ein:" textFill="WHITE">
+                              <Label fx:id="labelBeschreibung1" layoutX="12.0" layoutY="21.0" text="Geben Sie hier die &#10;Jahre ein, nach denen &#10;gesucht werden soll:" textFill="WHITE">
                                  <font>
                                     <Font name="Franklin Gothic Demi" size="12.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="tfJahr" layoutX="12.0" layoutY="64.0" onAction="#handleTfJahrAction" prefHeight="27.0" prefWidth="115.0">
+                              <TextField fx:id="tfJahrVon" layoutX="12.0" layoutY="81.0" onAction="#handleTfJahrAction" prefHeight="27.0" prefWidth="44.0">
                                  <cursor>
                                     <Cursor fx:constant="TEXT" />
                                  </cursor></TextField>
+                              <Label fx:id="labelBis" layoutX="60.0" layoutY="85.0" text="bis" textFill="WHITE" />
+                              <TextField fx:id="tfJahrBis" layoutX="81.0" layoutY="81.0" onAction="#handleTfJahrAction" prefHeight="27.0" prefWidth="44.0">
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor>
+                              </TextField>
                            </children>
                         </AnchorPane>
                   </content>
@@ -151,7 +157,7 @@
                      <content>
                         <AnchorPane fx:id="feldISBN" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #4d4e4f;">
                            <children>
-                              <Label fx:id="labelBeschreibung2" layoutX="8.0" layoutY="15.0" text="Geben SIe hier das &#10;Erscheinungsjahr ein:" textFill="WHITE">
+                              <Label fx:id="labelBeschreibung2" layoutX="8.0" layoutY="15.0" text="Geben Sie hier die &#10;ISBN ein:" textFill="WHITE">
                                  <font>
                                     <Font name="Franklin Gothic Demi" size="12.0" />
                                  </font>
