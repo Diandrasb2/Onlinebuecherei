@@ -1,12 +1,7 @@
-<<<<<<< Updated upstream
 //Erstellung Main-Klasse: Anastasia
 
 package application;
-=======
-package application;
 
-import java.sql.SQLException;
->>>>>>> Stashed changes
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -30,5 +25,6 @@ public class Main extends Application {
 	}
 
 	
+	}
 
-}
+
