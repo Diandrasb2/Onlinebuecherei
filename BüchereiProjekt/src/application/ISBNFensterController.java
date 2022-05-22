@@ -1,4 +1,4 @@
-//Erstellung FilterBestsellerFenster und Controller-Klasse: Anastasia
+//Erstellung ISBN Fenster und Controller-Klasse: Diandra (Vorlage: Anastasia)
 
 package application;
 
@@ -20,7 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class FilterBestsellerFensterController {
+public class ISBNFensterController {
 	
 	//Aufrufe FXML: Anastasia
 	@FXML
@@ -62,6 +62,8 @@ public class FilterBestsellerFensterController {
 	@FXML
 	private Label labelRomane;
 	@FXML
+	private Label labelISBN;
+	@FXML
 	private Pane paneScrollbereich;
 	@FXML
 	private ScrollBar scrollbarScroll;
@@ -94,11 +96,13 @@ public class FilterBestsellerFensterController {
 	@FXML
 	private TextField tfISBN;
 	
+	private String isbn;
+	
 	//Verknuepfung Funktionen: Anastasia
 	@FXML
 	private void handleTfSucheAction(ActionEvent event) {
 		System.out.println("Gebe hier einen Suchbegriff ein");
-
+		
 	}
 
 	@FXML
@@ -123,8 +127,8 @@ public class FilterBestsellerFensterController {
 	
 	@FXML
 	private void handleButtonAzAction(ActionEvent event) {
-		System.out.println("Du bist bereits auf dem Filter a-z");
-		//Aufruf neues Fenster: Anastasia
+		System.out.println("Filter a-z");
+		//Aufruf neues Fenster: Diandra
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
 		oldStage.close();
@@ -162,8 +166,22 @@ public class FilterBestsellerFensterController {
 	}
 	@FXML
 	private void handleButtonBestsellerAction(ActionEvent event) {
-		System.out.println("Du bist bereits auf dem Bestseller-Filter");
+		System.out.println("Filter Bestseller");
+		//Aufruf neues Fenster: Anastasia
+				Node source = (Node) event.getSource();
+				Stage oldStage = (Stage) source.getScene().getWindow();
+				oldStage.close();
 
+				try {
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FilterBestsellerFenster.fxml"));
+					AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+					Stage stage = new Stage();
+					stage.setTitle("Online Buecherei - Bestseller");
+					stage.setScene(new Scene(root3));
+					stage.show();
+				} catch (IOException iOException) {
+					System.out.println("Fenster wurde nicht geoeffnet");
+				}
 	}
 	@FXML
 	private void handleButtonRomaneAction(ActionEvent event) {
@@ -282,26 +300,14 @@ public class FilterBestsellerFensterController {
 	@FXML
 	private void handleTfISBNAction(ActionEvent event) {
 		System.out.println("Filter ISBN");
-		// Aufruf neues Fenster: Diandra
-		Node source = (Node) event.getSource();
-		Stage oldStage = (Stage) source.getScene().getWindow();
-		oldStage.close();
+		isbn = tfISBN.getText();
 
-		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ISBNFenster.fxml"));
-			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-			Stage stage = new Stage();
-			stage.setTitle("Online Buecherei - ISBN");
-			stage.setScene(new Scene(root3));
-			stage.show();
-		} catch (IOException iOException) {
-			System.out.println("Fenster wurde nicht geoeffnet");
-		}
+		labelISBN.setText("Filter: ISBN " + isbn);
 	}
 	
 	@FXML
 	private void handleButtonKontoAction(ActionEvent event) {
-		System.out.println("Konto�bersicht");
+		System.out.println("Kontoübersicht");
 	}
 
 	@FXML
