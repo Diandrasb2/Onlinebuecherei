@@ -39,17 +39,12 @@ public class WillkommenController {
 	private TitledPane ISBN;
 	@FXML
 	private AnchorPane feldISBN;
-	@FXML
-	private TitledPane sprache;
-	@FXML
-	private AnchorPane feldSprache;
 	@FXML 
 	private Tooltip ttHinweisSuche;
 	@FXML
 	private Label labelWillkommen;
 	@FXML
 	private TextField tfSuche;
-	
 	@FXML
 	private Button buttonOK;
 	@FXML
@@ -67,29 +62,39 @@ public class WillkommenController {
 	@FXML
 	private Button buttonSachliteratur;
 	@FXML
-	private Button buttonDe;
-	@FXML
-	private Button buttonSp;
-	@FXML
-	private Button buttonEn;
-	@FXML
-	private Button buttonKo;
-	
+	private Button buttonSprache;
 	@FXML
 	private Label labelBeschreibung1;
 	@FXML
 	private Label labelBeschreibung2;
 	@FXML
 	private Label labelBis;
-
 	@FXML
 	private TextField tfJahrVon;
 	@FXML
 	private TextField tfJahrBis;
 	@FXML
 	private TextField tfISBN;
+	@FXML
+	private Tooltip ttKonto;
+	@FXML
+	private Tooltip ttStartfenster;
+	@FXML
+	private Tooltip ttAusloggen;
+	@FXML
+	private Tooltip ttHilfe;
 	
-	//Verknï¿½pfung Funktionen: Anastasia
+	@FXML
+	private Button buttonKonto;
+	@FXML
+	private Button buttonStartfenster;
+	@FXML
+	private Button buttonAusloggen;
+	@FXML
+	private Button buttonHilfe;
+	
+	
+	//Verkuepfung Funktionen: Anastasia
 	@FXML
 	private void handleTfSucheAction(ActionEvent event) {
 		System.out.println("Gebe hier einen Suchbegriff ein");
@@ -98,20 +103,80 @@ public class WillkommenController {
 	@FXML
 	private void handleButtonOkAction(ActionEvent event) {
 		System.out.println("Du hast deine Eingabe bestaetigt");
+		//Aufruf neues Fenster: Anastasia
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
+
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SuchbegriffFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Suchbegriff");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
 	}
 	
 	@FXML
 	private void handleButtonAzAction(ActionEvent event) {
 		System.out.println("Filter a-z");
+		//Aufruf neues Fenster: Anastasia
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
+
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FilterAzFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Filter a-z");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
 	}
 	
 	@FXML
 	private void handleButtonZaAction(ActionEvent event) {
 		System.out.println("Filter z-a");
+		//Aufruf neues Fenster: Anastasia
+				Node source = (Node) event.getSource();
+				Stage oldStage = (Stage) source.getScene().getWindow();
+				oldStage.close();
+
+				try {
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FilterZaFenster.fxml"));
+					AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+					Stage stage = new Stage();
+					stage.setTitle("Online Buecherei - Filter z-a");
+					stage.setScene(new Scene(root3));
+					stage.show();
+				} catch (IOException iOException) {
+					System.out.println("Fenster wurde nicht geoeffnet");
+				}
 	}
 	@FXML
 	private void handleButtonBestsellerAction(ActionEvent event) {
 		System.out.println("Filter Bestseller");
+		//Aufruf neues Fenster: Anastasia
+				Node source = (Node) event.getSource();
+				Stage oldStage = (Stage) source.getScene().getWindow();
+				oldStage.close();
+
+				try {
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FilterBestsellerFenster.fxml"));
+					AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+					Stage stage = new Stage();
+					stage.setTitle("Online Buecherei - Bestseller");
+					stage.setScene(new Scene(root3));
+					stage.show();
+				} catch (IOException iOException) {
+					System.out.println("Fenster wurde nicht geoeffnet");
+				}
 	}
 	@FXML
 	private void handleButtonRomaneAction(ActionEvent event) {
@@ -136,14 +201,80 @@ public class WillkommenController {
 	@FXML
 	private void handleButtonThrillerAction(ActionEvent event) {
 		System.out.println("Filter Thriller");
+		
+		//Aufruf neues Fenster: Anastasia
+				Node source = (Node) event.getSource();
+				Stage oldStage = (Stage) source.getScene().getWindow();
+				oldStage.close();
+
+				try {
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GenreThrillerFenster.fxml"));
+					AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+					Stage stage = new Stage();
+					stage.setTitle("Online Buecherei - Thriller");
+					stage.setScene(new Scene(root3));
+					stage.show();
+				} catch (IOException iOException) {
+					System.out.println("Fenster wurde nicht geoeffnet");
+				}
 	}
 	@FXML
 	private void handleButtonKrimiAction(ActionEvent event) {
 		System.out.println("Filter Krimi");
+		
+		//Aufruf neues Fenster: Anastasia
+				Node source = (Node) event.getSource();
+				Stage oldStage = (Stage) source.getScene().getWindow();
+				oldStage.close();
+
+				try {
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GenreKrimiFenster.fxml"));
+					AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+					Stage stage = new Stage();
+					stage.setTitle("Online Buecherei - Krimi");
+					stage.setScene(new Scene(root3));
+					stage.show();
+				} catch (IOException iOException) {
+					System.out.println("Fenster wurde nicht geoeffnet");
+				}
 	}
 	@FXML
 	private void handleButtonSachliteraturAction(ActionEvent event) {
 		System.out.println("Filter Sachliteratur");
+		//Aufruf neues Fenster: Anastasia
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
+
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GenreSachliteraturFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Sachliteratur");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
+	}
+	@FXML
+	private void handleButtonSpracheAction(ActionEvent event) {
+		System.out.println("Filter Fremdsprache");
+		//Aufruf neues Fenster: Anastasia
+				Node source = (Node) event.getSource();
+				Stage oldStage = (Stage) source.getScene().getWindow();
+				oldStage.close();
+
+				try {
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GenreSpracheFenster.fxml"));
+					AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+					Stage stage = new Stage();
+					stage.setTitle("Online Buecherei - Sprache");
+					stage.setScene(new Scene(root3));
+					stage.show();
+				} catch (IOException iOException) {
+					System.out.println("Fenster wurde nicht geoeffnet");
+				}
 	}
 	@FXML
 	private void handleTfJahrAction(ActionEvent event) {
@@ -169,21 +300,23 @@ public class WillkommenController {
 	private void handleTfISBNAction(ActionEvent event) {
 		System.out.println("Filter ISBN");
 	}
+	
 	@FXML
-	private void handleButtonDeAction(ActionEvent event) {
-		System.out.println("Filter Deutsch");
+	private void handleButtonKontoAction(ActionEvent event) {
+		System.out.println("Kontoübersicht");
 	}
 	@FXML
-	private void handleButtonEnAction(ActionEvent event) {
-		System.out.println("Filter Englisch");
+	private void handleButtonStartfensterAction(ActionEvent event) {
+		System.out.println("Du bist bereits im Willkommensfenster");
+
 	}
 	@FXML
-	private void handleButtonSpAction(ActionEvent event) {
-		System.out.println("Filter Spanisch");
+	private void handleButtonAusloggenAction(ActionEvent event) {
+		System.out.println("Ausloggen");
 	}
 	@FXML
-	private void handleButtonKoAction(ActionEvent event) {
-		System.out.println("Filter Koreanisch");
+	private void handleButtonHilfeAction(ActionEvent event) {
+		System.out.println("Hilfefenster");
 	}
 	
 	

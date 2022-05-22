@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="flaecheSuche" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="757.0" style="-fx-background-color: #1d1d1b;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GenreRomaneFensterController">
+<AnchorPane fx:id="flaecheSuche" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="757.0" style="-fx-background-color: #1d1d1b;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.GenreSachliteraturFensterController">
    <children>
       <TextField fx:id="tfSuche" alignment="CENTER" layoutX="294.0" layoutY="14.0" onAction="#handleTfSucheAction" prefHeight="28.0" prefWidth="277.0" promptText="suchbegriff">
          <font>
@@ -85,7 +85,7 @@
                   <content>
                     <AnchorPane fx:id="feldGenre" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #4d4e4f; -fx-border-color: #4d4e4f;">
                            <children>
-                              <Button fx:id="buttonRomane" layoutX="23.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleButtonRomaneAction" prefHeight="25.0" prefWidth="93.0" style="-fx-background-color: #ffffff;" text="romane" textFill="#4d4e4f">
+                              <Button fx:id="buttonRomane" layoutX="23.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleButtonRomaneAction" prefHeight="25.0" prefWidth="93.0" style="-fx-background-color: #ff9900;" text="romane" textFill="WHITE">
                                  <font>
                                     <Font name="Franklin Gothic Demi Cond" size="14.0" />
                                  </font>
@@ -109,7 +109,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button fx:id="buttonSachliteratur" layoutX="22.0" layoutY="128.0" mnemonicParsing="false" onAction="#handleButtonSachliteraturAction" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #ff9900;" text="sachliteratur" textFill="WHITE">
+                              <Button fx:id="buttonSachliteratur" layoutX="22.0" layoutY="128.0" mnemonicParsing="false" onAction="#handleButtonSachliteraturAction" prefHeight="25.0" prefWidth="95.0" style="-fx-background-color: #ffffff;" text="sachliteratur" textFill="#4d4e4f">
                                  <font>
                                     <Font name="Franklin Gothic Demi Cond" size="14.0" />
                                  </font>
@@ -236,7 +236,7 @@
          </children>
       </Pane>
       <Separator fx:id="separatorLinie" layoutX="162.0" layoutY="101.0" prefHeight="3.0" prefWidth="582.0" />
-      <Label fx:id="labelRomane" layoutX="163.0" layoutY="75.0" prefHeight="25.0" prefWidth="116.0" text="Genre: Romane" textFill="WHITE">
+      <Label fx:id="labelRomane" layoutX="163.0" layoutY="75.0" prefHeight="25.0" prefWidth="143.0" text="Genre: Sachliteratur" textFill="WHITE">
          <font>
             <Font name="Franklin Gothic Medium" size="14.0" />
          </font>
