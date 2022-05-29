@@ -1,27 +1,31 @@
-//Erstellung Benutzerkonto und Controller-Klasse: Timm (Vorlage Anastasia)
-
+//Erstellung Reserviert und Controller-Klasse: Diandra (Vorlage: Timm)
 package application;
 
-import java.io.IOException;
-
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TextField;
+import java.io.IOException;
+import javafx.event.ActionEvent;
 import javafx.scene.control.TitledPane;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.scene.control.ScrollBar;
 
-public class BenutzerkontoController {
-	// Aufrufe FXML: Timm (Vorlage Anastasia)
+public class AusgeliehenController {
+	// Aufrufe FXML: Diandra (Vorlage: Timm)
 	@FXML
 	private AnchorPane flaecheBenutzerkonto;
 	@FXML
-	private Label labelBuecherei;
+	private TextField tfSuche;
+	@FXML
+	private Button buttonOK;
 	@FXML
 	private TitledPane aufklappbarBenutzer;
 	@FXML
@@ -37,82 +41,79 @@ public class BenutzerkontoController {
 	@FXML
 	private Button buttonImpressum;
 	@FXML
-	private Tooltip ttKonto;
-	@FXML
-	private Tooltip ttStartfenster;
-	@FXML
-	private Tooltip ttAusloggen;
-	@FXML
-	private Tooltip ttHilfe;
+	private Label labelBuecherei;
 	@FXML
 	private Button buttonKonto;
 	@FXML
+	private Tooltip ttKonto;
+	@FXML
 	private Button buttonStartfenster;
+	@FXML
+	private Tooltip ttStartfenster;
 	@FXML
 	private Button buttonAusloggen;
 	@FXML
+	private Tooltip ttAusloggen;
+	@FXML
 	private Button buttonHilfe;
-
-	// Verknuepfung Funktionen: Timm (Vorlage Anastasia)
 	@FXML
-	private void handleButtonMerklisteAction(ActionEvent event) {
-		System.out.println("Merkliste");
-		Node source = (Node) event.getSource();
-		Stage oldStage = (Stage) source.getScene().getWindow();
-		oldStage.close();
+	private Tooltip ttHilfe;
+	@FXML
+	private Separator separatorLine;
+	@FXML
+	private Label labelAusgeliehen;
+	@FXML
+	private Pane paneScrollbereich;
+	@FXML
+	private ScrollBar scrollbarScroll;
 
-		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MerklisteFenster.fxml"));
-			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-			Stage stage = new Stage();
-			stage.setTitle("Online Buecherei - Merkliste");
-			stage.setScene(new Scene(root3));
-			stage.show();
-		} catch (IOException iOException) {
-			System.out.println("Fenster wurde nicht geoeffnet");
-		}  
-	}
+	// Verknuepfung Funktionen: Diandra (Vorlage: Timm)
+	@FXML
+	public void handleButtonMerklisteAction(ActionEvent event) {
+		System.out.println("Merkliste Fenster");
+		 Node source = (Node) event.getSource();
+			Stage oldStage = (Stage) source.getScene().getWindow();
+			oldStage.close();
+
+			try {
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MerklisteFenster.fxml"));
+				AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("Online Buecherei - Merkliste");
+				stage.setScene(new Scene(root3));
+				stage.show();
+			} catch (IOException iOException) {
+				System.out.println("Fenster wurde nicht geoeffnet");
+			}  
+	}	
 
 	@FXML
-	private void handleButtonReserviertAction(ActionEvent event) {
+	public void handleButtonReserviertAction(ActionEvent event) {
 		System.out.println("Reserviert");
-	  Node source = (Node) event.getSource();
-		Stage oldStage = (Stage) source.getScene().getWindow();
-		oldStage.close();
+		 Node source = (Node) event.getSource();
+			Stage oldStage = (Stage) source.getScene().getWindow();
+			oldStage.close();
 
-		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ReserviertFenster.fxml"));
-			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-			Stage stage = new Stage();
-			stage.setTitle("Online Buecherei - Reserviert");
-			stage.setScene(new Scene(root3));
-			stage.show();
-		} catch (IOException iOException) {
-			System.out.println("Fenster wurde nicht geoeffnet");
-		}  
-	}
+			try {
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ReserviertFenster.fxml"));
+				AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("Online Buecherei - Reserviert");
+				stage.setScene(new Scene(root3));
+				stage.show();
+			} catch (IOException iOException) {
+				System.out.println("Fenster wurde nicht geoeffnet");
+			}  
+		}
+	
+	@FXML
+	public void handleButtonAusgeliehenAction(ActionEvent event) {
+		System.out.println("Du bist bereits bei Ausgeliehen");
+		 
+		}
 
 	@FXML
-	private void handleButtonAusgeliehenAction(ActionEvent event) {
-		System.out.println("Ausgeliehen");
-	  Node source = (Node) event.getSource();
-		Stage oldStage = (Stage) source.getScene().getWindow();
-		oldStage.close();
-
-		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AusgeliehenFenster.fxml"));
-			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-			Stage stage = new Stage();
-			stage.setTitle("Online Buecherei - Ausgeliehen");
-			stage.setScene(new Scene(root3));
-			stage.show();
-		} catch (IOException iOException) {
-			System.out.println("Fenster wurde nicht geoeffnet");
-		}  
-	}
-
-	@FXML
-	private void handleButtonEinstellungenAction(ActionEvent event) {
+	public void handleButtonEinstellungenAction(ActionEvent event) {
 		System.out.println("Einstellungen");
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
@@ -129,9 +130,9 @@ public class BenutzerkontoController {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}  
 	}
-
+	
 	@FXML
-	private void handleButtonImpressumAction(ActionEvent event) {
+	public void handleButtonImpressumAction(ActionEvent event) {
 		System.out.println("Impressum");
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
@@ -148,7 +149,7 @@ public class BenutzerkontoController {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}	
 	}
-
+	
 	@FXML
 	private void handleButtonKontoAction(ActionEvent event) {
 		System.out.println("Konto");
@@ -168,7 +169,6 @@ public class BenutzerkontoController {
 		}	
 
 	}
-
 	@FXML
 	private void handleButtonStartfensterAction(ActionEvent event) {
 		System.out.println("Willkommensfenster");
@@ -188,14 +188,12 @@ public class BenutzerkontoController {
 		}
 
 	}
-
 	@FXML
-	private void handleButtonAusloggenAction(ActionEvent event) {
+	public void handleButtonAusloggenAction(ActionEvent event) {
 		System.out.println("Ausloggen");
 	}
-
 	@FXML
-	private void handleButtonHilfeAction(ActionEvent event) {
+	public void handleButtonHilfeAction(ActionEvent event) {
 		System.out.println("Hilfefenster");
 		// Aufruf neues Fenster: Diandra
 		Node source = (Node) event.getSource();
@@ -213,5 +211,4 @@ public class BenutzerkontoController {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
-
 }

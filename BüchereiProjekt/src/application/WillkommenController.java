@@ -203,7 +203,7 @@ public class WillkommenController {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 
-		// Datenbank der Bücher erstellt und verknüpft: Anastasia
+		// Datenbank der Bï¿½cher erstellt und verknï¿½pft: Anastasia
 
 		try {
 
@@ -217,7 +217,7 @@ public class WillkommenController {
 			statement.close();
 			connection.close();
 		} catch (Exception e) {
-			System.out.println("Die Verbindung mit der Datenbank wurd erstellt. Hier Bücher aufrufen lassen.");
+			System.out.println("Die Verbindung mit der Datenbank wurd erstellt. Hier Bï¿½cher aufrufen lassen.");
 
 		}
 	}
@@ -393,6 +393,22 @@ public class WillkommenController {
 	@FXML
 	private void handleButtonHilfeAction(ActionEvent event) {
 		System.out.println("Hilfefenster");
+		// Aufruf neues Fenster: Diandra
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
+
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HilfeFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Hilfe");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
+
 	}
 
 }
