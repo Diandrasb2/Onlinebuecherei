@@ -13,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.Separator;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
@@ -24,9 +23,7 @@ public class EinstellungenFensterController {
 	@FXML
 	private AnchorPane flaecheBenutzerkonto;
 	@FXML
-	private TextField tfSuche;
-	@FXML
-	private Button buttonOK;
+	private Label labelKonto;
 	@FXML
 	private TitledPane aufklappbarBenutzer;
 	@FXML

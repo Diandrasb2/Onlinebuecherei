@@ -7,7 +7,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Separator;
-import javafx.scene.control.TextField;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TitledPane;
@@ -22,10 +21,6 @@ public class MerklisteController {
 	// Aufrufe FXML: Timm
 	@FXML
 	private AnchorPane flaecheBenutzerkonto;
-	@FXML
-	private TextField tfSuche;
-	@FXML
-	private Button buttonOK;
 	@FXML
 	private TitledPane aufklappbarBenutzer;
 	@FXML
@@ -66,6 +61,8 @@ public class MerklisteController {
 	private Pane paneScrollbereich;
 	@FXML
 	private ScrollBar scrollbarScroll;
+	@FXML
+	private Label labelKonto;
 
 	// Verknuepfung Funktionen: Timm
 	@FXML

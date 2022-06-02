@@ -40,6 +40,8 @@ public class AdminNutzerlisteController {
 	private TableView<?> tabelleNutzer;
 	@FXML
 	private ScrollBar scrollScrollbar;
+	@FXML
+	private Label labelKonto;
 	
 	@FXML
 	private void handleButtonAdminStartAction (ActionEvent event) {

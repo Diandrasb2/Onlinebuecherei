@@ -124,5 +124,10 @@
             </Button>
          </children>
       </Pane>
+      <Label fx:id="labelKonto" layoutX="379.0" layoutY="172.0" text="Willkommen auf &#10;deinem Konto" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Medium" size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
