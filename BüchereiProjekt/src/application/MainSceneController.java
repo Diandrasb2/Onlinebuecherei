@@ -73,5 +73,26 @@ public class MainSceneController {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
+	
+	@FXML 
+	private void handleButtonAdminAction(ActionEvent event) {
+		System.out.println("Hier loggen sich Admins an");
+
+		// Neues Fenster: Anastasia
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
+
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AdminLoginFenster.fxml"));
+			AnchorPane root2 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - AdminLogin");
+			stage.setScene(new Scene(root2));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
+	}
 
 }

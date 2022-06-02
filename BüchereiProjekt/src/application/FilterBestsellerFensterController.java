@@ -342,7 +342,21 @@ public class FilterBestsellerFensterController {
 
 	@FXML
 	private void handleButtonAusloggenAction(ActionEvent event) {
-		System.out.println("Ausloggen");
+		System.out.println("Du willst dich Ausloggen");
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
+
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Ausloggen.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Ausloggen");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
 	}
 
 	@FXML

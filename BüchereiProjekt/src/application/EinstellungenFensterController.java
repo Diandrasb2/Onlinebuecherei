@@ -1,25 +1,26 @@
-//Erstellung Reserviert und Controller-Klasse: Diandra (Vorlage: Timm)
+//Erstellung Einstellungen und Controller-Klasse: Anastasia (Vorlage: Timm)
+
 package application;
 
+import java.io.IOException;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
-import java.io.IOException;
-import javafx.event.ActionEvent;
 import javafx.scene.control.TitledPane;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Tooltip;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.scene.control.ScrollBar;
 
-public class AusgeliehenController {
-	// Aufrufe FXML: Diandra (Vorlage: Timm)
+public class EinstellungenFensterController {
 	@FXML
 	private AnchorPane flaecheBenutzerkonto;
 	@FXML
@@ -61,36 +62,46 @@ public class AusgeliehenController {
 	@FXML
 	private Separator separatorLine;
 	@FXML
-	private Label labelAusgeliehen;
+	private Label labelReserviert;
+	@FXML
+	private Label labelName;
+	@FXML
+	private Label labelEmail;
+	@FXML
+	private Label labelNameEingabe;
+	@FXML
+	private Label labelEmailEingabe;
+	@FXML
+	private Button buttonLoeschen;
 	@FXML
 	private Pane paneScrollbereich;
 	@FXML
 	private ScrollBar scrollbarScroll;
 
-	// Verknuepfung Funktionen: Diandra (Vorlage: Timm)
+	// Verknuepfung Funktionen: Anastasia (Vorlage: Timm)
 	@FXML
 	public void handleButtonMerklisteAction(ActionEvent event) {
 		System.out.println("Merkliste Fenster");
-		 Node source = (Node) event.getSource();
-			Stage oldStage = (Stage) source.getScene().getWindow();
-			oldStage.close();
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
 
-			try {
-				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MerklisteFenster.fxml"));
-				AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-				Stage stage = new Stage();
-				stage.setTitle("Online Buecherei - Merkliste");
-				stage.setScene(new Scene(root3));
-				stage.show();
-			} catch (IOException iOException) {
-				System.out.println("Fenster wurde nicht geoeffnet");
-			}  
-	}	
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MerklisteFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Merkliste");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
+	}
 
 	@FXML
 	public void handleButtonReserviertAction(ActionEvent event) {
 		System.out.println("Reserviert");
-		 Node source = (Node) event.getSource();
+		  Node source = (Node) event.getSource();
 			Stage oldStage = (Stage) source.getScene().getWindow();
 			oldStage.close();
 
@@ -104,33 +115,32 @@ public class AusgeliehenController {
 			} catch (IOException iOException) {
 				System.out.println("Fenster wurde nicht geoeffnet");
 			}  
-		}
-	
-	@FXML
-	public void handleButtonAusgeliehenAction(ActionEvent event) {
-		System.out.println("Du bist bereits bei Ausgeliehen");
-		 
-		}
+	}
 
 	@FXML
-	public void handleButtonEinstellungenAction(ActionEvent event) {
-		System.out.println("Einstellungen");
+	public void handleButtonAusgeliehenAction(ActionEvent event) {
+		System.out.println("Ausgeliehen");
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
 		oldStage.close();
 
 		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EinstellungenFenster.fxml"));
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AusgeliehenFenster.fxml"));
 			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
 			Stage stage = new Stage();
-			stage.setTitle("Online Buecherei - Einstellungen");
+			stage.setTitle("Online Buecherei - Ausgeliehen");
 			stage.setScene(new Scene(root3));
 			stage.show();
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
-		}  
+		}
 	}
-	
+
+	@FXML
+	public void handleButtonEinstellungenAction(ActionEvent event) {
+		System.out.println("Du bist bereits auf dem Einstellungsfenster");
+	}
+
 	@FXML
 	public void handleButtonImpressumAction(ActionEvent event) {
 		System.out.println("Impressum");
@@ -149,7 +159,34 @@ public class AusgeliehenController {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}	
 	}
-	
+	@FXML
+	public void handleLabelNameEingabeAction(ActionEvent event) {
+		System.out.println("Hier wird Benutzername aufgerufen und im Textfeld angezeigt");
+	}
+	@FXML
+	public void handleLabelEmailEingabeAction(ActionEvent event) {
+		System.out.println("Hier wird Benutzeremail aufgerufen und im Textfeld angezeigt");
+	}
+	@FXML
+	public void handleButtonLoeschenAction(ActionEvent event) {
+		System.out.println("Bestätigungsfenster wird geöffnet");
+		
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
+
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("KontoLoeschen.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Loeschen");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
+	}
+
 	@FXML
 	private void handleButtonKontoAction(ActionEvent event) {
 		System.out.println("Konto");
@@ -164,11 +201,12 @@ public class AusgeliehenController {
 			stage.setTitle("Online Buecherei - Konto");
 			stage.setScene(new Scene(root3));
 			stage.show();
-		} catch (IOException iOException) {	
+		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
-		}	
+		}
 
 	}
+
 	@FXML
 	private void handleButtonStartfensterAction(ActionEvent event) {
 		System.out.println("Willkommensfenster");
@@ -188,6 +226,7 @@ public class AusgeliehenController {
 		}
 
 	}
+
 	@FXML
 	public void handleButtonAusloggenAction(ActionEvent event) {
 		System.out.println("Du willst dich Ausloggen");
@@ -206,6 +245,7 @@ public class AusgeliehenController {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
+
 	@FXML
 	public void handleButtonHilfeAction(ActionEvent event) {
 		System.out.println("Hilfefenster");
@@ -219,6 +259,26 @@ public class AusgeliehenController {
 			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
 			Stage stage = new Stage();
 			stage.setTitle("Online Buecherei - Hilfe");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
+	}
+	@FXML
+	private void handleButtonOkAction(ActionEvent event) {
+		System.out.println("Hier kommt das Bestaetigungsfenster zum Konto loeschen");
+
+		// Neues Fenster: Anastasia
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
+
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("KontoLoeschen.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Konto loeschen");
 			stage.setScene(new Scene(root3));
 			stage.show();
 		} catch (IOException iOException) {

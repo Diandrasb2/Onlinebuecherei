@@ -18,7 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.control.ScrollBar;
 
-public class ReserviertController {
+public class ReserviertFensterController {
 	// Aufrufe FXML: Timm
 	@FXML
 	private AnchorPane flaecheBenutzerkonto;

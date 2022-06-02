@@ -20,7 +20,7 @@
                   <content>
                     <AnchorPane fx:id="feldBenutzer" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #4d4e4f;">
                            <children>
-                              <Button fx:id="buttonMerkliste" layoutX="18.0" layoutY="15.0" mnemonicParsing="false" onAction="#handleButtonMerklisteAction" prefHeight="30.0" prefWidth="104.0" style="-fx-background-color: #ff9900;" text="Merkliste" textFill="WHITE">
+                              <Button fx:id="buttonMerkliste" layoutX="18.0" layoutY="15.0" mnemonicParsing="false" onAction="#handleButtonMerklisteAction" prefHeight="30.0" prefWidth="104.0" style="-fx-background-color: #ff9900;" text="merkliste" textFill="WHITE">
                                  <font>
                                     <Font name="Franklin Gothic Demi Cond" size="14.0" />
                                  </font>
@@ -44,7 +44,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button fx:id="buttonEinstellungen" layoutX="18.0" layoutY="135.0" mnemonicParsing="false" onAction="#handleButtonEinstellungenAction" prefHeight="30.0" prefWidth="104.0" style="-fx-background-color: #ff9900;" text="Einstellungen" textFill="WHITE">
+                              <Button fx:id="buttonEinstellungen" layoutX="18.0" layoutY="135.0" mnemonicParsing="false" onAction="#handleButtonEinstellungenAction" prefHeight="30.0" prefWidth="104.0" style="-fx-background-color: #ff9900;" text="einstellungen" textFill="WHITE">
                                  <font>
                                     <Font name="Franklin Gothic Demi Cond" size="14.0" />
                                  </font>
@@ -52,7 +52,7 @@
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
-                              <Button fx:id="buttonImpressum" layoutX="18.0" layoutY="175.0" mnemonicParsing="false" onAction="#handleButtonImpressumAction" prefHeight="30.0" prefWidth="104.0" style="-fx-background-color: #ff9900;" text="Impressum" textFill="WHITE">
+                              <Button fx:id="buttonImpressum" layoutX="18.0" layoutY="175.0" mnemonicParsing="false" onAction="#handleButtonImpressumAction" prefHeight="30.0" prefWidth="104.0" style="-fx-background-color: #ff9900;" text="impressum" textFill="WHITE">
                                  <font>
                                     <Font name="Franklin Gothic Demi Cond" size="14.0" />
                                  </font>
