@@ -4,6 +4,10 @@ package application;
 
 import java.io.IOException;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Pagination;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
@@ -21,8 +26,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class FilterAzFensterController {
-	
-	//Aufrufe FXML: Anastasia
+
+	// Aufrufe FXML: Anastasia
 	@FXML
 	private AnchorPane flaecheSuche;
 	@FXML
@@ -43,7 +48,7 @@ public class FilterAzFensterController {
 	private TitledPane ISBN;
 	@FXML
 	private AnchorPane feldISBN;
-	@FXML 
+	@FXML
 	private Tooltip ttHinweisSuche;
 	@FXML
 	private Label labelWillkommen;
@@ -62,10 +67,6 @@ public class FilterAzFensterController {
 	@FXML
 	private Label labelRomane;
 	@FXML
-	private Pane paneScrollbereich;
-	@FXML
-	private ScrollBar scrollbarScroll;
-	@FXML
 	private Button buttonOK;
 	@FXML
 	private Button buttonAz;
@@ -81,7 +82,7 @@ public class FilterAzFensterController {
 	private Button buttonKrimi;
 	@FXML
 	private Button buttonSachliteratur;
-	@FXML 
+	@FXML
 	private Button buttonSprache;
 	@FXML
 	private Label labelBeschreibung1;
@@ -93,18 +94,64 @@ public class FilterAzFensterController {
 	private TextField tfJahrBis;
 	@FXML
 	private TextField tfISBN;
-	
-	//Verknuepfung Funktionen: Anastasia
+	@FXML
+	private Label labelBis;
+	@FXML
+	private Button buttonStartfenster;
+	@FXML
+	private Button buttonAusloggen;
+	@FXML
+	private Button buttonKonto;
+	@FXML
+	private Pagination pagUebersicht;
+	@FXML
+	private Label labelAusgabe;
+	@FXML
+	private Pane paneScrollbereich;
+	@FXML
+	private Button buttonAnzeigen;
+	@FXML
+	private ScrollBar scrollbarScroll;
+
+	@FXML
+	public void handleButtonAnzeigenAction(ActionEvent event) {
+//Alphabtischer Sortier-algorithmus von Anastasia:
+		try {// Hier wird Datenbank aufgerufen
+			Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/buecherliste", "root", "");
+			System.out.println("Verbunden");
+			String query = "SELECT * FROM alleBuecher ORDER BY titel";// Datenbank wird alphabetisch nach Titel sortiert
+			Statement sta = connection.createStatement();
+			ResultSet rs = sta.executeQuery(query);
+			int columns = rs.getMetaData().getColumnCount();
+			for (int i = 1; i <= columns; i++) {
+				System.out.println(String.format("%-15s", rs.getMetaData().getColumnLabel(i)));//Nur für eigene Ansicht über Eclipse
+				System.out.println();
+				System.out.println("--------------------------------------");//Nur für eigene Ansicht über Eclipse
+			}
+			while (rs.next()) {
+				for (int i = 1; i <= columns; i++) {
+					System.out.println(String.format("%-15s", rs.getString(i)));//Nur für eigene Ansicht über Eclipse
+					labelAusgabe.setText(String.format("%-15s", rs.getString(i)));// Datenbannk wird in Software angezeigt
+				}
+			}
+			rs.close();
+			sta.close();
+			connection.close();
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+	}
+
 	@FXML
 	private void handleTfSucheAction(ActionEvent event) {
 		System.out.println("Gebe hier einen Suchbegriff ein");
-		
+
 	}
 
 	@FXML
 	private void handleButtonOkAction(ActionEvent event) {
 		System.out.println("Du hast deine Eingabe bestaetigt");
-		//Aufruf neues Fenster: Anastasia
+		// Aufruf neues Fenster: Anastasia
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
 		oldStage.close();
@@ -120,73 +167,76 @@ public class FilterAzFensterController {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
-	
+
 	@FXML
 	private void handleButtonAzAction(ActionEvent event) {
-		System.out.println("Du bist bereits auf dem Filter a-z");
+		System.out.println("Du bist bereits auf dem a-z Filter");
 	}
-	
+
 	@FXML
 	private void handleButtonZaAction(ActionEvent event) {
 		System.out.println("Filter z-a");
-		//Aufruf neues Fenster: Anastasia
-				Node source = (Node) event.getSource();
-				Stage oldStage = (Stage) source.getScene().getWindow();
-				oldStage.close();
+		// Aufruf neues Fenster: Anastasia
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
 
-				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FilterZaFenster.fxml"));
-					AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-					Stage stage = new Stage();
-					stage.setTitle("Online Buecherei - Filter z-a");
-					stage.setScene(new Scene(root3));
-					stage.show();
-				} catch (IOException iOException) {
-					System.out.println("Fenster wurde nicht geoeffnet");
-				}
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FilterZaFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Filter z-a");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
 	}
+
 	@FXML
 	private void handleButtonBestsellerAction(ActionEvent event) {
 		System.out.println("Filter Bestseller");
-		//Aufruf neues Fenster: Anastasia
-				Node source = (Node) event.getSource();
-				Stage oldStage = (Stage) source.getScene().getWindow();
-				oldStage.close();
+		// Aufruf neues Fenster: Anastasia
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
 
-				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FilterBestsellerFenster.fxml"));
-					AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-					Stage stage = new Stage();
-					stage.setTitle("Online Buecherei - Bestseller");
-					stage.setScene(new Scene(root3));
-					stage.show();
-				} catch (IOException iOException) {
-					System.out.println("Fenster wurde nicht geoeffnet");
-				}
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FilterBestsellerFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Bestseller");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
 	}
+
 	@FXML
 	private void handleButtonRomaneAction(ActionEvent event) {
 		System.out.println("Filter Romane");
-		//Aufruf neues Fenster: Anastasia
-				Node source = (Node) event.getSource();
-				Stage oldStage = (Stage) source.getScene().getWindow();
-				oldStage.close();
+		// Aufruf neues Fenster: Anastasia
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
 
-				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GenreRomaneFenster.fxml"));
-					AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-					Stage stage = new Stage();
-					stage.setTitle("Online Buecherei - Romane");
-					stage.setScene(new Scene(root3));
-					stage.show();
-				} catch (IOException iOException) {
-					System.out.println("Fenster wurde nicht geoeffnet");
-				}
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GenreRomaneFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Romane");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
 	}
+
 	@FXML
 	private void handleButtonThrillerAction(ActionEvent event) {
 		System.out.println("Filter Thriller");
-		//Aufruf neues Fenster: Anastasia
+		// Aufruf neues Fenster: Anastasia
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
 		oldStage.close();
@@ -202,11 +252,12 @@ public class FilterAzFensterController {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
+
 	@FXML
 	private void handleButtonKrimiAction(ActionEvent event) {
 		System.out.println("Filter Krimi");
-		
-		//Aufruf neues Fenster: Anastasia
+
+		// Aufruf neues Fenster: Anastasia
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
 		oldStage.close();
@@ -222,29 +273,31 @@ public class FilterAzFensterController {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
+
 	@FXML
 	private void handleButtonSachliteraturAction(ActionEvent event) {
 		System.out.println("Filter Sachliteratur");
-		//Aufruf neues Fenster: Anastasia
-				Node source = (Node) event.getSource();
-				Stage oldStage = (Stage) source.getScene().getWindow();
-				oldStage.close();
+		// Aufruf neues Fenster: Anastasia
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
 
-				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GenreSachliteraturFenster.fxml"));
-					AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-					Stage stage = new Stage();
-					stage.setTitle("Online Buecherei - Sachliteratur");
-					stage.setScene(new Scene(root3));
-					stage.show();
-				} catch (IOException iOException) {
-					System.out.println("Fenster wurde nicht geoeffnet");
-				}
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GenreSachliteraturFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Sachliteratur");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
 	}
+
 	@FXML
 	private void handleButtonSpracheAction(ActionEvent event) {
 		System.out.println("Filter Fremdsprache");
-		//Aufruf neues Fenster: Anastasia
+		// Aufruf neues Fenster: Anastasia
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
 		oldStage.close();
@@ -258,11 +311,13 @@ public class FilterAzFensterController {
 			stage.show();
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
-		}}
+		}
+	}
+
 	@FXML
 	private void handleTfJahrAction(ActionEvent event) {
 		System.out.println("Filter Erscheinungsjahr");
-		//Aufruf neues Fenster: Diandra
+		// Aufruf neues Fenster: Diandra
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
 		oldStage.close();
@@ -278,27 +333,28 @@ public class FilterAzFensterController {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
+
 	@FXML
 	private void handleTfISBNAction(ActionEvent event) {
 		System.out.println("Filter ISBN");
 		// Aufruf neues Fenster: Diandra
-				Node source = (Node) event.getSource();
-				Stage oldStage = (Stage) source.getScene().getWindow();
-				oldStage.close();
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
 
-				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ISBNFenster.fxml"));
-					AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-					Stage stage = new Stage();
-					stage.setTitle("Online Buecherei - ISBN");
-					stage.setScene(new Scene(root3));
-					stage.show();
-				} catch (IOException iOException) {
-					System.out.println("Fenster wurde nicht geoeffnet");
-				}
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ISBNFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - ISBN");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
 
 	}
-	
+
 	@FXML
 	private void handleButtonKontoAction(ActionEvent event) {
 		System.out.println("Konto");

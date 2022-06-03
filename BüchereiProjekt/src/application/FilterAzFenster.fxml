@@ -241,14 +241,27 @@
             <Font name="Franklin Gothic Medium" size="14.0" />
          </font>
       </Label>
-      <Pane fx:id="paneScrollbereich" layoutX="161.0" layoutY="109.0" prefHeight="287.0" prefWidth="582.0">
+      <Pane fx:id="paneScrollbereich" layoutX="161.0" layoutY="109.0" prefHeight="800.0" prefWidth="582.0">
          <children>
-            <ScrollBar fx:id="scrollbarScroll" layoutX="567.0" orientation="VERTICAL" prefHeight="287.0" prefWidth="15.0" style="-fx-background-color: #4d4e4f;" visibleAmount="20.0">
+            <Label fx:id="labelAusgabe" alignment="TOP_LEFT" layoutX="4.0" prefHeight="771.0" prefWidth="582.0" textFill="WHITE">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="12.0" />
+               </font>
+            </Label>
+            <ScrollBar fx:id="scrollbarScroll" layoutX="568.0" orientation="VERTICAL" prefHeight="287.0" prefWidth="15.0" style="-fx-background-color: #4d4e4f;" visibleAmount="20.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ScrollBar>
          </children>
       </Pane>
+      <Button fx:id="buttonAnzeigen" layoutX="230.0" layoutY="74.0" mnemonicParsing="false" onAction="#handleButtonAnzeigenAction" style="-fx-background-color: #ff9900;" text="Anzeigen" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Medium" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>

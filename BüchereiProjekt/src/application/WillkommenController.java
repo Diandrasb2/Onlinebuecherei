@@ -138,6 +138,8 @@ public class WillkommenController {
 			stage.setTitle("Online Buecherei - Filter a-z");
 			stage.setScene(new Scene(root3));
 			stage.show();
+			
+			
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
@@ -402,7 +404,7 @@ public class WillkommenController {
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
-		
+
 	}
 
 	@FXML
