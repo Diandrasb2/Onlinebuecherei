@@ -99,7 +99,7 @@ public class LogInFensterController {
         Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/benutzerdatabase", "root", "");
 
         Statement sta = connection.createStatement();
-        String query = "Select * from benutzer where email='"+tfEmail.getText()+"'and password='"+pfPasswort.getText()+"'";
+        String query = "Select * from benutzer where email='"+tfEmail.getText()+"'and passwort'"+pfPasswort.getText()+"'";
         ResultSet erg=sta.executeQuery(query);
         if (erg.next())
         
