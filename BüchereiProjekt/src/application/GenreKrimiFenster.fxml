@@ -5,8 +5,9 @@
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.Tooltip?>
@@ -81,7 +82,7 @@
                         <Font name="Franklin Gothic Demi" size="14.0" />
                      </font>
                 </TitledPane>
-                <TitledPane fx:id="genre" animated="false" style="-fx-border-color: #4d4e4f;" text="genre">
+                <TitledPane fx:id="genreFilter" animated="false" style="-fx-border-color: #4d4e4f;" text="genre">
                   <content>
                     <AnchorPane fx:id="feldGenre" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #4d4e4f; -fx-border-color: #4d4e4f;">
                            <children>
@@ -132,7 +133,7 @@
                         <Font name="Franklin Gothic Demi" size="14.0" />
                      </font>
                 </TitledPane>
-                <TitledPane fx:id="jahr" animated="false" prefHeight="155.0" prefWidth="143.0" style="-fx-border-color: #4d4e4f;" text="jahr">
+                <TitledPane fx:id="jahrFilter" animated="false" prefHeight="155.0" prefWidth="143.0" style="-fx-border-color: #4d4e4f;" text="jahr">
                   <content>
                     <AnchorPane fx:id="feldJahr" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #4d4e4f;">
                            <children>
@@ -243,12 +244,26 @@
       </Label>
       <Pane fx:id="paneScrollbereich" layoutX="161.0" layoutY="109.0" prefHeight="287.0" prefWidth="582.0">
          <children>
-            <ScrollBar fx:id="scrollbarScroll" layoutX="567.0" orientation="VERTICAL" prefHeight="287.0" prefWidth="15.0" style="-fx-background-color: #4d4e4f;" visibleAmount="20.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ScrollBar>
+            <TableView fx:id="tabelleSortiment" prefHeight="152.0" prefWidth="585.0" style="-fx-background-color: #1d1d1b;">
+               <columns>
+                  <TableColumn fx:id="titel" prefWidth="92.0" text="Titel" />
+                  <TableColumn fx:id="genre" prefWidth="58.00001525878906" text="Genre" />
+                  <TableColumn fx:id="verfasser" prefWidth="65.3333740234375" text="Verfasser" />
+                  <TableColumn fx:id="jahr" prefWidth="46.66668701171875" text="Jahr" />
+                  <TableColumn fx:id="verlag" prefWidth="66.6666259765625" text="Verlag" />
+                  <TableColumn fx:id="isbn" prefWidth="57.999969482421875" text="ISBN" />
+                  <TableColumn fx:id="beschreibung" prefWidth="193.33331298828125" text="Beschreibung" />
+               </columns>
+            </TableView>
          </children>
       </Pane>
+      <Button fx:id="buttonAnzeigen" layoutX="245.0" layoutY="74.0" mnemonicParsing="false" onAction="#handleButtonAnzeigenAction" style="-fx-background-color: #ff9900;" text="Anzeigen" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Medium" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>

@@ -65,7 +65,7 @@
                </font></Tooltip>
          </tooltip>
       </PasswordField>
-      <Label fx:id="labelName" layoutX="95.0" layoutY="109.0" text="name, vorname:" textAlignment="RIGHT" textFill="#ff9900">
+      <Label fx:id="labelName" layoutX="168.0" layoutY="109.0" text="name:" textAlignment="RIGHT" textFill="#ff9900">
          <font>
             <Font name="Franklin Gothic Demi Cond" size="21.0" />
          </font>

@@ -2,7 +2,6 @@
 package application;
 
 import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,10 +19,10 @@ import java.sql.Statement;
 
 public class RegistrierenFensterController {
 
-	String passwort;
-	String name;
-	String email;
-	String passwort2;
+//	String passwort;
+//	String name;
+//	String email;
+//	String passwort2;
 
 	// Aufrufe FXML: Anastasia
 	@FXML
@@ -57,13 +56,15 @@ public class RegistrierenFensterController {
 	@FXML
 	private Tooltip ttHinweisPwWiedReg;
 
+
 	// Verknüpfungen Funktionen: Anastasia
 	@FXML
 	private void handleButtonOkAction(ActionEvent event) {
 		String tfNameR = tfName.getText();
-        String tfEmailR = tfEmail.getText();
-        String pfPasswortR = pfPasswort.getText();
+		String tfEmailR = tfEmail.getText();
+		String pfPasswortR = pfPasswort.getText();
 //Plan: bei OK drücken alles prüfen und nicht schon vorher
+		
 
 		// Abfragen: Semih und Timm
 		if (tfName.getText().isEmpty()) {
@@ -90,14 +91,12 @@ public class RegistrierenFensterController {
 			return;
 		}
 		// Email-Abfrage: Diandra
-		else if (!tfEmail.getText().contains("@")){
+		else if (!tfEmail.getText().contains("@")) {
 			rPasswortAnforderung.setText("Diese E-Mail ist ungueltig.");
 
 			// Neues Fenster: Anastasia
-		} else		             
-		       
-		
-	{	System.out.println("Hier musst du dich nun einloggen um fortzufahren.");
+		} else {
+			System.out.println("Hier musst du dich nun einloggen um fortzufahren.");
 
 			Node source = (Node) event.getSource();
 			Stage oldStage = (Stage) source.getScene().getWindow();
@@ -114,27 +113,33 @@ public class RegistrierenFensterController {
 				System.out.println("Fenster wurde nicht geoeffnet");
 			}
 		}
-		   try {
-               Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/benutzerdatabase", "root", "");
-
-               String query = "INSERT INTO benutzer(username, email, passwort) VALUES('"+tfNameR+"','"+tfEmailR+"','"+pfPasswortR+"')";
-               Statement sta = connection.createStatement();
-               int x = sta.executeUpdate(query);
-               if (x == 0) {
-               	rPasswortAnforderung.setText("Sie sind bereits registriert");
-               } else {
-               	rPasswortAnforderung.setText("Erfolgreich regisrtriert");
-               }
-               connection.close();
-           } catch (Exception exception) {
-               exception.printStackTrace();
-           }
-       }
+		try {
+			Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/benutzerdatabase", "root",
+					"");
+			String query = "INSERT INTO benutzer(username, email, passwort) VALUES('" + tfNameR + "','" + tfEmailR
+					+ "','" + pfPasswortR + "')";
+//			String query = "INSERT INTO benutzer(username, email, passwort) VALUES('" + tfName + "','" + tfEmail
+//					+ "','" + pfPasswort + "')";
+			Statement sta = connection.createStatement();
+			int x = sta.executeUpdate(query);
+System.out.println(tfName.getText() + " "+ tfEmail.getText()+" "+pfPasswort.getText());
+			if (x == 0) {
+				rPasswortAnforderung.setText("Sie sind bereits registriert");
+			} else {
+				rPasswortAnforderung.setText("Erfolgreich regisrtriert");
+			}
+			
+			connection.close();
+			System.out.println(tfName.getText() + " "+ tfEmail.getText()+" "+pfPasswort.getText());
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+	}
 
 	@FXML
 	private void handleButtonZurueckAction(ActionEvent event) {
 		System.out.println("Du hast den Zurueck-button gedrueckt");
-		//Neues Fenster: Anastasia
+		// Neues Fenster: Anastasia
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
 		oldStage.close();
