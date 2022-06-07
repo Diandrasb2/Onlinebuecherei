@@ -2,8 +2,8 @@
 
 package application;
 
+import java.sql.*;
 import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,6 +32,8 @@ public class LogInFensterController {
 	private PasswordField pfPasswort;
 	@FXML
 	private Tooltip ttHinweisPw;
+	@FXML
+	private Label lLoginAnforderung;
 	@FXML
 	private Label labelEmail;
 	@FXML
@@ -92,6 +94,22 @@ public class LogInFensterController {
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
-	}
+	
+	try {
+        Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/benutzerdatabase", "root", "");
 
+        Statement sta = connection.createStatement();
+        String query = "Select * from benutzer where email='"+tfEmail.getText()+"'and passwort'"+pfPasswort.getText()+"'";
+        ResultSet erg=sta.executeQuery(query);
+        if (erg.next())
+        
+        	lLoginAnforderung.setText("E-mail oder Passwort ist falsch");
+         else 
+        	lLoginAnforderung.setText("Erfolgreich eingeloggt");
+        
+        connection.close();
+    } catch (Exception exception) {
+        exception.printStackTrace();
+    }
+	}
 }
