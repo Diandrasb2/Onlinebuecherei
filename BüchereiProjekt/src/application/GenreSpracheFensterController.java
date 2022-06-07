@@ -22,7 +22,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -77,8 +76,7 @@ public class GenreSpracheFensterController implements Initializable{
 	private Label labelRomane;
 	@FXML
 	private Pane paneScrollbereich;
-	@FXML
-	private ScrollBar scrollbarScroll;
+
 	@FXML
 	private Button buttonOK;
 	@FXML
