@@ -139,6 +139,11 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ScrollBar>
+            <Label layoutY="4.0" prefHeight="17.0" prefWidth="294.0" text="Diese Funktion ist derzeit nicht verfügbar." textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Label fx:id="labelKonto" layoutX="420.0" layoutY="14.0" text="Dein Konto" textFill="WHITE">

@@ -132,13 +132,18 @@
             <Font name="Franklin Gothic Medium" size="14.0" />
          </font>
       </Label>
-      <Pane fx:id="paneScrollbereich" layoutX="161.0" layoutY="109.0" prefHeight="287.0" prefWidth="582.0">
+      <Pane fx:id="paneScrollbereich" layoutX="161.0" layoutY="123.0" prefHeight="287.0" prefWidth="582.0">
          <children>
             <ScrollBar fx:id="scrollbarScroll" layoutX="567.0" orientation="VERTICAL" prefHeight="287.0" prefWidth="15.0" style="-fx-background-color: #4d4e4f;" visibleAmount="20.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ScrollBar>
+            <Label layoutY="-10.0" prefHeight="17.0" prefWidth="294.0" text="Diese Funktion ist derzeit nicht verfügbar." textFill="RED">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Label fx:id="labelKonto" layoutX="409.0" layoutY="25.0" text="Dein Konto" textFill="WHITE">
