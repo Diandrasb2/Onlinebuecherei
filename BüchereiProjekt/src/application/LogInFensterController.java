@@ -92,7 +92,7 @@ public class LogInFensterController {
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
 		oldStage.close();
-	
+		// Login 
 	try {
         connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/benutzerdatabase", "root", "");
         System.out.println("Verbunden");
@@ -104,7 +104,6 @@ public class LogInFensterController {
         if (!resultSet.isBeforeFirst()) {
         	lLoginAnforderung.setText("Dieser Benutzer existiert nicht");
         	System.out.println("benutzer wurde nicht gefunden");
-        	return;
         	
         } else {
         	while (resultSet.next()) {
@@ -123,7 +122,6 @@ public class LogInFensterController {
         				} else {	
         					lLoginAnforderung.setText("Passwort ist nicht korrekt");
         					System.out.println("passwörter stimmen nicht überein");
-        					return;
         			}
         		}
         	}

@@ -120,7 +120,7 @@ public class RegistrierenFensterController {
 					+ "','" + pfPasswortR + "')";
 			Statement sta = connection.createStatement();
 			int x = sta.executeUpdate(query);
-System.out.println(tfName.getText() + " "+ tfEmail.getText()+" "+pfPasswort.getText());
+			System.out.println(tfName.getText() + " "+ tfEmail.getText()+" "+pfPasswort.getText());
 			if (x == 0) {
 				rPasswortAnforderung.setText("Sie sind bereits registriert");
 			} else {

@@ -142,6 +142,14 @@ public class GenreRomaneFensterController implements Initializable{
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		titel.setCellValueFactory(new PropertyValueFactory<Buch, String>("titel"));
+		genre.setCellValueFactory(new PropertyValueFactory<Buch, String>("genre"));
+		verfasser.setCellValueFactory(new PropertyValueFactory<Buch, String>("verfasser"));
+		jahr.setCellValueFactory(new PropertyValueFactory<Buch, Integer>("jahr"));
+		verlag.setCellValueFactory(new PropertyValueFactory<Buch, String>("verlag")); 
+		isbn.setCellValueFactory(new PropertyValueFactory<Buch, Long>("isbn"));
+		beschreibung.setCellValueFactory(new PropertyValueFactory<Buch, String>("beschreibung"));
+		
 		try {
 			Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/buecherliste", "root", "");
 			System.out.println("Verbunden");
@@ -191,14 +199,14 @@ public class GenreRomaneFensterController implements Initializable{
 //					System.out.println(String.format("%-15s", rs.getString(i)));// Nur für eigene Ansicht über Eclipse
 					tabelleSortiment.setId(String.format("%-15s", rs.getString(i)));// Datenbannk wird in Software angezeigt
 //					System.out.println("Versuch verbindung aufgreifen");
-					titel.setCellValueFactory(new PropertyValueFactory<Buch, String>("titel"));
+/*					titel.setCellValueFactory(new PropertyValueFactory<Buch, String>("titel"));
 					genre.setCellValueFactory(new PropertyValueFactory<Buch, String>("genre"));
 					verfasser.setCellValueFactory(new PropertyValueFactory<Buch, String>("verfasser"));
 					jahr.setCellValueFactory(new PropertyValueFactory<Buch, Integer>("jahr"));
 					verlag.setCellValueFactory(new PropertyValueFactory<Buch, String>("verlag")); 
 					isbn.setCellValueFactory(new PropertyValueFactory<Buch, Long>("isbn"));
-					beschreibung.setCellValueFactory(new PropertyValueFactory<Buch, String>("beschreibung"));
-					System.out.println(String.format("%-15s", rs.getString(i)));
+//					beschreibung.setCellValueFactory(new PropertyValueFactory<Buch, String>("beschreibung"));
+//					System.out.println(String.format("%-15s", rs.getString(i)));*/
 				}
 			}
 			rs.close();
