@@ -118,8 +118,6 @@ public class RegistrierenFensterController {
 					"");
 			String query = "INSERT INTO benutzer(username, email, passwort) VALUES('" + tfNameR + "','" + tfEmailR
 					+ "','" + pfPasswortR + "')";
-//			String query = "INSERT INTO benutzer(username, email, passwort) VALUES('" + tfName + "','" + tfEmail
-//					+ "','" + pfPasswort + "')";
 			Statement sta = connection.createStatement();
 			int x = sta.executeUpdate(query);
 System.out.println(tfName.getText() + " "+ tfEmail.getText()+" "+pfPasswort.getText());

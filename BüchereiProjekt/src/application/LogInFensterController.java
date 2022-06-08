@@ -2,7 +2,12 @@
 
 package application;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -78,36 +83,51 @@ public class LogInFensterController {
 	@FXML
 	private void handleButtonOkAction(ActionEvent event) {
 		System.out.println("Hier gelangst du zum Willkommen-Fenster");
-
+		String tfEmailL = tfEmail.getText();
+		String pfPasswortL = pfPasswort.getText();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
 		// Neues Fenster: Anastasia
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
 		oldStage.close();
-
-		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Willkommen.fxml"));
-			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-			Stage stage = new Stage();
-			stage.setTitle("Online Buecherei - Willkommen");
-			stage.setScene(new Scene(root3));
-			stage.show();
-		} catch (IOException iOException) {
-			System.out.println("Fenster wurde nicht geoeffnet");
-		}
 	
 	try {
-        Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/benutzerdatabase", "root", "");
-
-        Statement sta = connection.createStatement();
-        String query = "Select * from benutzer where email='"+tfEmail.getText()+"'and passwort'"+pfPasswort.getText()+"'";
-        ResultSet erg=sta.executeQuery(query);
-        if (erg.next())
+        connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/benutzerdatabase", "root", "");
+        System.out.println("Verbunden");
         
-        	lLoginAnforderung.setText("E-mail oder Passwort ist falsch");
-         else 
-        	lLoginAnforderung.setText("Erfolgreich eingeloggt");
-        
-        connection.close();
+        preparedStatement = connection.prepareStatement("SELECT passwort FROM benutzer WHERE email = ?");
+        preparedStatement.setString(1, tfEmailL);
+        resultSet = preparedStatement.executeQuery();
+       
+        if (!resultSet.isBeforeFirst()) {
+        	lLoginAnforderung.setText("Dieser Benutzer existiert nicht");
+        	System.out.println("benutzer wurde nicht gefunden");
+        	return;
+        	
+        } else {
+        	while (resultSet.next()) {
+        		String erhaltePasswort = resultSet.getString("passwort");
+        		if (erhaltePasswort.equals(pfPasswortL)) {
+        			try {
+        				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Willkommen.fxml"));
+        				AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+        				Stage stage = new Stage();
+        				stage.setTitle("Online Buecherei - Willkommen");
+        				stage.setScene(new Scene(root3));
+        				stage.show();
+        			} catch (IOException iOException) {
+        				System.out.println("Fenster wurde nicht geoeffnet");
+        			}
+        				} else {	
+        					lLoginAnforderung.setText("Passwort ist nicht korrekt");
+        					System.out.println("passwörter stimmen nicht überein");
+        					return;
+        			}
+        		}
+        	}
+        		connection.close();
     } catch (Exception exception) {
         exception.printStackTrace();
     }
