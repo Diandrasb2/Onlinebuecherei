@@ -1,6 +1,10 @@
 package application;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,6 +29,8 @@ public class AdminLoginFensterController {
 	@FXML
 	private TextField tfId;
 	@FXML
+	private TextField tfPasswort;
+	@FXML
 	private PasswordField pfId;
 	@FXML
 	private Tooltip ttHinweisPw;
@@ -32,6 +38,8 @@ public class AdminLoginFensterController {
 	private Label labelName;
 	@FXML
 	private Label labelId;
+	@FXML
+	private Label labelPasswort;
 	@FXML
 	private Button buttonOK;
 	@FXML
@@ -41,11 +49,66 @@ public class AdminLoginFensterController {
 		@FXML
 		private void handleTfNameAction(ActionEvent event) {
 			System.out.println("Tippe deinen Namen ein");
-		}
+			String tfNameL = tfName.getText();
+			String tfIdL = tfId.getText();
+			String tfPasswortL = tfPasswort.getText();
+			Connection connection = null;
+			PreparedStatement preparedStatement = null;
+			ResultSet resultSet = null;
+			
+	       
+	        try {
+	            connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/benutzerdatabase", "root", "");
+	            System.out.println("Verbunden");
+	            
+	            preparedStatement = connection.prepareStatement("SELECT passwort FROM benutzer WHERE name = ?");
+		        preparedStatement.setString(1, tfNameL);
+		        resultSet = preparedStatement.executeQuery();
+	        
+	        if (!resultSet.isBeforeFirst()) {
+//	        	lLoginAnforderung.setText("Dieser Benutzer existiert nicht");
+	        	System.out.println("benutzer wurde nicht gefunden");
+	        	
+	        } else {
+			while (resultSet.next()) {
+			String erhaltePasswort = resultSet.getString("passwort");
+			String erhalteId = resultSet.getString("id");
+    		if (erhaltePasswort.equals(tfPasswortL)) ;
+    		 if (erhalteId.equals(tfIdL)) {
+    			try {
+    				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AdminFenster.fxml"));
+    				AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+    				Stage stage = new Stage();
+    				stage.setTitle("Online Buecherei - Admin-Ansicht");
+    				stage.setScene(new Scene(root3));
+    				stage.show();
+    			} catch (IOException iOException) {
+    				System.out.println("Fenster wurde nicht geoeffnet");
+    			}
+    		 }
+    				 else {	
+    					System.out.println("id stimmt nicht überein");
+//    					lLoginAnforderung.setText("Passwort ist nicht korrekt");
+    					System.out.println("passwörter stimmen nicht überein");
+    					}
+    		}
+    	}
+    		connection.close();
+} catch (Exception exception) {
+    exception.printStackTrace();
+}
+}
+
+		
 
 		@FXML
 		private void handleTfIdAction(ActionEvent event) {
 			System.out.println("Tippe deine ID ein");
+		}
+		
+		@FXML
+		private void handleTfPasswortAction(ActionEvent event) {
+			System.out.println("Tippe dein Passwort ein");
 		}
 
 		@FXML

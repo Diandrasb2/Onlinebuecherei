@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -135,10 +134,22 @@ public class FilterZaFensterController implements Initializable{
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		titel.setCellValueFactory(new PropertyValueFactory<Buch, String>("titel"));
+		genre.setCellValueFactory(new PropertyValueFactory<Buch, String>("genre"));
+		verfasser.setCellValueFactory(new PropertyValueFactory<Buch, String>("verfasser"));
+		jahr.setCellValueFactory(new PropertyValueFactory<Buch, Integer>("jahr"));
+		verlag.setCellValueFactory(new PropertyValueFactory<Buch, String>("verlag"));
+		isbn.setCellValueFactory(new PropertyValueFactory<Buch, Long>("isbn"));
+		beschreibung.setCellValueFactory(new PropertyValueFactory<Buch, String>("beschreibung"));
+
 		try {
 			Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/buecherliste", "root", "");
 			System.out.println("Verbunden");
-			ResultSet rs = connection.createStatement().executeQuery("select * from alleBuecher order by titel DESC");
+
+			// Sortieralgorithmus von z-a
+
+			ResultSet rs = connection.createStatement()
+					.executeQuery("select * from alleBuecher order by titel DESC"); //Alphabetisch rückwaerts sortiert
 
 			while (rs.next()) {
 				Buch b = new Buch(rs.getString("titel"), rs.getString("genre"), rs.getString("verfasser"),
@@ -151,17 +162,19 @@ public class FilterZaFensterController implements Initializable{
 				b.setIsbn(rs.getLong("isbn"));
 				b.setBeschreibung(rs.getString("beschreibung"));
 				liste.add(b);
-			}
-//			System.out.println("Liste geadded");
-//			System.out.println(liste);
 
+				
+				tabelleSortiment.setItems(liste);
+				
+				
+				
+				
+			}
 		} catch (SQLException ex) {
 			System.out.println("Fehler");
 		}
 
-//		System.out.println("Verbindung aufgegriffen");
-		tabelleSortiment.setItems(liste);
-//		System.out.println(liste);
+		
 	}
 	
 	//Verknuepfung Funktionen: Anastasia
@@ -172,31 +185,6 @@ public class FilterZaFensterController implements Initializable{
 
 	@FXML
 	public void handleButtonAnzeigenAction(ActionEvent event) throws SQLException {
-		System.out.println("Neue verbindungen aufbauen");
-		Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/buecherliste", "root", "");
-		System.out.println("Verbunden");
-		String query = "SELECT * FROM alleBuecher ORDER BY titel DESC";// Datenbank wird alphabetisch nach Titel sortiert
-		Statement sta = connection.createStatement();
-		ResultSet rs = sta.executeQuery(query);
-
-		int columns = rs.getMetaData().getColumnCount();
-		while (rs.next()) {
-			for (int i = 1; i <= columns; i++) {
-				System.out.println(String.format("%-15s", rs.getString(i)));// Nur für eigene Ansicht über Eclipse
-				tabelleSortiment.setId(String.format("%-15s", rs.getString(i)));// Datenbannk wird in Software angezeigt
-//				System.out.println("Versuch verbindung aufgreifen");
-				titel.setCellValueFactory(new PropertyValueFactory<Buch, String>("titel"));
-				genre.setCellValueFactory(new PropertyValueFactory<Buch, String>("genre"));
-				verfasser.setCellValueFactory(new PropertyValueFactory<Buch, String>("verfasser"));
-				jahr.setCellValueFactory(new PropertyValueFactory<Buch, Integer>("jahr"));
-				verlag.setCellValueFactory(new PropertyValueFactory<Buch, String>("verlag")); 
-				isbn.setCellValueFactory(new PropertyValueFactory<Buch, Long>("isbn"));
-				beschreibung.setCellValueFactory(new PropertyValueFactory<Buch, String>("beschreibung"));
-			}
-		}
-		rs.close();
-		sta.close();
-		connection.close();
 	}
 	
 	@FXML

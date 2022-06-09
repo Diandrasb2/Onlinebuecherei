@@ -253,6 +253,7 @@
                   <TableColumn fx:id="verlag" prefWidth="66.6666259765625" text="Verlag" />
                   <TableColumn fx:id="isbn" prefWidth="57.999969482421875" text="ISBN" />
                   <TableColumn fx:id="beschreibung" prefWidth="193.33331298828125" text="Beschreibung" />
+              
                </columns>
             </TableView>
          </children>

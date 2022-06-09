@@ -9,9 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -134,16 +132,26 @@ public class GenreSachliteraturFensterController implements Initializable{
 
 	// Verknuepfung Funktionen: Anastasia
 	
-	ObservableList<Buch> liste = FXCollections.observableArrayList();
 
+		ObservableList<Buch> liste = FXCollections.observableArrayList();
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		titel.setCellValueFactory(new PropertyValueFactory<Buch, String>("titel"));
+		genre.setCellValueFactory(new PropertyValueFactory<Buch, String>("genre"));
+		verfasser.setCellValueFactory(new PropertyValueFactory<Buch, String>("verfasser"));
+		jahr.setCellValueFactory(new PropertyValueFactory<Buch, Integer>("jahr"));
+		verlag.setCellValueFactory(new PropertyValueFactory<Buch, String>("verlag"));
+		isbn.setCellValueFactory(new PropertyValueFactory<Buch, Long>("isbn"));
+		beschreibung.setCellValueFactory(new PropertyValueFactory<Buch, String>("beschreibung"));
+
 		try {
 			Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/buecherliste", "root", "");
 			System.out.println("Verbunden");
-			
-			//Suchalgorithmus nach Sachliteraturbuechern
-			ResultSet rs = connection.createStatement().executeQuery("select * from alleBuecher where genre like '%Sachliteratur%'");
+
+			// Suchalgorithmus nach Sachliteraturbuechern
+
+			ResultSet rs = connection.createStatement()
+					.executeQuery("select * from alleBuecher where genre like '%Sachliteratur%'");
 
 			while (rs.next()) {
 				Buch b = new Buch(rs.getString("titel"), rs.getString("genre"), rs.getString("verfasser"),
@@ -156,49 +164,23 @@ public class GenreSachliteraturFensterController implements Initializable{
 				b.setIsbn(rs.getLong("isbn"));
 				b.setBeschreibung(rs.getString("beschreibung"));
 				liste.add(b);
+
+				
+				tabelleSortiment.setItems(liste);
+				
+				
+				
+				
 			}
-
-
 		} catch (SQLException ex) {
 			System.out.println("Fehler");
 		}
 
-		tabelleSortiment.setItems(liste);
+		
 	}
 	
 	@FXML
 	private void handleButtonAnzeigenAction(ActionEvent event) throws SQLException {
-		
-		System.out.println("Verbindung aufgebaut");
-	        Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/buecherliste", "root", "");
-	    	Statement sta = connection.createStatement();
-	    	String query = "SELECT * FROM alleBuecher where genre like '%Sachliteratur%'";
-	    	System.out.println("Roman wurd gesucht");
-
-	    	ResultSet rs = sta.executeQuery(query);
-	    	System.out.println("1");
-	    	int columns = rs.getMetaData().getColumnCount();
-	    	System.out.println("2");
-			while (rs.next()) {
-				System.out.println("3");
-				
-				for (int i = 1; i <= columns; i++) {
-//					System.out.println(String.format("%-15s", rs.getString(i)));// Nur für eigene Ansicht über Eclipse
-					tabelleSortiment.setId(String.format("%-15s", rs.getString(i)));// Datenbannk wird in Software angezeigt
-//					System.out.println("Versuch verbindung aufgreifen");
-					titel.setCellValueFactory(new PropertyValueFactory<Buch, String>("titel"));
-					genre.setCellValueFactory(new PropertyValueFactory<Buch, String>("genre"));
-					verfasser.setCellValueFactory(new PropertyValueFactory<Buch, String>("verfasser"));
-					jahr.setCellValueFactory(new PropertyValueFactory<Buch, Integer>("jahr"));
-					verlag.setCellValueFactory(new PropertyValueFactory<Buch, String>("verlag")); 
-					isbn.setCellValueFactory(new PropertyValueFactory<Buch, Long>("isbn"));
-					beschreibung.setCellValueFactory(new PropertyValueFactory<Buch, String>("beschreibung"));
-					System.out.println(String.format("%-15s", rs.getString(i)));
-				}
-			}
-			rs.close();
-			sta.close();
-			connection.close();
 	}
 	
 	@FXML

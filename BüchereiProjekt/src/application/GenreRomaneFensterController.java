@@ -8,9 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,10 +17,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.Separator;
+
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -33,7 +33,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class GenreRomaneFensterController implements Initializable{
+public class GenreRomaneFensterController implements Initializable {
 
 	// Aufrufe FXML: Anastasia
 	@FXML
@@ -135,9 +135,10 @@ public class GenreRomaneFensterController implements Initializable{
 	@FXML
 	private Button buttonAnzeigen;
 	
-	
+
+
 	// Verknuepfung Funktionen: Anastasia
-	
+
 	ObservableList<Buch> liste = FXCollections.observableArrayList();
 
 	@Override
@@ -146,17 +147,18 @@ public class GenreRomaneFensterController implements Initializable{
 		genre.setCellValueFactory(new PropertyValueFactory<Buch, String>("genre"));
 		verfasser.setCellValueFactory(new PropertyValueFactory<Buch, String>("verfasser"));
 		jahr.setCellValueFactory(new PropertyValueFactory<Buch, Integer>("jahr"));
-		verlag.setCellValueFactory(new PropertyValueFactory<Buch, String>("verlag")); 
+		verlag.setCellValueFactory(new PropertyValueFactory<Buch, String>("verlag"));
 		isbn.setCellValueFactory(new PropertyValueFactory<Buch, Long>("isbn"));
 		beschreibung.setCellValueFactory(new PropertyValueFactory<Buch, String>("beschreibung"));
-		
+
 		try {
 			Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/buecherliste", "root", "");
 			System.out.println("Verbunden");
-			
-			//Suchalgorithmus nach Romanbuechern
-			
-			ResultSet rs = connection.createStatement().executeQuery("select * from alleBuecher where genre like '%Roman%'");
+
+			// Suchalgorithmus nach Romanbuechern
+
+			ResultSet rs = connection.createStatement()
+					.executeQuery("select * from alleBuecher where genre like '%Roman%'");
 
 			while (rs.next()) {
 				Buch b = new Buch(rs.getString("titel"), rs.getString("genre"), rs.getString("verfasser"),
@@ -169,50 +171,43 @@ public class GenreRomaneFensterController implements Initializable{
 				b.setIsbn(rs.getLong("isbn"));
 				b.setBeschreibung(rs.getString("beschreibung"));
 				liste.add(b);
-			}
 
+				
+				tabelleSortiment.setItems(liste);
+				
+				
+				
+				
+			}
 		} catch (SQLException ex) {
 			System.out.println("Fehler");
 		}
 
-		tabelleSortiment.setItems(liste);
-
+		
 	}
+
+
 	
 	@FXML
 	private void handleButtonAnzeigenAction(ActionEvent event) throws SQLException {
-		
-		System.out.println("Verbindung aufgebaut");
-	        Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/buecherliste", "root", "");
-	    	Statement sta = connection.createStatement();
-	    	String query = "SELECT * FROM alleBuecher where genre like '%Roman%'";
-	    	System.out.println("Roman wurd gesucht");
-
-	    	ResultSet rs = sta.executeQuery(query);
-	    	System.out.println("1");
-	    	int columns = rs.getMetaData().getColumnCount();
-	    	System.out.println("2");
-			while (rs.next()) {
-				System.out.println("3");
-				
-				for (int i = 1; i <= columns; i++) {
-//					System.out.println(String.format("%-15s", rs.getString(i)));// Nur für eigene Ansicht über Eclipse
-					tabelleSortiment.setId(String.format("%-15s", rs.getString(i)));// Datenbannk wird in Software angezeigt
-//					System.out.println("Versuch verbindung aufgreifen");
-/*					titel.setCellValueFactory(new PropertyValueFactory<Buch, String>("titel"));
-					genre.setCellValueFactory(new PropertyValueFactory<Buch, String>("genre"));
-					verfasser.setCellValueFactory(new PropertyValueFactory<Buch, String>("verfasser"));
-					jahr.setCellValueFactory(new PropertyValueFactory<Buch, Integer>("jahr"));
-					verlag.setCellValueFactory(new PropertyValueFactory<Buch, String>("verlag")); 
-					isbn.setCellValueFactory(new PropertyValueFactory<Buch, Long>("isbn"));
-//					beschreibung.setCellValueFactory(new PropertyValueFactory<Buch, String>("beschreibung"));
-//					System.out.println(String.format("%-15s", rs.getString(i)));*/
-				}
-			}
-			rs.close();
-			sta.close();
-			connection.close();
+////	beschreibung.getCellFactory();
+////	System.out.println(beschreibung.getText());
+//	int row=tabelleSortiment.getSelectionModel().getSelectedIndex();
+////	show(row);
+//		tabelleSortiment.getItems();
+//		System.out.println(tabelleSortiment.getItems());
+//		System.out.println(row);
+//				System.out.println(liste);
+//		System.out.println(tabelleSortiment.getSelectionModel().getSelectedIndex());
+//	tabelleSortiment.getItems();
+//	System.out.println(tabelleSortiment.getItems());
 	}
+
+
+		
+		
+	
+	
 	
 	@FXML
 	private void handleTfSucheAction(ActionEvent event) {
@@ -257,7 +252,7 @@ public class GenreRomaneFensterController implements Initializable{
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
-		
+
 	}
 
 	@FXML

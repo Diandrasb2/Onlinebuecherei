@@ -1,6 +1,8 @@
 package application;
 
-public class Buch {
+
+
+public class Buch{
 String titel;
 String genre;
 String verfasser;
@@ -8,6 +10,7 @@ Integer jahr;
 String verlag;
 Long isbn;
 String beschreibung;
+
 
 public Buch(String titel, String genre, String verfasser, Integer jahr, String verlag, Long isbn, String beschreibung) {
 	this.titel=titel;
@@ -17,7 +20,12 @@ public Buch(String titel, String genre, String verfasser, Integer jahr, String v
 	this.verlag=verlag;
 	this.isbn=isbn;
 	this.beschreibung=beschreibung;
+
+
 }
+
+
+
 
 public String getTitel() {
 	return titel;

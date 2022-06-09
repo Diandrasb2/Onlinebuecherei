@@ -9,17 +9,17 @@
 
 <AnchorPane fx:id="flaecheLogInFenster" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #1d1d1b;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AdminLoginFensterController">
    <children>
-      <Label fx:id="labelAdminLogin" alignment="CENTER" layoutX="227.0" layoutY="90.0" prefHeight="37.0" prefWidth="171.0" text="admin - log in" textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="labelAdminLogin" alignment="CENTER" layoutX="227.0" layoutY="69.0" prefHeight="37.0" prefWidth="171.0" text="admin - log in" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Franklin Gothic Medium Cond" size="31.0" />
          </font>
       </Label>
-      <TextField fx:id="tfName" alignment="CENTER" layoutX="138.0" layoutY="145.0" onAction="#handleTfNameAction" prefHeight="47.0" prefWidth="365.0">
+      <TextField fx:id="tfId" alignment="CENTER" layoutX="138.0" layoutY="172.0" onAction="#handleTfIdAction" prefHeight="47.0" prefWidth="365.0">
          <font>
             <Font name="Franklin Gothic Demi Cond" size="26.0" />
          </font>
       </TextField>
-      <Button fx:id="buttonOK" layoutX="254.0" layoutY="263.0" mnemonicParsing="false" onAction="#handleButtonOkAction" prefHeight="47.0" prefWidth="117.0" style="-fx-background-color: #ff9900;" text="OK!" textFill="WHITE">
+      <Button fx:id="buttonOK" layoutX="254.0" layoutY="290.0" mnemonicParsing="false" onAction="#handleButtonOkAction" prefHeight="47.0" prefWidth="117.0" style="-fx-background-color: #ff9900;" text="OK!" textFill="WHITE">
          <font>
             <Font name="Franklin Gothic Demi Cond" size="26.0" />
          </font>
@@ -35,20 +35,31 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Label fx:id="labelName" layoutX="67.0" layoutY="157.0" text="name:" textFill="#ff9900">
-         <font>
-            <Font name="Franklin Gothic Demi Cond" size="21.0" />
-         </font>
-      </Label>
-      <Label fx:id="labelId" layoutX="68.0" layoutY="211.0" prefHeight="24.0" prefWidth="62.0" text="id:" textFill="#ff9900">
-         <font>
-            <Font name="Franklin Gothic Demi Cond" size="21.0" />
-         </font>
-      </Label>
-      <TextField fx:id="tfId" alignment="CENTER" layoutX="138.0" layoutY="199.0" onAction="#handleTfIdAction" prefHeight="47.0" prefWidth="365.0">
+      <TextField fx:id="tfName" alignment="CENTER" layoutX="138.0" layoutY="118.0" onAction="#handleTfNameAction" prefHeight="47.0" prefWidth="365.0">
          <font>
             <Font name="Franklin Gothic Demi Cond" size="26.0" />
          </font>
       </TextField>
+      <Label fx:id="labelName" layoutX="47.0" layoutY="130.0" prefHeight="24.0" prefWidth="70.0" text="name:" textFill="#ff9900">
+         <font>
+            <Font name="Franklin Gothic Demi Cond" size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelId" layoutX="49.0" layoutY="184.0" prefHeight="24.0" prefWidth="39.0" text="id:" textFill="#ff9900">
+         <font>
+            <Font name="Franklin Gothic Demi Cond" size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelPasswort" layoutX="49.0" layoutY="238.0" prefHeight="24.0" prefWidth="81.0" text="passwort:" textFill="#ff9900">
+         <font>
+            <Font name="Franklin Gothic Demi Cond" size="21.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfPasswort" alignment="CENTER" layoutX="138.0" layoutY="226.0" onAction="#handleTfPasswortAction" prefHeight="47.0" prefWidth="365.0">
+         <font>
+            <Font name="Franklin Gothic Demi Cond" size="26.0" />
+         </font>
+      </TextField>
+      
    </children>
 </AnchorPane>
