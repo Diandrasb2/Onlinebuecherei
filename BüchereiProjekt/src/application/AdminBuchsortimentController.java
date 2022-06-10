@@ -115,9 +115,40 @@ public class AdminBuchsortimentController implements Initializable {
 
 	@FXML
 	private void handleButtonAnzeigenAction(ActionEvent event) throws SQLException {
+		//von Anastasia
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Buchdetails.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Buchdetails");
+			stage.setScene(new Scene(root3));
+			stage.show();
+			
+			
+			
+			//Ausgabe aus der Tabelle wird für gewählte Zeile in neuem Fenster ausgegeben um alles lesen zu können
+			BuchdetailsController buchdetailsController=fxmlLoader.getController();
+			
+			int row = tabelleSortiment.getSelectionModel().getSelectedIndex();
 
+			if(row>=0) {			
+			buchdetailsController.setData(""+tabelleSortiment.getSelectionModel().getSelectedItem().getTitel(), 
+			tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser(),
+			""+tabelleSortiment.getSelectionModel().getSelectedItem().getGenre(),
+			+tabelleSortiment.getSelectionModel().getSelectedItem().getJahr(),
+			""+tabelleSortiment.getSelectionModel().getSelectedItem().getVerlag(),
+			+tabelleSortiment.getSelectionModel().getSelectedItem().getIsbn(),
+			""+tabelleSortiment.getSelectionModel().getSelectedItem().getBeschreibung());
+				}
+			
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
 	}
 
+
+	
+	
 	@FXML
 	private void handleButtonAdminStartAction(ActionEvent event) {
 		System.out.println("Startseite wird wieder geöffnet");

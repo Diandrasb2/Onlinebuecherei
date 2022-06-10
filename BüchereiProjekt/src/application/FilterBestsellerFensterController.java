@@ -3,24 +3,34 @@
 package application;
 
 import java.io.IOException;
-
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.Separator;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class FilterBestsellerFensterController {
+public class FilterBestsellerFensterController implements Initializable{
 	
 	//Aufrufe FXML: Anastasia
 	@FXML
@@ -32,11 +42,11 @@ public class FilterBestsellerFensterController {
 	@FXML
 	private AnchorPane feldSortierenNach;
 	@FXML
-	private TitledPane genre;
+	private TitledPane genreFilter;
 	@FXML
 	private AnchorPane feldGenre;
 	@FXML
-	private TitledPane jahr;
+	private TitledPane jahrFilter;
 	@FXML
 	private AnchorPane feldJahr;
 	@FXML
@@ -64,7 +74,7 @@ public class FilterBestsellerFensterController {
 	@FXML
 	private Pane paneScrollbereich;
 	@FXML
-	private ScrollBar scrollbarScroll;
+	private Label labelBis;
 	@FXML
 	private Button buttonOK;
 	@FXML
@@ -93,8 +103,166 @@ public class FilterBestsellerFensterController {
 	private TextField tfJahrBis;
 	@FXML
 	private TextField tfISBN;
+	@FXML
+	private Label labelBest;
+	@FXML
+	private Button buttonKonto;
+	@FXML
+	private Button buttonStartfenster;
+	@FXML
+	private Button buttonAusloggen;
+	@FXML
+	private Button buttonHilfe;
+	@FXML
+	private TableView<Buch> tabelleSortiment;
+	@FXML
+	private TableColumn<Buch, String> titel;
+	@FXML
+	private TableColumn<Buch, String> genre;
+	@FXML
+	private TableColumn<Buch, String> verfasser;
+	@FXML
+	private TableColumn<Buch, Integer> jahr;
+	@FXML
+	private TableColumn<Buch, String> verlag;
+	@FXML
+	private TableColumn<Buch, Long> isbn;
+	@FXML
+	private TableColumn<Buch, String> beschreibung;
+
+	@FXML
+	private Button buttonAnzeigen;
+	@FXML
+	private Button buttonMerken;
+	@FXML
+	private Button buttonReservieren;
+	@FXML
+    private Button buttonAusleihen;
 	
-	//Verknuepfung Funktionen: Anastasia
+	
+	// Verknuepfung Funktionen: Anastasia
+
+		ObservableList<Buch> liste = FXCollections.observableArrayList();
+
+		@Override
+		public void initialize(URL url, ResourceBundle rb) {
+			titel.setCellValueFactory(new PropertyValueFactory<Buch, String>("titel"));
+			genre.setCellValueFactory(new PropertyValueFactory<Buch, String>("genre"));
+			verfasser.setCellValueFactory(new PropertyValueFactory<Buch, String>("verfasser"));
+			jahr.setCellValueFactory(new PropertyValueFactory<Buch, Integer>("jahr"));
+			verlag.setCellValueFactory(new PropertyValueFactory<Buch, String>("verlag"));
+			isbn.setCellValueFactory(new PropertyValueFactory<Buch, Long>("isbn"));
+			beschreibung.setCellValueFactory(new PropertyValueFactory<Buch, String>("beschreibung"));
+
+
+		
+			try {
+				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/buecherliste", "root", "");
+				System.out.println("Verbunden");
+
+				// Suchalgorithmus nach Bestsellern
+
+				ResultSet rs = connection.createStatement()
+						.executeQuery("select * from alleBuecher where titel like '%Wasser für die Elefanten%'" ); //bestimmtes Bestellerbuch ausgeben
+
+				while (rs.next()) {
+					Buch b = new Buch(rs.getString("titel"), rs.getString("genre"), rs.getString("verfasser"),
+							rs.getInt("jahr"), rs.getString("verlag"), rs.getLong("isbn"), rs.getString("beschreibung"));
+					b.setTitel(rs.getString("titel"));
+					b.setVerfasser(rs.getString("verfasser"));
+					b.setGenre(rs.getString("genre"));
+					b.setJahr(rs.getInt("jahr"));
+					b.setVerlag(rs.getString("verlag"));
+					b.setIsbn(rs.getLong("isbn"));
+					b.setBeschreibung(rs.getString("beschreibung"));
+					liste.add(b);
+
+					tabelleSortiment.setItems(liste);
+
+				}
+			} catch (SQLException ex) {
+				System.out.println("Fehler");
+			}
+
+		}
+
+
+
+		@FXML
+		private void handleButtonAnzeigenAction(ActionEvent event) throws SQLException {
+			//von Anastasia
+			try {
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Buchdetails.fxml"));
+				AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+				Stage stage = new Stage();
+				stage.setTitle("Online Buecherei - Buchdetails");
+				stage.setScene(new Scene(root3));
+				stage.show();
+				
+				//Ausgabe aus der Tabelle wird für gewählte Zeile in neuem Fenster ausgegeben um alles lesen zu können
+				BuchdetailsController buchdetailsController=fxmlLoader.getController();
+
+				int row = tabelleSortiment.getSelectionModel().getSelectedIndex();
+
+				if(row>=0)  {//Nur wenn ein Feld ausgewählt ist, ist dieser Aufruf möglich
+				buchdetailsController.setData(""+tabelleSortiment.getSelectionModel().getSelectedItem().getTitel(), 
+				tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser(),
+				""+tabelleSortiment.getSelectionModel().getSelectedItem().getGenre(),
+				+tabelleSortiment.getSelectionModel().getSelectedItem().getJahr(),
+				""+tabelleSortiment.getSelectionModel().getSelectedItem().getVerlag(),
+				+tabelleSortiment.getSelectionModel().getSelectedItem().getIsbn(),
+				""+tabelleSortiment.getSelectionModel().getSelectedItem().getBeschreibung());}
+				
+				
+			} catch (IOException iOException) {
+				System.out.println("Fenster wurde nicht geoeffnet");
+			}
+		}
+		@FXML
+		private void handleButtonMerkeAction(ActionEvent event) throws SQLException {
+			//Von Anastasia
+		System.out.println("Du hast versucht das Buch zu vermerken");
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Hinweis.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Hinweis");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
+		}
+		@FXML
+		private void handleButtonAusleihenAction(ActionEvent event) throws SQLException {
+			//Von Anastasia
+		System.out.println("Du hast versucht das Buch zu auszuleihen");
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Hinweis.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Hinweis");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
+		}
+		@FXML
+		private void handleButtonReservierenAction(ActionEvent event) throws SQLException {
+			//Von Anastasia
+		System.out.println("Du hast versucht das Buch zu reservieren");
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Hinweis.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Hinweis");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
+		}
 	@FXML
 	private void handleTfSucheAction(ActionEvent event) {
 		System.out.println("Gebe hier einen Suchbegriff ein");

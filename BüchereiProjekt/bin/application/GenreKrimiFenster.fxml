@@ -45,7 +45,7 @@
       </Button>
       <Pane prefHeight="400.0" prefWidth="143.0" style="-fx-background-color: #4d4e4f;">
          <children>
-            <Accordion layoutY="49.0" prefHeight="311.0" prefWidth="143.0" style="visibility: #4d4e4f;">
+            <Accordion layoutY="49.0" prefHeight="311.0" prefWidth="143.0">
               <panes>
                 <TitledPane fx:id="sortierenNach" animated="false" prefHeight="183.0" prefWidth="141.0" style="-fx-border-color: #4d4e4f;" text="sortieren nach">
                   <content>
@@ -242,7 +242,7 @@
             <Font name="Franklin Gothic Medium" size="14.0" />
          </font>
       </Label>
-      <Pane fx:id="paneScrollbereich" layoutX="161.0" layoutY="109.0" prefHeight="287.0" prefWidth="582.0">
+      <Pane fx:id="paneScrollbereich" layoutX="161.0" layoutY="109.0" prefHeight="243.0" prefWidth="582.0">
          <children>
             <TableView fx:id="tabelleSortiment" prefHeight="152.0" prefWidth="585.0" style="-fx-background-color: #1d1d1b;">
                <columns>
@@ -260,6 +260,38 @@
       <Button fx:id="buttonAnzeigen" layoutX="245.0" layoutY="74.0" mnemonicParsing="false" onAction="#handleButtonAnzeigenAction" style="-fx-background-color: #ff9900;" text="Anzeigen" textFill="WHITE">
          <font>
             <Font name="Franklin Gothic Medium" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="buttonAnzeigen1" layoutX="680.0" layoutY="367.0" mnemonicParsing="false" onAction="#handleButtonAnzeigenAction" style="-fx-background-color: #ff9900;" text="Anzeigen" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Medium" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="buttonMerken" layoutX="161.0" layoutY="367.0" mnemonicParsing="false" onAction="#handleButtonMerkeAction" style="-fx-background-color: #4d4e4f;" text="merken" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Demi" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="buttonReservieren" layoutX="226.0" layoutY="367.0" mnemonicParsing="false" onAction="#handleButtonReservierenAction" style="-fx-background-color: #4d4e4f;" text="reservieren" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Demi" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="buttonAusleihen" layoutX="310.0" layoutY="367.0" mnemonicParsing="false" onAction="#handleButtonAusleihenAction" style="-fx-background-color: #4d4e4f;" text="ausleihen" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Demi" size="12.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />

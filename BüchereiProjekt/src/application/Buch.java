@@ -1,7 +1,5 @@
 package application;
 
-
-
 public class Buch{
 String titel;
 String genre;
@@ -12,6 +10,7 @@ Long isbn;
 String beschreibung;
 
 
+
 public Buch(String titel, String genre, String verfasser, Integer jahr, String verlag, Long isbn, String beschreibung) {
 	this.titel=titel;
 	this.genre=genre;
@@ -20,9 +19,29 @@ public Buch(String titel, String genre, String verfasser, Integer jahr, String v
 	this.verlag=verlag;
 	this.isbn=isbn;
 	this.beschreibung=beschreibung;
-
+	
+	
 
 }
+
+
+
+
+public String getBeschreibung() {
+	return beschreibung;
+}
+
+
+
+
+public void setBeschreibung(String beschreibung) {
+	this.beschreibung = beschreibung;
+}
+
+
+
+
+
 
 
 
@@ -75,11 +94,6 @@ public Long getIsbn() {
 	return isbn;
 }
 
-public String getBeschreibung() {
-	return beschreibung;
-}
-public void setBeschreibung(String beschreibung) {
-	this.beschreibung = beschreibung;
-}
+
 
 }

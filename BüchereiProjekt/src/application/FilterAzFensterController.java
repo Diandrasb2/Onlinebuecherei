@@ -131,6 +131,12 @@ public class FilterAzFensterController implements Initializable{
 	private TableColumn<Buch, Long> isbn;
 	@FXML
 	private TableColumn<Buch, String> beschreibung;
+	@FXML
+	private Button buttonMerken;
+	@FXML
+	private Button buttonReservieren;
+	@FXML
+    private Button buttonAusleihen;
 
 	//Datenbankverknüpfung+aufruf und Sortieralgorithmus: a-z (von Anastasia)
 	
@@ -182,8 +188,79 @@ public class FilterAzFensterController implements Initializable{
 	}
 	
 	@FXML
-	public void handleButtonAnzeigenAction(ActionEvent event) throws SQLException {
+	private void handleButtonAnzeigenAction(ActionEvent event) throws SQLException {
+		//von Anastasia
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Buchdetails.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Buchdetails");
+			stage.setScene(new Scene(root3));
+			stage.show();
+			
+			//Ausgabe aus der Tabelle wird für gewählte Zeile in neuem Fenster ausgegeben um alles lesen zu können
+			BuchdetailsController buchdetailsController=fxmlLoader.getController();
+			
+			int row = tabelleSortiment.getSelectionModel().getSelectedIndex();
 
+			if(row>=0) { //Nur wenn ein Feld ausgewählt ist, ist dieser Aufruf möglich
+			buchdetailsController.setData(""+tabelleSortiment.getSelectionModel().getSelectedItem().getTitel(), 
+			tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser(),
+			""+tabelleSortiment.getSelectionModel().getSelectedItem().getGenre(),
+			+tabelleSortiment.getSelectionModel().getSelectedItem().getJahr(),
+			""+tabelleSortiment.getSelectionModel().getSelectedItem().getVerlag(),
+			+tabelleSortiment.getSelectionModel().getSelectedItem().getIsbn(),
+			""+tabelleSortiment.getSelectionModel().getSelectedItem().getBeschreibung());
+			}
+			
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
+	}
+	@FXML
+	private void handleButtonMerkeAction(ActionEvent event) throws SQLException {
+		//Von Anastasia
+	System.out.println("Du hast versucht das Buch zu vermerken");
+	try {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Hinweis.fxml"));
+		AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+		Stage stage = new Stage();
+		stage.setTitle("Online Buecherei - Hinweis");
+		stage.setScene(new Scene(root3));
+		stage.show();
+	} catch (IOException iOException) {
+		System.out.println("Fenster wurde nicht geoeffnet");
+	}
+	}
+	@FXML
+	private void handleButtonAusleihenAction(ActionEvent event) throws SQLException {
+		//Von Anastasia
+	System.out.println("Du hast versucht das Buch zu auszuleihen");
+	try {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Hinweis.fxml"));
+		AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+		Stage stage = new Stage();
+		stage.setTitle("Online Buecherei - Hinweis");
+		stage.setScene(new Scene(root3));
+		stage.show();
+	} catch (IOException iOException) {
+		System.out.println("Fenster wurde nicht geoeffnet");
+	}
+	}
+	@FXML
+	private void handleButtonReservierenAction(ActionEvent event) throws SQLException {
+		//Von Anastasia
+	System.out.println("Du hast versucht das Buch zu reservieren");
+	try {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Hinweis.fxml"));
+		AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+		Stage stage = new Stage();
+		stage.setTitle("Online Buecherei - Hinweis");
+		stage.setScene(new Scene(root3));
+		stage.show();
+	} catch (IOException iOException) {
+		System.out.println("Fenster wurde nicht geoeffnet");
+	}
 	}
 
 	@FXML

@@ -15,7 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.scene.control.ScrollBar;
+
 
 public class MerklisteController {
 	// Aufrufe FXML: Timm
@@ -59,17 +59,16 @@ public class MerklisteController {
 	private Label labelMerkliste;
 	@FXML
 	private Pane paneScrollbereich;
-	@FXML
-	private ScrollBar scrollbarScroll;
+	
 	@FXML
 	private Label labelKonto;
 
-	// Verknuepfung Funktionen: Timm
+	// Verknuepfung Funktionen: Timm und Anastasia
 	@FXML
 	public void handleButtonMerklisteAction(ActionEvent event) {
 		System.out.println("Du bist bereits im Merkliste Fenster");
 	}	
-
+	
 	@FXML
 	public void handleButtonReserviertAction(ActionEvent event) {
 		System.out.println("Reserviert");

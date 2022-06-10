@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BuchdetailsController">
+   <children>
+      <AnchorPane fx:id="Hinweisflaeche" layoutX="-10.0" layoutY="-7.0" prefHeight="424.0" prefWidth="492.0" style="-fx-background-color: #1d1d1b;">
+         <children>
+            <Label fx:id="labelDetails" layoutX="27.0" layoutY="23.0" text="Buchdetails:" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="14.0" />
+               </font>
+            </Label>
+            <TextFlow fx:id="text" layoutX="25.0" layoutY="54.0" prefHeight="357.0" prefWidth="450.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <Text fx:id="textData" strokeType="OUTSIDE" strokeWidth="0.0" text="Wählen Sie bitte erst ein Buch, bevor Sie weitere Buchdetails anfordern." wrappingWidth="292.41015243530273" />
+               </children>
+            </TextFlow>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
