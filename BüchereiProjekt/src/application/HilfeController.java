@@ -11,7 +11,9 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -28,6 +30,8 @@ public class HilfeController {
 	@FXML
 	private Tooltip ttAusloggen;
 	@FXML
+	private Separator separatorLinie;
+	@FXML
 	private Tooltip ttHilfe;
 	@FXML
 	private Button buttonKonto;
@@ -41,6 +45,14 @@ public class HilfeController {
 	private Label labelHilfeCaption;
 	@FXML
 	private Label labelHilfeText;
+	@FXML
+	private ImageView imgKonto;
+	@FXML
+	private ImageView imgHome;
+	@FXML
+	private ImageView imgAusloggen;
+	@FXML
+	private ImageView imgHilfe;
 	
 
 	// Verknuepfung Funktionen: Diandra (Vorlage Anastasia)

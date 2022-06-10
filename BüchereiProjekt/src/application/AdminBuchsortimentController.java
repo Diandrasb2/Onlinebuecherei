@@ -23,6 +23,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -63,6 +64,9 @@ public class AdminBuchsortimentController implements Initializable {
 	private TableColumn<Buch, String> beschreibung;
 	@FXML
 	private Button buttonAnzeigen;
+	
+	@FXML
+	private ImageView imgHome;
 
 	//Datenbankverknüpfung+aufruf (von Anastastia)
 	

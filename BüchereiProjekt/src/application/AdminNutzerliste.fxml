@@ -6,6 +6,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -19,18 +21,6 @@
                   <Font name="Franklin Gothic Medium Cond" size="24.0" />
                </font>
             </Label>
-            <Button fx:id="buttonAdminStart" layoutX="8.0" layoutY="367.0" mnemonicParsing="false" onAction="#handleButtonAdminStartAction" prefHeight="25.0" prefWidth="30.0" style="-fx-background-color: #ff9900;">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <tooltip>
-                  <Tooltip fx:id="ttStart" text="Start">
-                     <font>
-                        <Font name="Franklin Gothic Demi" size="12.0" />
-                     </font>
-                  </Tooltip>
-               </tooltip>
-            </Button>
             <Button fx:id="buttonAusloggen" layoutX="46.0" layoutY="367.0" mnemonicParsing="false" onAction="#handleButtonAusloggenAction" prefHeight="25.0" prefWidth="89.0" style="-fx-background-color: #ff9900;" text="Ausloggen" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -55,6 +45,25 @@
                   <Font name="Franklin Gothic Medium" size="14.0" />
                </font>
             </Button>
+            <Button fx:id="buttonAdminStart" layoutX="9.0" layoutY="367.0" mnemonicParsing="false" onAction="#handleButtonAdminStartAction" prefHeight="25.0" prefWidth="30.0" style="-fx-background-color: #ff9900;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <tooltip>
+                  <Tooltip fx:id="ttStart" text="Start">
+                     <font>
+                        <Font name="Franklin Gothic Demi" size="12.0" />
+                     </font>
+                  </Tooltip>
+               </tooltip>
+               <graphic>
+                  <ImageView fx:id="imgHome" fitHeight="13.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Icons/Home.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </Pane>
       <Label layoutX="385.0" layoutY="14.0" text="Admin-Ansicht:" textFill="WHITE">
@@ -76,14 +85,6 @@
                   <TableColumn fx:id="passwort" prefWidth="188.0" text="Passwort" />
               </columns>
             </TableView>
-            <Button fx:id="buttonAnzeigen" layoutX="1.0" mnemonicParsing="false" onAction="#handleButtonAnzeigenAction" style="-fx-background-color: #ff9900;" text="Anzeigen" textFill="WHITE">
-               <font>
-                  <Font name="Franklin Gothic Medium" size="12.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
          </children>
       </Pane>
    </children>

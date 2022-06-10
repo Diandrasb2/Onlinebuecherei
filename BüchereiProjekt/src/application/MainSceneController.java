@@ -12,7 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
 import javafx.scene.control.Label;
-
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -29,6 +29,14 @@ public class MainSceneController {
 	private Button buttonRegistrieren;
 	@FXML
 	private Button buttonAdmin;
+	@FXML
+	private ImageView imgKonto;
+	@FXML
+	private ImageView imgHome;
+	@FXML
+	private ImageView imgAusloggen;
+	@FXML
+	private ImageView imgHilfe;
 
 	// Verknüpfung Funktionen: Anastasia
 	@FXML

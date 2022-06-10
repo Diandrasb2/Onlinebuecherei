@@ -24,6 +24,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -54,12 +55,14 @@ public class AdminNutzerlisteController implements Initializable{
 	private TableColumn<Nutzer, String> email;
 	@FXML
 	private TableColumn<Nutzer, String> passwort;
-	@FXML
-	private Button buttonAnzeigen;
+
 	@FXML
 	private ScrollBar scrollScrollbar;
 	@FXML
 	private Label labelKonto;
+	
+	@FXML
+	private ImageView imgHome;
 	
 	//Datenbankverknüpfung+aufruf (von Anastastia)
 	
@@ -93,9 +96,7 @@ public class AdminNutzerlisteController implements Initializable{
 
 		}
 
-		@FXML
-		private void handleButtonAnzeigenAction(ActionEvent event) throws SQLException {
-		}
+
 	
 	@FXML
 	private void handleButtonAdminStartAction (ActionEvent event) {

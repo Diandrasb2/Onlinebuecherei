@@ -27,6 +27,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -136,6 +137,15 @@ public class GenreSachliteraturFensterController implements Initializable{
 	private Button buttonReservieren;
 	@FXML
     private Button buttonAusleihen;
+	
+	@FXML
+	private ImageView imgKonto;
+	@FXML
+	private ImageView imgHome;
+	@FXML
+	private ImageView imgAusloggen;
+	@FXML
+	private ImageView imgHilfe;
 
 
 	// Verknuepfung Funktionen: Anastasia

@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -96,6 +97,15 @@ public class WillkommenController {
 	private Button buttonAusloggen;
 	@FXML
 	private Button buttonHilfe;
+	
+	@FXML
+	private ImageView imgKonto;
+	@FXML
+	private ImageView imgHome;
+	@FXML
+	private ImageView imgAusloggen;
+	@FXML
+	private ImageView imgHilfe;
 
 	// Verkuepfung Funktionen: Anastasia
 	@FXML

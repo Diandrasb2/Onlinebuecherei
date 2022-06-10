@@ -4,9 +4,10 @@
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -21,7 +22,7 @@
                   <Font name="Franklin Gothic Medium Cond" size="24.0" />
                </font>
             </Label>
-            <Button fx:id="buttonKonto" layoutX="6.0" layoutY="367.0" mnemonicParsing="false" onAction="#handleButtonKontoAction" prefHeight="25.0" prefWidth="30.0" style="-fx-background-color: #ff9900;">
+            <Button fx:id="buttonKonto" layoutX="6.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleButtonKontoAction" prefHeight="25.0" prefWidth="30.0" style="-fx-background-color: #ff9900;">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -32,8 +33,15 @@
                      </font>
                   </Tooltip>
                </tooltip>
+               <graphic>
+                  <ImageView fx:id="imgKonto" fitHeight="13.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Icons/Konto.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button fx:id="buttonStartfenster" layoutX="40.0" layoutY="367.0" mnemonicParsing="false" onAction="#handleButtonStartfensterAction" prefHeight="25.0" prefWidth="30.0" style="-fx-background-color: #ff9900;">
+            <Button fx:id="buttonStartfenster" layoutX="40.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleButtonStartfensterAction" prefHeight="25.0" prefWidth="30.0" style="-fx-background-color: #ff9900;">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -44,8 +52,15 @@
                      </font>
                   </Tooltip>
                </tooltip>
+               <graphic>
+                  <ImageView fx:id="imgHome" fitHeight="11.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Icons/Home.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button fx:id="buttonAusloggen" layoutX="74.0" layoutY="367.0" mnemonicParsing="false" onAction="#handleButtonAusloggenAction" prefHeight="25.0" prefWidth="30.0" style="-fx-background-color: #ff9900;">
+            <Button fx:id="buttonAusloggen" layoutX="74.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleButtonAusloggenAction" prefHeight="25.0" prefWidth="30.0" style="-fx-background-color: #ff9900;">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -56,8 +71,15 @@
                      </font>
                   </Tooltip>
                </tooltip>
+               <graphic>
+                  <ImageView fx:id="imgAusloggen" fitHeight="15.0" fitWidth="11.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Icons/Ausloggen.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button fx:id="buttonHilfe" layoutX="108.0" layoutY="367.0" mnemonicParsing="false" onAction="#handleButtonHilfeAction" prefHeight="25.0" prefWidth="30.0" style="-fx-background-color: #ffffff;">
+            <Button fx:id="buttonHilfe" layoutX="108.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleButtonHilfeAction" prefHeight="25.0" prefWidth="30.0" style="-fx-background-color: #ffffff;">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -68,6 +90,13 @@
                      </font>
                   </Tooltip>
                </tooltip>
+               <graphic>
+                  <ImageView fx:id="imgHilfe" fitHeight="12.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Icons/info.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
          </children>
       </Pane>
@@ -77,11 +106,6 @@
          </font>
       </Label>
       <Separator fx:id="separatorLinie" layoutX="164.0" layoutY="65.0" prefHeight="3.0" prefWidth="593.0" />
-      <ScrollBar fx:id="scrollbarScroll" layoutX="726.0" layoutY="85.0" orientation="VERTICAL" prefHeight="287.0" prefWidth="15.0" style="-fx-background-color: #4d4e4f;" visibleAmount="20.0">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ScrollBar>
       <Label fx:id="labelHilfeText" layoutX="167.0" layoutY="87.0" prefHeight="291.0" prefWidth="540.0" text="Hier wird der Hilfetext stehen...&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;...&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;&#10;" textFill="WHITE">
          <font>
             <Font size="14.0" />

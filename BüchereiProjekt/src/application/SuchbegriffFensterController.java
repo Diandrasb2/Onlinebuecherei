@@ -11,11 +11,11 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -63,8 +63,7 @@ public class SuchbegriffFensterController {
 	private Label labelRomane;
 	@FXML
 	private Pane paneScrollbereich;
-	@FXML
-	private ScrollBar scrollbarScroll;
+	
 	@FXML
 	private Button buttonOK;
 	@FXML
@@ -93,6 +92,15 @@ public class SuchbegriffFensterController {
 	private TextField tfJahrBis;
 	@FXML
 	private TextField tfISBN;
+	
+	@FXML
+	private ImageView imgKonto;
+	@FXML
+	private ImageView imgHome;
+	@FXML
+	private ImageView imgAusloggen;
+	@FXML
+	private ImageView imgHilfe;
 
 	// Verknuepfung Funktionen: Anastasia
 	@FXML

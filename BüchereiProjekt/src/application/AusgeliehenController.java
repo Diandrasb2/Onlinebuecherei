@@ -13,9 +13,9 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.scene.control.ScrollBar;
 
 public class AusgeliehenController {
 	// Aufrufe FXML: Diandra (Vorlage: Timm)
@@ -62,7 +62,13 @@ public class AusgeliehenController {
 	@FXML
 	private Pane paneScrollbereich;
 	@FXML
-	private ScrollBar scrollbarScroll;
+	private ImageView imgKonto;
+	@FXML
+	private ImageView imgHome;
+	@FXML
+	private ImageView imgAusloggen;
+	@FXML
+	private ImageView imgHilfe;
 
 	// Verknuepfung Funktionen: Diandra (Vorlage: Timm)
 	@FXML

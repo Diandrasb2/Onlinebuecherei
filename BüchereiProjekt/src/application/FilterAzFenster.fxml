@@ -11,6 +11,8 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -197,6 +199,13 @@
                      </font>
                   </Tooltip>
                </tooltip>
+               <graphic>
+                  <ImageView fx:id="imgKonto" fitHeight="13.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Icons/Konto.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
             <Button fx:id="buttonStartfenster" layoutX="40.0" layoutY="367.0" mnemonicParsing="false" onAction="#handleButtonStartfensterAction" prefHeight="25.0" prefWidth="30.0" style="-fx-background-color: #ff9900;">
                <cursor>
@@ -209,6 +218,13 @@
                      </font>
                   </Tooltip>
                </tooltip>
+               <graphic>
+                  <ImageView fx:id="imgHome" fitHeight="11.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Icons/Home.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
             <Button fx:id="buttonAusloggen" layoutX="74.0" layoutY="367.0" mnemonicParsing="false" onAction="#handleButtonAusloggenAction" prefHeight="25.0" prefWidth="30.0" style="-fx-background-color: #ff9900;">
                <cursor>
@@ -221,8 +237,15 @@
                      </font>
                   </Tooltip>
                </tooltip>
+               <graphic>
+                  <ImageView fx:id="imgAusloggen" fitHeight="15.0" fitWidth="11.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Icons/Ausloggen.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button layoutX="108.0" layoutY="367.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="30.0" style="-fx-background-color: #ff9900;">
+            <Button fx:id="buttonHilfe" layoutX="108.0" layoutY="367.0" mnemonicParsing="false" onAction="#handleButtonHilfeAction" prefHeight="25.0" prefWidth="30.0" style="-fx-background-color: #ff9900;">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -233,6 +256,13 @@
                      </font>
                   </Tooltip>
                </tooltip>
+               <graphic>
+                  <ImageView fx:id="imgHilfe" fitHeight="12.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Icons/info.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
          </children>
       </Pane>

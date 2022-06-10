@@ -15,6 +15,7 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -70,6 +71,15 @@ public class ImpressumFensterController {
 	private ScrollBar scrollbarScroll;
 	@FXML
 	private Label labelInhalt;
+	
+	@FXML
+	private ImageView imgKonto;
+	@FXML
+	private ImageView imgHome;
+	@FXML
+	private ImageView imgAusloggen;
+	@FXML
+	private ImageView imgHilfe;
 	
 	// Verknuepfung Funktionen: Anastasia (Vorlage: Timm)
 		@FXML
