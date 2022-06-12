@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,7 +34,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class FilterAzFensterController implements Initializable{
+public class FilterAzFensterController implements Initializable {
 
 	// Aufrufe FXML: Anastasia
 	@FXML
@@ -137,8 +138,8 @@ public class FilterAzFensterController implements Initializable{
 	@FXML
 	private Button buttonReservieren;
 	@FXML
-    private Button buttonAusleihen;
-	
+	private Button buttonAusleihen;
+
 	@FXML
 	private ImageView imgKonto;
 	@FXML
@@ -148,8 +149,8 @@ public class FilterAzFensterController implements Initializable{
 	@FXML
 	private ImageView imgHilfe;
 
-	//Datenbankverknüpfung+aufruf und Sortieralgorithmus: a-z (von Anastasia)
-	
+	// Datenbankverknüpfung+aufruf und Sortieralgorithmus: a-z (von Anastasia)
+
 	ObservableList<Buch> liste = FXCollections.observableArrayList();
 
 	@Override
@@ -168,8 +169,7 @@ public class FilterAzFensterController implements Initializable{
 
 			// Sortieralgorithmus nach a-z
 
-			ResultSet rs = connection.createStatement()
-					.executeQuery("select * from alleBuecher order by titel");
+			ResultSet rs = connection.createStatement().executeQuery("select * from alleBuecher order by titel");
 
 			while (rs.next()) {
 				Buch b = new Buch(rs.getString("titel"), rs.getString("genre"), rs.getString("verfasser"),
@@ -183,23 +183,18 @@ public class FilterAzFensterController implements Initializable{
 				b.setBeschreibung(rs.getString("beschreibung"));
 				liste.add(b);
 
-				
 				tabelleSortiment.setItems(liste);
-				
-				
-				
-				
+
 			}
 		} catch (SQLException ex) {
 			System.out.println("Fehler");
 		}
 
-		
 	}
-	
+
 	@FXML
 	private void handleButtonAnzeigenAction(ActionEvent event) throws SQLException {
-		//von Anastasia
+		// von Anastasia
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Buchdetails.fxml"));
 			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
@@ -207,70 +202,164 @@ public class FilterAzFensterController implements Initializable{
 			stage.setTitle("Online Buecherei - Buchdetails");
 			stage.setScene(new Scene(root3));
 			stage.show();
-			
-			//Ausgabe aus der Tabelle wird für gewählte Zeile in neuem Fenster ausgegeben um alles lesen zu können
-			BuchdetailsController buchdetailsController=fxmlLoader.getController();
-			
+
+			// Ausgabe aus der Tabelle wird für gewählte Zeile in neuem Fenster ausgegeben
+			// um alles lesen zu können
+			BuchdetailsController buchdetailsController = fxmlLoader.getController();
+
 			int row = tabelleSortiment.getSelectionModel().getSelectedIndex();
 
-			if(row>=0) { //Nur wenn ein Feld ausgewählt ist, ist dieser Aufruf möglich
-			buchdetailsController.setData(""+tabelleSortiment.getSelectionModel().getSelectedItem().getTitel(), 
-			tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser(),
-			""+tabelleSortiment.getSelectionModel().getSelectedItem().getGenre(),
-			+tabelleSortiment.getSelectionModel().getSelectedItem().getJahr(),
-			""+tabelleSortiment.getSelectionModel().getSelectedItem().getVerlag(),
-			+tabelleSortiment.getSelectionModel().getSelectedItem().getIsbn(),
-			""+tabelleSortiment.getSelectionModel().getSelectedItem().getBeschreibung());
+			if (row >= 0) { // Nur wenn ein Feld ausgewählt ist, ist dieser Aufruf möglich
+				buchdetailsController.setData("" + tabelleSortiment.getSelectionModel().getSelectedItem().getTitel(),
+						tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser(),
+						"" + tabelleSortiment.getSelectionModel().getSelectedItem().getGenre(),
+						+tabelleSortiment.getSelectionModel().getSelectedItem().getJahr(),
+						"" + tabelleSortiment.getSelectionModel().getSelectedItem().getVerlag(),
+						+tabelleSortiment.getSelectionModel().getSelectedItem().getIsbn(),
+						"" + tabelleSortiment.getSelectionModel().getSelectedItem().getBeschreibung());
 			}
-			
+
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
+
 	@FXML
 	private void handleButtonMerkeAction(ActionEvent event) throws SQLException {
-		//Von Anastasia
-	System.out.println("Du hast versucht das Buch zu vermerken");
-	try {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Hinweis.fxml"));
-		AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-		Stage stage = new Stage();
-		stage.setTitle("Online Buecherei - Hinweis");
-		stage.setScene(new Scene(root3));
-		stage.show();
-	} catch (IOException iOException) {
-		System.out.println("Fenster wurde nicht geoeffnet");
+		// Von Anastasia
+		System.out.println("Du hast versucht das Buch zu vermerken");
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Hinweis.fxml"));
+
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Hinweis");
+			stage.setScene(new Scene(root3));
+			stage.show();
+
+			int row = tabelleSortiment.getSelectionModel().getSelectedIndex();
+
+			if (row >= 0) {
+				HinweisController hinweis = fxmlLoader.getController();
+				hinweis.hinweisText("Aktion erfolgreich durchgeführt!!");
+
+				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/merkliste", "root",
+						"");
+				String query = "INSERT INTO merken(titel, genre, verfasser, jahr, verlag, isbn, beschreibung) VALUES ('"
+						+ tabelleSortiment.getSelectionModel().getSelectedItem().getTitel() + "', '"
+						+ tabelleSortiment.getSelectionModel().getSelectedItem().getGenre() + "', '"
+						+ tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser() + "', '"
+						+ tabelleSortiment.getSelectionModel().getSelectedItem().getJahr() + "', '"
+						+ tabelleSortiment.getSelectionModel().getSelectedItem().getVerlag() + "', '"
+						+ tabelleSortiment.getSelectionModel().getSelectedItem().getIsbn() + "', '"
+						+ tabelleSortiment.getSelectionModel().getSelectedItem().getBeschreibung() + "')";
+				Statement sta = connection.createStatement();
+				int x = sta.executeUpdate(query);
+				if (x == 0) {
+					System.out.println("Funktion wird nicht durchgeführt");
+
+				} else {
+					System.out.println("Funktion wird durchgeführt");
+
+				}
+				connection.close();
+				System.out.println(query);
+			}
+		}
+
+		catch (Exception exception) {
+			exception.printStackTrace();
+		}
 	}
-	}
+
 	@FXML
 	private void handleButtonAusleihenAction(ActionEvent event) throws SQLException {
-		//Von Anastasia
-	System.out.println("Du hast versucht das Buch zu auszuleihen");
-	try {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Hinweis.fxml"));
-		AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-		Stage stage = new Stage();
-		stage.setTitle("Online Buecherei - Hinweis");
-		stage.setScene(new Scene(root3));
-		stage.show();
-	} catch (IOException iOException) {
-		System.out.println("Fenster wurde nicht geoeffnet");
+		// Von Anastasia
+		System.out.println("Du hast versucht das Buch zu auszuleihen");
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Hinweis.fxml"));
+
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Hinweis");
+			stage.setScene(new Scene(root3));
+			stage.show();
+
+			int row = tabelleSortiment.getSelectionModel().getSelectedIndex();
+
+			if (row >= 0) {
+				HinweisController hinweis = fxmlLoader.getController();
+				hinweis.hinweisText("Aktion erfolgreich durchgeführt!!");
+
+				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/leihliste", "root",
+						"");
+				String query = "INSERT INTO leihen(titel, genre, verfasser, jahr, verlag, isbn, beschreibung) VALUES ('"
+						+ tabelleSortiment.getSelectionModel().getSelectedItem().getTitel() + "', '"
+						+ tabelleSortiment.getSelectionModel().getSelectedItem().getGenre() + "', '"
+						+ tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser() + "', '"
+						+ tabelleSortiment.getSelectionModel().getSelectedItem().getJahr() + "', '"
+						+ tabelleSortiment.getSelectionModel().getSelectedItem().getVerlag() + "', '"
+						+ tabelleSortiment.getSelectionModel().getSelectedItem().getIsbn() + "', '"
+						+ tabelleSortiment.getSelectionModel().getSelectedItem().getBeschreibung() + "')";
+				Statement sta = connection.createStatement();
+				int x = sta.executeUpdate(query);
+				if (x == 0) {
+					System.out.println("Funktion wird nicht durchgeführt");
+				} else {
+					System.out.println("Funktion wird durchgeführt");
+				}
+				connection.close();
+				System.out.println(query);
+			}
+		} catch (Exception exception) {
+			exception.printStackTrace();
+
+		}
 	}
-	}
+
 	@FXML
 	private void handleButtonReservierenAction(ActionEvent event) throws SQLException {
-		//Von Anastasia
-	System.out.println("Du hast versucht das Buch zu reservieren");
-	try {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Hinweis.fxml"));
-		AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-		Stage stage = new Stage();
-		stage.setTitle("Online Buecherei - Hinweis");
-		stage.setScene(new Scene(root3));
-		stage.show();
-	} catch (IOException iOException) {
-		System.out.println("Fenster wurde nicht geoeffnet");
-	}
+		// Von Anastasia
+		System.out.println("Du hast versucht das Buch zu reservieren");
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Hinweis.fxml"));
+
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Hinweis");
+			stage.setScene(new Scene(root3));
+			stage.show();
+
+			int row = tabelleSortiment.getSelectionModel().getSelectedIndex();
+
+			if (row >= 0) {
+				HinweisController hinweis = fxmlLoader.getController();
+				hinweis.hinweisText("Aktion erfolgreich durchgeführt!!");
+
+				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/reservierliste",
+						"root", "");
+				String query = "INSERT INTO reservieren(titel, genre, verfasser, jahr, verlag, isbn, beschreibung) VALUES ('"
+						+ tabelleSortiment.getSelectionModel().getSelectedItem().getTitel() + "', '"
+						+ tabelleSortiment.getSelectionModel().getSelectedItem().getGenre() + "', '"
+						+ tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser() + "', '"
+						+ tabelleSortiment.getSelectionModel().getSelectedItem().getJahr() + "', '"
+						+ tabelleSortiment.getSelectionModel().getSelectedItem().getVerlag() + "', '"
+						+ tabelleSortiment.getSelectionModel().getSelectedItem().getIsbn() + "', '"
+						+ tabelleSortiment.getSelectionModel().getSelectedItem().getBeschreibung() + "')";
+				Statement sta = connection.createStatement();
+				int x = sta.executeUpdate(query);
+				if (x == 0) {
+					System.out.println("Funktion wird nicht durchgeführt");
+				} else {
+					System.out.println("Funktion wird durchgeführt");
+				}
+				connection.close();
+				System.out.println(query);
+			}
+		} catch (Exception exception) {
+			exception.printStackTrace();
+
+		}
 	}
 
 	@FXML
@@ -565,6 +654,7 @@ public class FilterAzFensterController implements Initializable{
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
+
 	@FXML
 	private void handleTabelleSortimentAction(SortEvent<Buch> event) {
 		// Hier tabelle füllen

@@ -55,6 +55,8 @@ public class RegistrierenFensterController {
 	private Tooltip ttHinweisPwReg;
 	@FXML
 	private Tooltip ttHinweisPwWiedReg;
+	
+	
 
 
 	// Verknüpfungen Funktionen: Anastasia
