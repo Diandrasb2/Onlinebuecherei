@@ -116,10 +116,10 @@ public class AdminLoginFensterController {
 		        				Node source = (Node) event.getSource();
 		        				Stage oldStage = (Stage) source.getScene().getWindow();
 		        				oldStage.close();
-		        				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Willkommen.fxml"));
+		        				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AdminFenster.fxml"));
 		        				AnchorPane root3 = (AnchorPane) fxmlLoader.load();
 		        				Stage stage = new Stage();
-		        				stage.setTitle("Online Buecherei - Willkommen");
+		        				stage.setTitle("Online Buecherei - Admin-Ansicht");
 		        				stage.setScene(new Scene(root3));
 		        				stage.show(); 
 		        				return;

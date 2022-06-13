@@ -27,6 +27,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import pojo.Buch;
 
 public class AdminBuchsortimentController implements Initializable {
 
@@ -212,11 +213,10 @@ public class AdminBuchsortimentController implements Initializable {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
-
-	@FXML
-	private void handleButtonBuchsortimentAction(ActionEvent event) {
-		System.out.println("Wird bereits angezeigt");
-	}
+@FXML
+private void handleButtonBuchsortimentAction(ActionEvent event) {
+	System.out.println("Du bist bereits auf dem Fenster");
+}
 
 	
 

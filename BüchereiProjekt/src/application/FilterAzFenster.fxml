@@ -274,7 +274,7 @@
       </Label>
       <Pane fx:id="paneScrollbereich" layoutX="161.0" layoutY="109.0" prefHeight="291.0" prefWidth="582.0">
          <children>
-            <TableView fx:id="tabelleSortiment" layoutX="-1.0" onSort="#handleTabelleSortimentAction" prefHeight="247.0" prefWidth="585.0" style="-fx-background-color: #1d1d1b;">
+            <TableView fx:id="tabelleSortiment" layoutX="-1.0"  prefHeight="247.0" prefWidth="585.0" style="-fx-background-color: #1d1d1b;">
                <columns>
                   <TableColumn fx:id="titel" prefWidth="92.0" text="Titel" />
                   <TableColumn fx:id="genre" prefWidth="58.00001525878906" text="Genre" />

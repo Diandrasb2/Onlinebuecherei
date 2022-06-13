@@ -17,6 +17,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -30,6 +31,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import pojo.Buch;
 
 public class AusgeliehenController implements Initializable{
 	// Aufrufe FXML: Diandra und Anastasia (Vorlage: Timm und Anastasia)
@@ -93,6 +95,8 @@ public class AusgeliehenController implements Initializable{
 	private TableColumn<Buch, Long> isbn;
 	@FXML
 	private TableColumn<Buch, String> beschreibung;
+	@FXML
+	private Button buttonEntf;
 	
 	@FXML
 	private ImageView imgKonto;
@@ -178,6 +182,51 @@ public class AusgeliehenController implements Initializable{
 			
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
+		}
+	}
+	
+	@FXML
+	private void handleButtonEntfAction(ActionEvent event) {
+
+		int zeile = tabelleSortiment.getSelectionModel().getSelectedIndex();
+
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Hinweis.fxml"));
+
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Hinweis");
+			stage.setScene(new Scene(root3));
+			stage.show();
+
+			int row = tabelleSortiment.getSelectionModel().getSelectedIndex();
+
+			if (row >= 0) {
+				HinweisController hinweis = fxmlLoader.getController();
+				hinweis.hinweisText("Aktion erfolgreich durchgeführt!!");
+				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/reservierliste",
+						"root", "");
+				String query = "delete from reservieren where titel like ('"
+						+ tabelleSortiment.getSelectionModel().getSelectedItem().getTitel() + "')";
+				Statement sta = connection.createStatement();
+				int x = sta.executeUpdate(query);
+				if (x == 0) {
+					System.out.println("Funktion wird nicht durchgeführt");
+				} else {
+					System.out.println("Funktion wird durchgeführt");
+				}
+				connection.close();
+				System.out.println(query);
+				entfernen(zeile);
+			}
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+	}
+
+	public void entfernen(int zeile) {
+		if (zeile >= 0) {
+			tabelleSortiment.getItems().remove(zeile);
 		}
 	}
 	

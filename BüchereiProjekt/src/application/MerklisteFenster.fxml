@@ -184,6 +184,14 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
+            <Button fx:id="buttonEntf" layoutY="250.0" mnemonicParsing="false" onAction="#handleButtonEntfAction" style="-fx-background-color: #ff9900;" text="Entfernen" textFill="WHITE">
+               <font>
+                  <Font name="Franklin Gothic Demi" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
       </Pane>
       <Label fx:id="labelKonto" layoutX="409.0" layoutY="25.0" text="Dein Konto" textFill="WHITE">
