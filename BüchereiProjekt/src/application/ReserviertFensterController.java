@@ -31,8 +31,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import pojo.Buch;
-import pojo.Global;
 
 public class ReserviertFensterController implements Initializable {
 	// Aufrufe FXML: Timm und Anastasia
@@ -125,7 +123,7 @@ public class ReserviertFensterController implements Initializable {
 		beschreibung.setCellValueFactory(new PropertyValueFactory<Buch, String>("beschreibung"));
 
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mysql://"+ Global.host + ":3307/reservierliste", "root",
+			Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/reservierliste", "root",
 					"");
 			System.out.println("Verbunden");
 
@@ -204,7 +202,7 @@ public class ReserviertFensterController implements Initializable {
 			if (row >= 0) {
 				HinweisController hinweis = fxmlLoader.getController();
 				hinweis.hinweisText("Aktion erfolgreich durchgeführt!!");
-				Connection connection = DriverManager.getConnection("jdbc:mysql://"+ Global.host + ":3307/reservierliste",
+				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/reservierliste",
 						"root", "");
 				String query = "delete from reservieren where titel like ('"
 						+ tabelleSortiment.getSelectionModel().getSelectedItem().getTitel() + "')";
