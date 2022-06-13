@@ -87,9 +87,6 @@ public class LogInFensterController {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		// Neues Fenster: Anastasia
-		Node source = (Node) event.getSource();
-		Stage oldStage = (Stage) source.getScene().getWindow();
-		oldStage.close();
 		// Login 
 	try {
         connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/benutzerdatabase", "root", "");
@@ -108,12 +105,16 @@ public class LogInFensterController {
         		String erhaltePasswort = resultSet.getString("passwort");
         		if (erhaltePasswort.equals(pfPasswortL)) {
         			try {
+        				Node source = (Node) event.getSource();
+        				Stage oldStage = (Stage) source.getScene().getWindow();
+        				oldStage.close();
         				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Willkommen.fxml"));
         				AnchorPane root3 = (AnchorPane) fxmlLoader.load();
         				Stage stage = new Stage();
         				stage.setTitle("Online Buecherei - Willkommen");
         				stage.setScene(new Scene(root3));
-        				stage.show();
+        				stage.show(); 
+        				return;
         			} catch (IOException iOException) {
         				System.out.println("Fenster wurde nicht geoeffnet");
         			}
