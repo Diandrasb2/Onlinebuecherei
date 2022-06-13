@@ -19,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import pojo.Global;
 
 public class LogInFensterController {
 
@@ -89,7 +90,7 @@ public class LogInFensterController {
 		// Neues Fenster: Anastasia
 		// Login 
 	try {
-        connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/benutzerdatabase", "root", "");
+        connection = DriverManager.getConnection("jdbc:mysql://"+ Global.host + ":3307/benutzerdatabase", "root", "");
         System.out.println("Verbunden");
         
         preparedStatement = connection.prepareStatement("SELECT passwort FROM benutzer WHERE email = ?");

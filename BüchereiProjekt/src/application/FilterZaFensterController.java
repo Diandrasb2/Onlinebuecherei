@@ -30,6 +30,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import pojo.Buch;
+import pojo.Global;
 
 public class FilterZaFensterController implements Initializable{
 	
@@ -159,7 +161,7 @@ public class FilterZaFensterController implements Initializable{
 		beschreibung.setCellValueFactory(new PropertyValueFactory<Buch, String>("beschreibung"));
 
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/buecherliste", "root", "");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://"+ Global.host + ":3307/buecherliste", "root", "");
 			System.out.println("Verbunden");
 
 			// Sortieralgorithmus von z-a

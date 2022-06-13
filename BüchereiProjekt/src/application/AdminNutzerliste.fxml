@@ -78,7 +78,7 @@
       </Label>
       <Pane fx:id="flaecheTabelle" layoutX="160.0" layoutY="63.0" prefHeight="335.0" prefWidth="585.0">
          <children>
-            <TableView fx:id="tabelleNutzer" layoutY="25.0" onSort="#handleTabelleNutzerAction" prefHeight="146.0" prefWidth="568.0" style="-fx-background-color: #1d1d1b;">
+            <TableView fx:id="tabelleNutzer" layoutY="25.0"  prefHeight="146.0" prefWidth="568.0" style="-fx-background-color: #1d1d1b;">
               <columns>
                 <TableColumn fx:id="username" prefWidth="188.0" text="Name" />
                 <TableColumn fx:id="email" prefWidth="188.0" text="Email" />

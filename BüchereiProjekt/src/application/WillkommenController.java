@@ -3,11 +3,6 @@
 package application;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -215,23 +210,7 @@ public class WillkommenController {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 
-		// Datenbank der B�cher erstellt und verkn�pft: Anastasia
 
-		try {
-
-			Connection connection = DriverManager
-					.getConnection("jdbc:mysql://127.0.0.2:3307/alleBuecher\", \"root\", \"\"");
-			connection.setReadOnly(true);
-			Statement statement = connection.createStatement();
-			ResultSet resultset = statement.executeQuery("select * from alleBuecher");
-
-			resultset.close();
-			statement.close();
-			connection.close();
-		} catch (Exception e) {
-			System.out.println("Die Verbindung mit der Datenbank wurd erstellt. Hier B�cher aufrufen lassen.");
-
-		}
 	}
 
 	@FXML

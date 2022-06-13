@@ -1,4 +1,4 @@
-package application;
+package pojo;
 
 public class Nutzer {
 
