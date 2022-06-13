@@ -18,7 +18,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import pojo.Global;
 
 public class AdminLoginFensterController {
 	@FXML
@@ -96,7 +95,7 @@ public class AdminLoginFensterController {
 			
 	       
 	        try {
-	            connection = DriverManager.getConnection("jdbc:mysql://" + Global.host +  ":3307/admindatabase", "root", "");
+	            connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/admindatabase", "root", "");
 	            System.out.println("Verbunden");
 	            
 	            preparedStatement = connection.prepareStatement("SELECT id, passwort FROM admin WHERE name = ?");
@@ -117,10 +116,10 @@ public class AdminLoginFensterController {
 		        				Node source = (Node) event.getSource();
 		        				Stage oldStage = (Stage) source.getScene().getWindow();
 		        				oldStage.close();
-		        				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AdminFenster.fxml"));
+		        				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Willkommen.fxml"));
 		        				AnchorPane root3 = (AnchorPane) fxmlLoader.load();
 		        				Stage stage = new Stage();
-		        				stage.setTitle("Online Buecherei - Admin-Ansicht");
+		        				stage.setTitle("Online Buecherei - Willkommen");
 		        				stage.setScene(new Scene(root3));
 		        				stage.show(); 
 		        				return;

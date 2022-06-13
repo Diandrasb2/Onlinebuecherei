@@ -27,8 +27,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import pojo.Buch;
-import pojo.Global;
 
 public class AdminBuchsortimentController implements Initializable {
 
@@ -85,7 +83,7 @@ public class AdminBuchsortimentController implements Initializable {
 		beschreibung.setCellValueFactory(new PropertyValueFactory<Buch, String>("beschreibung"));
 
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mysql://"+ Global.host + ":3307/buecherliste", "root", "");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/buecherliste", "root", "");
 			System.out.println("Verbunden");
 
 			// ausgabe alle Bücher
@@ -213,6 +211,11 @@ public class AdminBuchsortimentController implements Initializable {
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
+	}
+
+	@FXML
+	private void handleButtonBuchsortimentAction(ActionEvent event) {
+		System.out.println("Wird bereits angezeigt");
 	}
 
 	

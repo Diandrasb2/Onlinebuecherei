@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
+import javafx.scene.control.SortEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
@@ -27,8 +28,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import pojo.Global;
-import pojo.Nutzer;
 
 public class AdminNutzerlisteController implements Initializable{
 
@@ -75,7 +74,7 @@ public class AdminNutzerlisteController implements Initializable{
 			email.setCellValueFactory(new PropertyValueFactory<Nutzer, String>("email"));
 			passwort.setCellValueFactory(new PropertyValueFactory<Nutzer, String>("passwort"));
 			try {
-				Connection connection = DriverManager.getConnection("jdbc:mysql://"+ Global.host +  ":3307/benutzerdatabase", "root", "");
+				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/benutzerdatabase", "root", "");
 				System.out.println("Verbunden");
 				ResultSet rs = connection.createStatement().executeQuery("select * from benutzer");
 
@@ -160,6 +159,9 @@ public class AdminNutzerlisteController implements Initializable{
 					System.out.println("Fenster wurde nicht geoeffnet");
 				}
 	}
-
+	@FXML
+	private void handleTabelleNutzerAction(SortEvent<?> event) {
+	//Hier tabelle füllen
+	}
 	
 }

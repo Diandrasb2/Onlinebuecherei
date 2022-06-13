@@ -13,8 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import pojo.Global;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -118,7 +116,7 @@ public class RegistrierenFensterController {
 			}
 		}
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mysql://"+ Global.host + ":3307/benutzerdatabase", "root",
+			Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/benutzerdatabase", "root",
 					"");
 			String query = "INSERT INTO benutzer(username, email, passwort) VALUES('" + tfNameR + "','" + tfEmailR
 					+ "','" + pfPasswortR + "')";
