@@ -92,7 +92,7 @@ public class LogInFensterController {
         connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/benutzerdatabase", "root", "");
         System.out.println("Verbunden");
         
-        preparedStatement = connection.prepareStatement("SELECT passwort FROM benutzer WHERE email = ?");
+        preparedStatement = connection.prepareStatement("select passwort from benutzer where email = ?");
         preparedStatement.setString(1, tfEmailL);
         resultSet = preparedStatement.executeQuery();
        

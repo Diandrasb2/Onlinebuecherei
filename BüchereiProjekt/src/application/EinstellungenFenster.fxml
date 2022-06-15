@@ -161,17 +161,7 @@
             <Font name="Franklin Gothic Medium" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="labelName" layoutX="163.0" layoutY="114.0" text="Name:" textFill="WHITE">
-         <font>
-            <Font name="Franklin Gothic Medium" size="12.0" />
-         </font>
-      </Label>
-      <Label fx:id="labelEmail" layoutX="164.0" layoutY="135.0" text="e-mail adresse:" textFill="WHITE">
-         <font>
-            <Font name="Franklin Gothic Medium" size="12.0" />
-         </font>
-      </Label>
-      <Button fx:id="buttonLoeschen" layoutX="162.0" layoutY="361.0" mnemonicParsing="false" onAction="#handleButtonLoeschenAction" style="-fx-background-color: #4d4e4f;" text="Konto löschen" textFill="WHITE">
+      <Button fx:id="buttonLoeschen" layoutX="162.0" layoutY="170.0" mnemonicParsing="false" onAction="#handleButtonLoeschenAction" style="-fx-background-color: #4d4e4f;" text="Konto löschen" textFill="WHITE">
          <font>
             <Font name="Franklin Gothic Medium Cond" size="14.0" />
          </font>
@@ -181,6 +171,11 @@
       <Label fx:id="labelKonto" layoutX="419.0" layoutY="14.0" text="Dein Konto" textFill="WHITE">
          <font>
             <Font name="Franklin Gothic Medium" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="163.0" layoutY="117.0" text="Um ihr aktuelles Benutzerkonto zu löschen drücken sie auf den &quot;Konto löschen&quot; Button &#10;und bestätigen Sie die Löschung mit ihren Anmeldedaten.&#10;" textFill="RED">
+         <font>
+            <Font size="14.0" />
          </font>
       </Label>
    </children>
