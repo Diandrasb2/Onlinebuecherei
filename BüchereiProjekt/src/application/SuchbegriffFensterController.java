@@ -91,7 +91,15 @@ public class SuchbegriffFensterController {
 	@FXML
 	private TextField tfJahrBis;
 	@FXML
-	private TextField tfISBN;
+	private Label labelBis;
+	@FXML
+	private Button buttonStartfenster;
+	@FXML
+	private Button buttonKonto;
+	@FXML
+	private Button buttonAusloggen;
+	@FXML
+	private Button buttonHilfe;
 	
 	@FXML
 	private ImageView imgKonto;
@@ -101,6 +109,11 @@ public class SuchbegriffFensterController {
 	private ImageView imgAusloggen;
 	@FXML
 	private ImageView imgHilfe;
+	
+	@FXML
+	private Tooltip ttIsbn;
+	@FXML 
+	private Button buttonISBNSuchen;
 
 	// Verknuepfung Funktionen: Anastasia
 	@FXML
@@ -310,7 +323,7 @@ public class SuchbegriffFensterController {
 	}
 
 	@FXML
-	private void handleTfISBNAction(ActionEvent event) {
+	private void handleButtonISBNSuchenAction(ActionEvent event) {
 		System.out.println("Filter ISBN");
 		// Aufruf neues Fenster: Diandra
 		Node source = (Node) event.getSource();

@@ -44,7 +44,11 @@ public class HilfeController {
 	@FXML
 	private Label labelHilfeCaption;
 	@FXML
-	private Label labelHilfeText;
+	private Label labelStartseiteHilfe;
+	@FXML
+	private Label labelBenutzerkontoHilfe;
+	@FXML
+	private Label labelKontoHilfe;
 	@FXML
 	private ImageView imgKonto;
 	@FXML

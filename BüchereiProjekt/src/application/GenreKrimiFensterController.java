@@ -103,8 +103,7 @@ public class GenreKrimiFensterController implements Initializable{
 	private TextField tfJahrVon;
 	@FXML
 	private TextField tfJahrBis;
-	@FXML
-	private TextField tfISBN;
+
 	@FXML
 	private Button buttonKonto;
 	@FXML
@@ -148,6 +147,10 @@ public class GenreKrimiFensterController implements Initializable{
 	private ImageView imgAusloggen;
 	@FXML
 	private ImageView imgHilfe;
+	@FXML
+	private Tooltip ttIsbn;
+	@FXML 
+	private Button buttonISBNSuchen;
 	
 	// Verknuepfung Funktionen: Anastasia
 	
@@ -558,7 +561,7 @@ public class GenreKrimiFensterController implements Initializable{
 	}
 
 	@FXML
-	private void handleTfISBNAction(ActionEvent event) {
+	private void handleButtonISBNSuchenAction(ActionEvent event) {
 		System.out.println("Filter ISBN");
 		// Aufruf neues Fenster: Diandra
 		Node source = (Node) event.getSource();

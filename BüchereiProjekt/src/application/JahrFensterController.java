@@ -55,9 +55,9 @@ public class JahrFensterController implements Initializable{
 	@FXML
 	private AnchorPane feldJahr;
 	@FXML
-	private TitledPane ISBN;
-	@FXML
 	private AnchorPane feldISBN;
+	@FXML
+	private TitledPane ISBN;
 	@FXML
 	private Tooltip ttHinweisSuche;
 	@FXML
@@ -154,7 +154,10 @@ public class JahrFensterController implements Initializable{
 	private ImageView imgAusloggen;
 	@FXML
 	private ImageView imgHilfe;
-	
+	@FXML
+	private Tooltip ttIsbn;
+	@FXML 
+	private Button buttonISBNSuchen;
 	//Datenbankverknüpfung+aufruf (von Anastastia)
 	
 		ObservableList<Buch> liste = FXCollections.observableArrayList();
@@ -372,6 +375,7 @@ public class JahrFensterController implements Initializable{
 		}
 	}
 
+
 	
 	@FXML
 	private void handleTfSucheAction(ActionEvent event) {
@@ -573,7 +577,7 @@ public class JahrFensterController implements Initializable{
 	}
 
 	@FXML
-	private void handleTfISBNAction(ActionEvent event) {
+	private void handleButtonISBNSuchenAction(ActionEvent event) {
 		System.out.println("Filter ISBN");
 		// Aufruf neues Fenster: Diandra
 		Node source = (Node) event.getSource();

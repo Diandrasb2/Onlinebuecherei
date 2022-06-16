@@ -95,6 +95,8 @@ public class FilterZaFensterController implements Initializable{
 	@FXML 
 	private Button buttonSprache;
 	@FXML
+	private Button buttonHilfe;
+	@FXML
 	private Label labelBeschreibung1;
 	@FXML
 	private Label labelBeschreibung2;
@@ -112,8 +114,6 @@ public class FilterZaFensterController implements Initializable{
 	private TextField tfJahrVon;
 	@FXML
 	private TextField tfJahrBis;
-	@FXML
-	private TextField tfISBN;
 	@FXML
 	private TableView<Buch> tabelleSortiment;
 	@FXML
@@ -145,6 +145,10 @@ public class FilterZaFensterController implements Initializable{
 	private ImageView imgAusloggen;
 	@FXML
 	private ImageView imgHilfe;
+	@FXML
+	private Tooltip ttIsbn;
+	@FXML 
+	private Button buttonISBNSuchen;
 	
 	//Datenbankverknüpfung+aufruf und Sortieralgorithmus: z-a (von Anastasia)
 
@@ -548,7 +552,7 @@ public class FilterZaFensterController implements Initializable{
 		}
 	}
 	@FXML
-	private void handleTfISBNAction(ActionEvent event) {
+	private void handleButtonISBNSuchenAction(ActionEvent event) {
 		System.out.println("Filter ISBN");
 		// Aufruf neues Fenster: Diandra
 		Node source = (Node) event.getSource();

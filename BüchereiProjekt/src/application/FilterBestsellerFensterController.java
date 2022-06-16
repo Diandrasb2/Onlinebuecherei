@@ -105,8 +105,6 @@ public class FilterBestsellerFensterController implements Initializable{
 	@FXML
 	private TextField tfJahrBis;
 	@FXML
-	private TextField tfISBN;
-	@FXML
 	private Label labelBest;
 	@FXML
 	private Button buttonKonto;
@@ -151,7 +149,10 @@ public class FilterBestsellerFensterController implements Initializable{
 	@FXML
 	private ImageView imgHilfe;
 	
-	
+	@FXML
+	private Tooltip ttIsbn;
+	@FXML 
+	private Button buttonISBNSuchen;
 	// Verknuepfung Funktionen: Anastasia
 
 		ObservableList<Buch> liste = FXCollections.observableArrayList();
@@ -553,7 +554,7 @@ public class FilterBestsellerFensterController implements Initializable{
 		}
 	}
 	@FXML
-	private void handleTfISBNAction(ActionEvent event) {
+	private void handleButtonISBNSuchenAction(ActionEvent event) {
 		System.out.println("Filter ISBN");
 		// Aufruf neues Fenster: Diandra
 		Node source = (Node) event.getSource();

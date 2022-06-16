@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -35,9 +36,9 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import pojo.Buch;
 
-public class ISBNFensterController implements Initializable{
-	
-	//Aufrufe FXML: Anastasia
+public class ISBNFensterController implements Initializable {
+
+	// Aufrufe FXML: Anastasia
 	@FXML
 	private AnchorPane flaecheSuche;
 	@FXML
@@ -58,7 +59,7 @@ public class ISBNFensterController implements Initializable{
 	private TitledPane ISBN;
 	@FXML
 	private AnchorPane feldISBN;
-	@FXML 
+	@FXML
 	private Tooltip ttHinweisSuche;
 	@FXML
 	private Label labelWillkommen;
@@ -98,8 +99,12 @@ public class ISBNFensterController implements Initializable{
 	private Button buttonKrimi;
 	@FXML
 	private Button buttonSachliteratur;
-	@FXML 
+	@FXML
 	private Button buttonSprache;
+	@FXML
+	private Button buttonISBNSuchen;
+	@FXML
+	private Button buttonHilfe;
 	@FXML
 	private Label labelBeschreibung1;
 	@FXML
@@ -110,6 +115,8 @@ public class ISBNFensterController implements Initializable{
 	private TextField tfJahrBis;
 	@FXML
 	private TextField tfISBN;
+	@FXML
+	private TextField tfISBN1;
 	@FXML
 	private Label labelBis;
 	@FXML
@@ -141,8 +148,8 @@ public class ISBNFensterController implements Initializable{
 	@FXML
 	private Button buttonReservieren;
 	@FXML
-    private Button buttonAusleihen;
-	
+	private Button buttonAusleihen;
+
 	@FXML
 	private ImageView imgKonto;
 	@FXML
@@ -151,14 +158,28 @@ public class ISBNFensterController implements Initializable{
 	private ImageView imgAusloggen;
 	@FXML
 	private ImageView imgHilfe;
+	@FXML
+	private Tooltip ttIsbn;
 	
+	@FXML
+	private Label labelBeschreibung3;
 	
-	//Datenbankverknüpfung+aufruf (von Anastastia)
-	
-		ObservableList<Buch> liste = FXCollections.observableArrayList();
+	public String enteredISBN;
+	public String enteredISBN2;
 
-		@Override
-		public void initialize(URL url, ResourceBundle rb) {
+	private Connection con = null;
+	private PreparedStatement preparedStatement = null;
+	private ResultSet rs = null;
+
+	private ObservableList<Buch> liste;
+	// Datenbankverknï¿½pfung+aufruf (von Anastastia)
+
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/buecherliste", "root", "");
+			liste = FXCollections.observableArrayList();
+
 			titel.setCellValueFactory(new PropertyValueFactory<Buch, String>("titel"));
 			genre.setCellValueFactory(new PropertyValueFactory<Buch, String>("genre"));
 			verfasser.setCellValueFactory(new PropertyValueFactory<Buch, String>("verfasser"));
@@ -167,46 +188,70 @@ public class ISBNFensterController implements Initializable{
 			isbn.setCellValueFactory(new PropertyValueFactory<Buch, Long>("isbn"));
 			beschreibung.setCellValueFactory(new PropertyValueFactory<Buch, String>("beschreibung"));
 
-			try {
-				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/buecherliste", "root", "");
-				System.out.println("Verbunden");
+			loadDataFromDatabase();
+			sucheIsbn();
 
-				// ausgabe alle Buecher
-
-				ResultSet rs = connection.createStatement()
-						.executeQuery("select * from alleBuecher"); //Gibt aktuell unsortiert alle Buecher aus
-
-				while (rs.next()) {
-					Buch b = new Buch(rs.getString("titel"), rs.getString("genre"), rs.getString("verfasser"),
-							rs.getInt("jahr"), rs.getString("verlag"), rs.getLong("isbn"), rs.getString("beschreibung"));
-					b.setTitel(rs.getString("titel"));
-					b.setVerfasser(rs.getString("verfasser"));
-					b.setGenre(rs.getString("genre"));
-					b.setJahr(rs.getInt("jahr"));
-					b.setVerlag(rs.getString("verlag"));
-					b.setIsbn(rs.getLong("isbn"));
-					b.setBeschreibung(rs.getString("beschreibung"));
-					liste.add(b);
-
-					
-					tabelleSortiment.setItems(liste);
-					
-					
-					
-					
-				}
-			} catch (SQLException ex) {
-				System.out.println("Fehler");
-			}
-
-			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-	
-	//Verknuepfung Funktionen: Anastasia
-	
+
+	}
+
+	private void loadDataFromDatabase() {
+		try {
+			preparedStatement = con.prepareStatement("Select*from alleBuecher where isbn");
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				Buch b = new Buch(rs.getString("titel"), rs.getString("genre"), rs.getString("verfasser"),
+						rs.getInt("jahr"), rs.getString("verlag"), rs.getLong("isbn"), rs.getString("beschreibung"));
+				b.setTitel(rs.getString("titel"));
+				b.setVerfasser(rs.getString("verfasser"));
+				b.setGenre(rs.getString("genre"));
+				b.setJahr(rs.getInt("jahr"));
+				b.setVerlag(rs.getString("verlag"));
+				b.setIsbn(rs.getLong("isbn"));
+				b.setBeschreibung(rs.getString("beschreibung"));
+				liste.add(b);
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		tabelleSortiment.setItems(liste);
+	}
+
+	private void sucheIsbn() {
+		tfISBN.setOnKeyReleased(e -> {
+			if (tfISBN.getText().equals("")) {
+				loadDataFromDatabase();
+			} else {
+				liste.clear();
+				String sql = "select * from alleBuecher where isbn LIKE '%" + tfISBN.getText() + "%'";
+				try {
+					System.out.println(tfISBN.getText());
+
+					PreparedStatement preparedStatement = con.prepareStatement(sql);
+					rs = preparedStatement.executeQuery();
+					while (rs.next()) {
+						System.out.println("" + rs.getString("titel"));
+						liste.add(new Buch(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4),
+								rs.getString(5), rs.getLong(6), rs.getString(7)));
+					}
+					tabelleSortiment.setItems(liste);
+				} catch (SQLException ex) {
+					System.out.println("Fehler bei der Suche");
+				}
+			}
+		});
+	}
+
+	// Verknuepfung Funktionen: Anastasia
+
 	@FXML
 	private void handleButtonAnzeigenAction(ActionEvent event) throws SQLException {
-		//von Anastasia
+		// von Anastasia
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Buchdetails.fxml"));
 			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
@@ -214,25 +259,27 @@ public class ISBNFensterController implements Initializable{
 			stage.setTitle("Online Buecherei - Buchdetails");
 			stage.setScene(new Scene(root3));
 			stage.show();
-			
-			//Ausgabe aus der Tabelle wird für gewählte Zeile in neuem Fenster ausgegeben um alles lesen zu können
-			BuchdetailsController buchdetailsController=fxmlLoader.getController();
-			
+
+			// Ausgabe aus der Tabelle wird fï¿½r gewï¿½hlte Zeile in neuem Fenster ausgegeben
+			// um alles lesen zu kï¿½nnen
+			BuchdetailsController buchdetailsController = fxmlLoader.getController();
+
 			int row = tabelleSortiment.getSelectionModel().getSelectedIndex();
 
-			if(row>=0) { //Nur wenn ein Feld ausgewählt ist, ist dieser Aufruf möglich
-			buchdetailsController.setData(""+tabelleSortiment.getSelectionModel().getSelectedItem().getTitel(), 
-			tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser(),
-			""+tabelleSortiment.getSelectionModel().getSelectedItem().getGenre(),
-			+tabelleSortiment.getSelectionModel().getSelectedItem().getJahr(),
-			""+tabelleSortiment.getSelectionModel().getSelectedItem().getVerlag(),
-			+tabelleSortiment.getSelectionModel().getSelectedItem().getIsbn(),
-			""+tabelleSortiment.getSelectionModel().getSelectedItem().getBeschreibung());
+			if (row >= 0) { // Nur wenn ein Feld ausgewï¿½hlt ist, ist dieser Aufruf mï¿½glich
+				buchdetailsController.setData("" + tabelleSortiment.getSelectionModel().getSelectedItem().getTitel(),
+						tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser(),
+						"" + tabelleSortiment.getSelectionModel().getSelectedItem().getGenre(),
+						+tabelleSortiment.getSelectionModel().getSelectedItem().getJahr(),
+						"" + tabelleSortiment.getSelectionModel().getSelectedItem().getVerlag(),
+						+tabelleSortiment.getSelectionModel().getSelectedItem().getIsbn(),
+						"" + tabelleSortiment.getSelectionModel().getSelectedItem().getBeschreibung());
 			}
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
+
 	@FXML
 	private void handleButtonMerkeAction(ActionEvent event) throws SQLException {
 		// Von Anastasia
@@ -250,7 +297,7 @@ public class ISBNFensterController implements Initializable{
 
 			if (row >= 0) {
 				HinweisController hinweis = fxmlLoader.getController();
-				hinweis.hinweisText("Aktion erfolgreich durchgeführt!!");
+				hinweis.hinweisText("Aktion erfolgreich durchgefÃ¼hrt!!");
 
 				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/merkliste", "root",
 						"");
@@ -265,10 +312,10 @@ public class ISBNFensterController implements Initializable{
 				Statement sta = connection.createStatement();
 				int x = sta.executeUpdate(query);
 				if (x == 0) {
-					System.out.println("Funktion wird nicht durchgeführt");
+					System.out.println("Funktion wird nicht durchgefÃ¼hrt");
 
 				} else {
-					System.out.println("Funktion wird durchgeführt");
+					System.out.println("Funktion wird durchgefÃ¼hrt");
 
 				}
 				connection.close();
@@ -298,7 +345,7 @@ public class ISBNFensterController implements Initializable{
 
 			if (row >= 0) {
 				HinweisController hinweis = fxmlLoader.getController();
-				hinweis.hinweisText("Aktion erfolgreich durchgeführt!!");
+				hinweis.hinweisText("Aktion erfolgreich durchgefÃ¼hrt!!");
 
 				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/leihliste", "root",
 						"");
@@ -313,9 +360,9 @@ public class ISBNFensterController implements Initializable{
 				Statement sta = connection.createStatement();
 				int x = sta.executeUpdate(query);
 				if (x == 0) {
-					System.out.println("Funktion wird nicht durchgeführt");
+					System.out.println("Funktion wird nicht durchgefÃ¼hrt");
 				} else {
-					System.out.println("Funktion wird durchgeführt");
+					System.out.println("Funktion wird durchgefÃ¼hrt");
 				}
 				connection.close();
 				System.out.println(query);
@@ -343,7 +390,7 @@ public class ISBNFensterController implements Initializable{
 
 			if (row >= 0) {
 				HinweisController hinweis = fxmlLoader.getController();
-				hinweis.hinweisText("Aktion erfolgreich durchgeführt!!");
+				hinweis.hinweisText("Aktion erfolgreich durchgefÃ¼hrt!!");
 
 				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/reservierliste",
 						"root", "");
@@ -358,9 +405,9 @@ public class ISBNFensterController implements Initializable{
 				Statement sta = connection.createStatement();
 				int x = sta.executeUpdate(query);
 				if (x == 0) {
-					System.out.println("Funktion wird nicht durchgeführt");
+					System.out.println("Funktion wird nicht durchgefÃ¼hrt");
 				} else {
-					System.out.println("Funktion wird durchgeführt");
+					System.out.println("Funktion wird durchgefÃ¼hrt");
 				}
 				connection.close();
 				System.out.println(query);
@@ -371,22 +418,47 @@ public class ISBNFensterController implements Initializable{
 		}
 	}
 
-	
 	@FXML
 	private void handleTfISBNAction(ActionEvent event) {
-		
+		System.out.println("Filter ISBN");
+//sucheIsbn();
+		System.out.println(tfISBN.getText());
+		if (tfISBN.getText().equals("")) {
+			loadDataFromDatabase();
+		} else {
+			liste.clear();
+			String sql = "select * from alleBuecher where isbn LIKE '%" + tfISBN.getText() + "%'";
+			try {
+				System.out.println(tfISBN.getText());
+
+				PreparedStatement preparedStatement = con.prepareStatement(sql);
+				rs = preparedStatement.executeQuery();
+				while (rs.next()) {
+					System.out.println("" + rs.getString("titel"));
+					liste.add(new Buch(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),
+							rs.getLong(6), rs.getString(7)));
+				}
+				tabelleSortiment.setItems(liste);
+			} catch (SQLException ex) {
+				System.out.println("Fehler bei der Suche");
+			}
+		}
 	}
-	
+	@FXML
+	private void handleButtonISBNSuchenAction(ActionEvent event) {
+		System.out.println("Du bist bereits auf dem ISBN-Filter");
+	}
+
 	@FXML
 	private void handleTfSucheAction(ActionEvent event) {
 		System.out.println("Gebe hier einen Suchbegriff ein");
-		
+
 	}
 
 	@FXML
 	private void handleButtonOkAction(ActionEvent event) {
 		System.out.println("Du hast deine Eingabe bestaetigt");
-		//Aufruf neues Fenster: Anastasia
+		// Aufruf neues Fenster: Anastasia
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
 		oldStage.close();
@@ -402,11 +474,11 @@ public class ISBNFensterController implements Initializable{
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
-	
+
 	@FXML
 	private void handleButtonAzAction(ActionEvent event) {
 		System.out.println("Filter a-z");
-		//Aufruf neues Fenster: Diandra
+		// Aufruf neues Fenster: Diandra
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
 		oldStage.close();
@@ -422,68 +494,71 @@ public class ISBNFensterController implements Initializable{
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
-	
+
 	@FXML
 	private void handleButtonZaAction(ActionEvent event) {
 		System.out.println("Filter z-a");
-		//Aufruf neues Fenster: Anastasia
-				Node source = (Node) event.getSource();
-				Stage oldStage = (Stage) source.getScene().getWindow();
-				oldStage.close();
+		// Aufruf neues Fenster: Anastasia
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
 
-				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FilterZaFenster.fxml"));
-					AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-					Stage stage = new Stage();
-					stage.setTitle("Online Buecherei - Filter z-a");
-					stage.setScene(new Scene(root3));
-					stage.show();
-				} catch (IOException iOException) {
-					System.out.println("Fenster wurde nicht geoeffnet");
-				}
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FilterZaFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Filter z-a");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
 	}
+
 	@FXML
 	private void handleButtonBestsellerAction(ActionEvent event) {
 		System.out.println("Filter Bestseller");
-		//Aufruf neues Fenster: Anastasia
-				Node source = (Node) event.getSource();
-				Stage oldStage = (Stage) source.getScene().getWindow();
-				oldStage.close();
+		// Aufruf neues Fenster: Anastasia
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
 
-				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FilterBestsellerFenster.fxml"));
-					AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-					Stage stage = new Stage();
-					stage.setTitle("Online Buecherei - Bestseller");
-					stage.setScene(new Scene(root3));
-					stage.show();
-				} catch (IOException iOException) {
-					System.out.println("Fenster wurde nicht geoeffnet");
-				}
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FilterBestsellerFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Bestseller");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
 	}
+
 	@FXML
 	private void handleButtonRomaneAction(ActionEvent event) {
 		System.out.println("Filter Romane");
-		//Aufruf neues Fenster: Anastasia
-				Node source = (Node) event.getSource();
-				Stage oldStage = (Stage) source.getScene().getWindow();
-				oldStage.close();
+		// Aufruf neues Fenster: Anastasia
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
 
-				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GenreRomaneFenster.fxml"));
-					AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-					Stage stage = new Stage();
-					stage.setTitle("Online Buecherei - Romane");
-					stage.setScene(new Scene(root3));
-					stage.show();
-				} catch (IOException iOException) {
-					System.out.println("Fenster wurde nicht geoeffnet");
-				}
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GenreRomaneFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Romane");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
 	}
+
 	@FXML
 	private void handleButtonThrillerAction(ActionEvent event) {
 		System.out.println("Filter Thriller");
-		//Aufruf neues Fenster: Anastasia
+		// Aufruf neues Fenster: Anastasia
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
 		oldStage.close();
@@ -499,11 +574,12 @@ public class ISBNFensterController implements Initializable{
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
+
 	@FXML
 	private void handleButtonKrimiAction(ActionEvent event) {
 		System.out.println("Filter Krimi");
-		
-		//Aufruf neues Fenster: Anastasia
+
+		// Aufruf neues Fenster: Anastasia
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
 		oldStage.close();
@@ -519,29 +595,31 @@ public class ISBNFensterController implements Initializable{
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
+
 	@FXML
 	private void handleButtonSachliteraturAction(ActionEvent event) {
 		System.out.println("Filter Sachliteratur");
-		//Aufruf neues Fenster: Anastasia
-				Node source = (Node) event.getSource();
-				Stage oldStage = (Stage) source.getScene().getWindow();
-				oldStage.close();
+		// Aufruf neues Fenster: Anastasia
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
 
-				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GenreSachliteraturFenster.fxml"));
-					AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-					Stage stage = new Stage();
-					stage.setTitle("Online Buecherei - Sachliteratur");
-					stage.setScene(new Scene(root3));
-					stage.show();
-				} catch (IOException iOException) {
-					System.out.println("Fenster wurde nicht geoeffnet");
-				}
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GenreSachliteraturFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Sachliteratur");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
 	}
+
 	@FXML
 	private void handleButtonSpracheAction(ActionEvent event) {
 		System.out.println("Filter Fremdsprache");
-		//Aufruf neues Fenster: Anastasia
+		// Aufruf neues Fenster: Anastasia
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
 		oldStage.close();
@@ -555,11 +633,13 @@ public class ISBNFensterController implements Initializable{
 			stage.show();
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
-		}}
+		}
+	}
+
 	@FXML
 	private void handleTfJahrAction(ActionEvent event) {
 		System.out.println("Filter Erscheinungsjahr");
-		//Aufruf neues Fenster: Diandra
+		// Aufruf neues Fenster: Diandra
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
 		oldStage.close();
@@ -575,8 +655,7 @@ public class ISBNFensterController implements Initializable{
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
-	
-	
+
 	@FXML
 	private void handleButtonKontoAction(ActionEvent event) {
 		System.out.println("Konto");

@@ -167,15 +167,19 @@
                      <content>
                         <AnchorPane fx:id="feldISBN" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #4d4e4f;">
                            <children>
-                              <Label fx:id="labelBeschreibung2" layoutX="8.0" layoutY="15.0" text="Geben Sie hier die &#10;ISBN Nummer ein:" textFill="WHITE">
+                              <Label fx:id="labelBeschreibung2" layoutX="11.0" layoutY="14.0" text="Klicken Sie hier, &#10;um nach ISBN&#10;zu suchen:" textFill="WHITE">
                                  <font>
                                     <Font name="Franklin Gothic Demi" size="12.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="tfISBN" layoutX="8.0" layoutY="58.0" onAction="#handleTfISBNAction" prefHeight="27.0" prefWidth="115.0">
+                              <Button fx:id="buttonISBNSuchen" layoutX="11.0" layoutY="64.0" mnemonicParsing="false" onAction="#handleButtonISBNSuchenAction" prefHeight="22.0" prefWidth="115.0" style="-fx-background-color: #ff9900;" text="ISBN suche" textFill="WHITE">
+                                 <font>
+                                    <Font name="Franklin Gothic Demi" size="12.0" />
+                                 </font>
                                  <cursor>
-                                    <Cursor fx:constant="TEXT" />
-                                 </cursor></TextField>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
                            </children>
                         </AnchorPane>
                      </content>

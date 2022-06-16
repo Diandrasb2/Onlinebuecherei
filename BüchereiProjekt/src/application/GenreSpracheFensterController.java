@@ -107,8 +107,6 @@ public class GenreSpracheFensterController implements Initializable{
 	@FXML
 	private TextField tfJahrBis;
 	@FXML
-	private TextField tfISBN;
-	@FXML
 	private Button buttonKonto;
 	@FXML
 	private Button buttonStartfenster;
@@ -149,6 +147,10 @@ public class GenreSpracheFensterController implements Initializable{
 	private ImageView imgAusloggen;
 	@FXML
 	private ImageView imgHilfe;
+	@FXML
+	private Tooltip ttIsbn;
+	@FXML 
+	private Button buttonISBNSuchen;
 
 	// Verknuepfung Funktionen: Anastasia
 	ObservableList<Buch> liste = FXCollections.observableArrayList();
@@ -555,7 +557,7 @@ public class GenreSpracheFensterController implements Initializable{
 	}
 
 	@FXML
-	private void handleTfISBNAction(ActionEvent event) {
+	private void handleButtonISBNSuchenAction(ActionEvent event) {
 		System.out.println("Filter ISBN");
 		// Aufruf neues Fenster: Diandra
 		Node source = (Node) event.getSource();
