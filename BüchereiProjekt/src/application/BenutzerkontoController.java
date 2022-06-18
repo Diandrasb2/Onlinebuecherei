@@ -53,7 +53,7 @@ public class BenutzerkontoController {
 	private Button buttonAusloggen;
 	@FXML
 	private Button buttonHilfe;
-	
+
 	@FXML
 	private ImageView imgKonto;
 	@FXML
@@ -86,7 +86,7 @@ public class BenutzerkontoController {
 	@FXML
 	private void handleButtonReserviertAction(ActionEvent event) {
 		System.out.println("Reserviert");
-	  Node source = (Node) event.getSource();
+		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
 		oldStage.close();
 
@@ -105,7 +105,7 @@ public class BenutzerkontoController {
 	@FXML
 	private void handleButtonAusgeliehenAction(ActionEvent event) {
 		System.out.println("Ausgeliehen");
-	  Node source = (Node) event.getSource();
+		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
 		oldStage.close();
 

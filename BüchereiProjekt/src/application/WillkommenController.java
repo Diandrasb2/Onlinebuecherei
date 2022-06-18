@@ -15,7 +15,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
@@ -49,9 +48,7 @@ public class WillkommenController {
 	@FXML
 	private Label labelWillkommen;
 	@FXML
-	private TextField tfSuche;
-	@FXML
-	private Button buttonOK;
+	private Button buttonOKSuche;
 	@FXML
 	private Button buttonAz;
 	@FXML
@@ -73,12 +70,6 @@ public class WillkommenController {
 	@FXML
 	private Label labelBeschreibung2;
 	@FXML
-	private Label labelBis;
-	@FXML
-	private TextField tfJahrVon;
-	@FXML
-	private TextField tfJahrBis;
-	@FXML
 	private Tooltip ttKonto;
 	@FXML
 	private Tooltip ttStartfenster;
@@ -95,7 +86,7 @@ public class WillkommenController {
 	private Button buttonAusloggen;
 	@FXML
 	private Button buttonHilfe;
-	
+
 	@FXML
 	private ImageView imgKonto;
 	@FXML
@@ -108,16 +99,14 @@ public class WillkommenController {
 	private Tooltip ttIsbn;
 	@FXML 
 	private Button buttonISBNSuchen;
+	@FXML
+	private Button buttonJahrSuchen;
 
 	// Verkuepfung Funktionen: Anastasia
-	@FXML
-	private void handleTfSucheAction(ActionEvent event) {
-		System.out.println("Gebe hier einen Suchbegriff ein");
-	}
 
 	@FXML
-	private void handleButtonOkAction(ActionEvent event) {
-		System.out.println("Du hast deine Eingabe bestaetigt");
+	private void handleButtonOKSuchenAction(ActionEvent event) {
+		System.out.println("Du gelangst zur Suchbegriff-Suche.");
 		// Aufruf neues Fenster: Anastasia
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
@@ -150,8 +139,8 @@ public class WillkommenController {
 			stage.setTitle("Online Buecherei - Filter a-z");
 			stage.setScene(new Scene(root3));
 			stage.show();
-			
-			
+
+
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
@@ -217,12 +206,12 @@ public class WillkommenController {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 
-		// Datenbank der B�cher erstellt und verkn�pft: Anastasia
+		// Datenbank der Buecher erstellt und verknuepft: Anastasia
 
 		try {
 
 			Connection connection = DriverManager
-					.getConnection("jdbc:mysql://127.0.0.2:3307/alleBuecher\", \"root\", \"\"");
+					.getConnection("jdbc:mysql://localhost:3307/alleBuecher", "root", "");
 			connection.setReadOnly(true);
 			Statement statement = connection.createStatement();
 			ResultSet resultset = statement.executeQuery("select * from alleBuecher");
@@ -230,9 +219,9 @@ public class WillkommenController {
 			resultset.close();
 			statement.close();
 			connection.close();
+
 		} catch (Exception e) {
 			System.out.println("Die Verbindung mit der Datenbank wurd erstellt. Hier B�cher aufrufen lassen.");
-
 		}
 	}
 
@@ -319,27 +308,6 @@ public class WillkommenController {
 	}
 
 	@FXML
-	private void handleTfJahrAction(ActionEvent event) {
-		System.out.println("Filter Erscheinungsjahr");
-
-		// Aufruf neues Fenster: Diandra
-		Node source = (Node) event.getSource();
-		Stage oldStage = (Stage) source.getScene().getWindow();
-		oldStage.close();
-
-		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JahrFenster.fxml"));
-			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-			Stage stage = new Stage();
-			stage.setTitle("Online Buecherei - Jahr");
-			stage.setScene(new Scene(root3));
-			stage.show();
-		} catch (IOException iOException) {
-			System.out.println("Fenster wurde nicht geoeffnet");
-		}
-	}
-
-	@FXML
 	private void handleButtonISBNSuchenAction(ActionEvent event) {
 		System.out.println("Filter ISBN");
 		// Aufruf neues Fenster: Diandra
@@ -352,6 +320,26 @@ public class WillkommenController {
 			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
 			Stage stage = new Stage();
 			stage.setTitle("Online Buecherei - ISBN");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
+	}
+
+	@FXML
+	private void handleButtonJahrSuchenAction(ActionEvent event) {
+		System.out.println("Filter Jahr");
+		// Aufruf neues Fenster: Diandra
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
+
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JahrFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Jahr");
 			stage.setScene(new Scene(root3));
 			stage.show();
 		} catch (IOException iOException) {
@@ -376,7 +364,6 @@ public class WillkommenController {
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
-
 	}
 
 	@FXML
@@ -396,7 +383,6 @@ public class WillkommenController {
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
-
 	}
 
 	@FXML
@@ -416,7 +402,6 @@ public class WillkommenController {
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
-
 	}
 
 	@FXML
@@ -437,7 +422,5 @@ public class WillkommenController {
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
-
 	}
-
 }

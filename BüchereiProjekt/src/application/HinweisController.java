@@ -15,7 +15,6 @@ public class HinweisController {
 	private Label labelHinweis;
 
 	public void hinweisText (String text) {
-		labelHinweis.setText("Aktion erfolgreich durchgeführt!");
+		labelHinweis.setText("Aktion erfolgreich durchgefï¿½hrt!");
 	}
-	
 }

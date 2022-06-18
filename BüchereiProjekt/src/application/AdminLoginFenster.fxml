@@ -14,7 +14,7 @@
             <Font name="Franklin Gothic Medium Cond" size="31.0" />
          </font>
       </Label>
-      <TextField fx:id="tfId" alignment="CENTER" layoutX="138.0" layoutY="172.0" onAction="#handleTfIdAction" prefHeight="47.0" prefWidth="365.0">
+      <TextField fx:id="tfId" alignment="CENTER" layoutX="138.0" layoutY="172.0" prefHeight="47.0" prefWidth="365.0">
          <font>
             <Font name="Franklin Gothic Demi Cond" size="26.0" />
          </font>
@@ -35,7 +35,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <TextField fx:id="tfName" alignment="CENTER" layoutX="138.0" layoutY="118.0" onAction="#handleTfNameAction" prefHeight="47.0" prefWidth="365.0">
+      <TextField fx:id="tfName" alignment="CENTER" layoutX="138.0" layoutY="118.0" prefHeight="47.0" prefWidth="365.0">
          <font>
             <Font name="Franklin Gothic Demi Cond" size="26.0" />
          </font>
@@ -55,7 +55,7 @@
             <Font name="Franklin Gothic Demi Cond" size="21.0" />
          </font>
       </Label>
-      <TextField fx:id="tfPasswort" alignment="CENTER" layoutX="138.0" layoutY="226.0" onAction="#handleTfPasswortAction" prefHeight="47.0" prefWidth="365.0">
+      <TextField fx:id="tfPasswort" alignment="CENTER" layoutX="138.0" layoutY="226.0" prefHeight="47.0" prefWidth="365.0">
          <font>
             <Font name="Franklin Gothic Demi Cond" size="26.0" />
          </font>

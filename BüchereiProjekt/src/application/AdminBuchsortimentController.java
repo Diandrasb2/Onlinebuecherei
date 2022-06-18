@@ -65,12 +65,11 @@ public class AdminBuchsortimentController implements Initializable {
 	private TableColumn<Buch, String> beschreibung;
 	@FXML
 	private Button buttonAnzeigen;
-	
 	@FXML
 	private ImageView imgHome;
 
-	//Datenbankverknüpfung+aufruf (von Anastastia)
-	
+	//Datenbankverknuepfung + Aufruf (von Anastastia)
+
 	ObservableList<Buch> liste = FXCollections.observableArrayList();
 
 	@Override
@@ -84,10 +83,10 @@ public class AdminBuchsortimentController implements Initializable {
 		beschreibung.setCellValueFactory(new PropertyValueFactory<Buch, String>("beschreibung"));
 
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/buecherliste", "root", "");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/buecherliste", "root", "");
 			System.out.println("Verbunden");
 
-			// ausgabe alle Bücher
+			// ausgabe alle Bï¿½cher
 
 			ResultSet rs = connection.createStatement()
 					.executeQuery("select * from alleBuecher");
@@ -104,18 +103,13 @@ public class AdminBuchsortimentController implements Initializable {
 				b.setBeschreibung(rs.getString("beschreibung"));
 				liste.add(b);
 
-				
+
 				tabelleSortiment.setItems(liste);
-				
-				
-				
-				
 			}
+
 		} catch (SQLException ex) {
 			System.out.println("Fehler");
 		}
-
-		
 	}
 
 	@FXML
@@ -128,35 +122,31 @@ public class AdminBuchsortimentController implements Initializable {
 			stage.setTitle("Online Buecherei - Buchdetails");
 			stage.setScene(new Scene(root3));
 			stage.show();
-			
-			
-			
-			//Ausgabe aus der Tabelle wird für gewählte Zeile in neuem Fenster ausgegeben um alles lesen zu können
+
+
+			//Ausgabe aus der Tabelle wird fï¿½r gewï¿½hlte Zeile in neuem Fenster ausgegeben um alles lesen zu kï¿½nnen
 			BuchdetailsController buchdetailsController=fxmlLoader.getController();
-			
+
 			int row = tabelleSortiment.getSelectionModel().getSelectedIndex();
 
 			if(row>=0) {			
-			buchdetailsController.setData(""+tabelleSortiment.getSelectionModel().getSelectedItem().getTitel(), 
-			tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser(),
-			""+tabelleSortiment.getSelectionModel().getSelectedItem().getGenre(),
-			+tabelleSortiment.getSelectionModel().getSelectedItem().getJahr(),
-			""+tabelleSortiment.getSelectionModel().getSelectedItem().getVerlag(),
-			+tabelleSortiment.getSelectionModel().getSelectedItem().getIsbn(),
-			""+tabelleSortiment.getSelectionModel().getSelectedItem().getBeschreibung());
-				}
-			
+				buchdetailsController.setData(""+tabelleSortiment.getSelectionModel().getSelectedItem().getTitel(), 
+						tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser(),
+						""+tabelleSortiment.getSelectionModel().getSelectedItem().getGenre(),
+						+tabelleSortiment.getSelectionModel().getSelectedItem().getJahr(),
+						""+tabelleSortiment.getSelectionModel().getSelectedItem().getVerlag(),
+						+tabelleSortiment.getSelectionModel().getSelectedItem().getIsbn(),
+						""+tabelleSortiment.getSelectionModel().getSelectedItem().getBeschreibung());
+			}
+
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
 
-
-	
-	
 	@FXML
 	private void handleButtonAdminStartAction(ActionEvent event) {
-		System.out.println("Startseite wird wieder geöffnet");
+		System.out.println("Startseite wird wieder geï¿½ffnet");
 		// Neues Fenster: Anastasia
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
@@ -213,11 +203,9 @@ public class AdminBuchsortimentController implements Initializable {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
-@FXML
-private void handleButtonBuchsortimentAction(ActionEvent event) {
-	System.out.println("Du bist bereits auf dem Fenster");
-}
-
-	
+	@FXML
+	private void handleButtonBuchsortimentAction(ActionEvent event) {
+		System.out.println("Du bist bereits auf dem Fenster");
+	}
 
 }

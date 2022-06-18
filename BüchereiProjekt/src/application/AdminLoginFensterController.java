@@ -46,95 +46,82 @@ public class AdminLoginFensterController {
 	private Button buttonOK;
 	@FXML
 	private Button buttonZurueck;
-	
-	//Verknüpfung Funktionen: Anastasia
-		@FXML
-		private void handleTfNameAction(ActionEvent event) {		
-		}
-		 
-		@FXML
-		private void handleTfIdAction(ActionEvent event) {
-			System.out.println("Tippe deine ID ein");
-		}
-		
-		@FXML
-		private void handleTfPasswortAction(ActionEvent event) {
-			System.out.println("Tippe dein Passwort ein");
-		}
 
-		@FXML
-		private void handleButtonZurueckAction(ActionEvent event) {
-			System.out.println("Du hast den Zurueck-button gedrueckt");
+	//Verknuepfung Funktionen: Anastasia
 
-			// Neues Fenster: Anastasia
-			Node source = (Node) event.getSource();
-			Stage oldStage = (Stage) source.getScene().getWindow();
-			oldStage.close();
+	@FXML
+	private void handleButtonZurueckAction(ActionEvent event) {
+		System.out.println("Du hast den Zurueck-button gedrueckt");
 
-			try {
-				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainScene.fxml"));
-				AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-				Stage stage = new Stage();
-				stage.setTitle("Online Buecherei");
-				stage.setScene(new Scene(root3));
-				stage.show();
-			} catch (IOException iOException) {
-				System.out.println("Fenster wurde nicht geoeffnet");
+		// Neues Fenster: Anastasia
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
+
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainScene.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
+	}		
+
+	@FXML
+	private void handleButtonOkAction(ActionEvent event) {
+		System.out.println("Tippe deinen Namen ein");
+		String tfNameL = tfName.getText();
+		String tfIdL = tfId.getText();
+		String tfPasswortL = tfPasswort.getText();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+
+		try {
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/admindatabase", "root", "");
+			System.out.println("Verbunden");
+
+			preparedStatement = connection.prepareStatement("SELECT id, passwort FROM admin WHERE name = ?");
+			preparedStatement.setString(1, tfNameL);
+			resultSet = preparedStatement.executeQuery();
+
+			if (!resultSet.isBeforeFirst()) {
+				aLoginAnforderung.setText("Dieser Benutzer existiert nicht");
+				System.out.println("benutzer wurde nicht gefunden");
+
+			} else {
+				while (resultSet.next()) {
+					String erhaltePasswort = resultSet.getString("passwort");
+					String erhalteId = resultSet.getString("id");
+					if (erhalteId.equals(tfIdL));
+					if (erhaltePasswort.equals(tfPasswortL)) {
+						try {
+							Node source = (Node) event.getSource();
+							Stage oldStage = (Stage) source.getScene().getWindow();
+							oldStage.close();
+							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AdminFenster.fxml"));
+							AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+							Stage stage = new Stage();
+							stage.setTitle("Online Buecherei - Admin-Ansicht");
+							stage.setScene(new Scene(root3));
+							stage.show(); 
+							return;
+						} catch (IOException iOException) {
+							System.out.println("Fenster wurde nicht geoeffnet");
+						}
+					} else {	
+						aLoginAnforderung.setText("Passwort oder ID ist nicht korrekt");
+						System.out.println("passwï¿½rter stimmen nicht ï¿½berein");
+					}
+				}
 			}
-		}		
-
-		@FXML
-		private void handleButtonOkAction(ActionEvent event) {
-			System.out.println("Tippe deinen Namen ein");
-			String tfNameL = tfName.getText();
-			String tfIdL = tfId.getText();
-			String tfPasswortL = tfPasswort.getText();
-			Connection connection = null;
-			PreparedStatement preparedStatement = null;
-			ResultSet resultSet = null;
-			
-	       
-	        try {
-	            connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/admindatabase", "root", "");
-	            System.out.println("Verbunden");
-	            
-	            preparedStatement = connection.prepareStatement("SELECT id, passwort FROM admin WHERE name = ?");
-		        preparedStatement.setString(1, tfNameL);
-		        resultSet = preparedStatement.executeQuery();
-	        
-		        if (!resultSet.isBeforeFirst()) {
-		        	aLoginAnforderung.setText("Dieser Benutzer existiert nicht");
-		        	System.out.println("benutzer wurde nicht gefunden");
-		        	
-		        } else {
-		        	while (resultSet.next()) {
-		        		String erhaltePasswort = resultSet.getString("passwort");
-		        		String erhalteId = resultSet.getString("id");
-		        		if (erhalteId.equals(tfIdL));
-		        		if (erhaltePasswort.equals(tfPasswortL)) {
-		        			try {
-		        				Node source = (Node) event.getSource();
-		        				Stage oldStage = (Stage) source.getScene().getWindow();
-		        				oldStage.close();
-		        				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AdminFenster.fxml"));
-		        				AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-		        				Stage stage = new Stage();
-		        				stage.setTitle("Online Buecherei - Admin-Ansicht");
-		        				stage.setScene(new Scene(root3));
-		        				stage.show(); 
-		        				return;
-		        			} catch (IOException iOException) {
-		        				System.out.println("Fenster wurde nicht geoeffnet");
-		        			}
-		        				} else {	
-		        					aLoginAnforderung.setText("Passwort oder ID ist nicht korrekt");
-		        					System.out.println("passwörter stimmen nicht überein");
-		        			}
-		        		}
-		        	}
-		        		connection.close();
-		    } catch (Exception exception) {
-		        exception.printStackTrace();
-		    }
-			}
+			connection.close();
+		} catch (Exception exception) {
+			exception.printStackTrace();
 		}
+	}
+}

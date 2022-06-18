@@ -24,7 +24,6 @@ import javafx.scene.control.Pagination;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -62,8 +61,6 @@ public class FilterAzFensterController implements Initializable {
 	@FXML
 	private Label labelWillkommen;
 	@FXML
-	private TextField tfSuche;
-	@FXML
 	private Tooltip ttKonto;
 	@FXML
 	private Tooltip ttStartfenster;
@@ -76,7 +73,7 @@ public class FilterAzFensterController implements Initializable {
 	@FXML
 	private Label labelRomane;
 	@FXML
-	private Button buttonOK;
+	private Button buttonOKSuchen;
 	@FXML
 	private Button buttonAz;
 	@FXML
@@ -97,12 +94,6 @@ public class FilterAzFensterController implements Initializable {
 	private Label labelBeschreibung1;
 	@FXML
 	private Label labelBeschreibung2;
-	@FXML
-	private TextField tfJahrVon;
-	@FXML
-	private TextField tfJahrBis;
-	@FXML
-	private Label labelBis;
 	@FXML
 	private Button buttonStartfenster;
 	@FXML
@@ -146,13 +137,17 @@ public class FilterAzFensterController implements Initializable {
 	private ImageView imgAusloggen;
 	@FXML
 	private ImageView imgHilfe;
-	
+
 	@FXML
 	private Tooltip ttIsbn;
 	@FXML 
 	private Button buttonISBNSuchen;
+	@FXML
+	private Button buttonJahrSuchen;
+	@FXML
+	private Button buttonHilfe;
 
-	// Datenbankverknüpfung+aufruf und Sortieralgorithmus: a-z (von Anastasia)
+	// Datenbankverknuepfung + Aufruf und Sortieralgorithmus: a-z (von Anastasia)
 
 	ObservableList<Buch> liste = FXCollections.observableArrayList();
 
@@ -167,7 +162,7 @@ public class FilterAzFensterController implements Initializable {
 		beschreibung.setCellValueFactory(new PropertyValueFactory<Buch, String>("beschreibung"));
 
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/buecherliste", "root", "");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/buecherliste", "root", "");
 			System.out.println("Verbunden");
 
 			// Sortieralgorithmus nach a-z
@@ -187,12 +182,11 @@ public class FilterAzFensterController implements Initializable {
 				liste.add(b);
 
 				tabelleSortiment.setItems(liste);
-
 			}
+
 		} catch (SQLException ex) {
 			System.out.println("Fehler");
 		}
-
 	}
 
 	@FXML
@@ -206,13 +200,13 @@ public class FilterAzFensterController implements Initializable {
 			stage.setScene(new Scene(root3));
 			stage.show();
 
-			// Ausgabe aus der Tabelle wird für gewählte Zeile in neuem Fenster ausgegeben
-			// um alles lesen zu können
+			// Ausgabe aus der Tabelle wird fï¿½r gewï¿½hlte Zeile in neuem Fenster ausgegeben
+			// um alles lesen zu kï¿½nnen
 			BuchdetailsController buchdetailsController = fxmlLoader.getController();
 
 			int row = tabelleSortiment.getSelectionModel().getSelectedIndex();
 
-			if (row >= 0) { // Nur wenn ein Feld ausgewählt ist, ist dieser Aufruf möglich
+			if (row >= 0) { // Nur wenn ein Feld ausgewï¿½hlt ist, ist dieser Aufruf mï¿½glich
 				buchdetailsController.setData("" + tabelleSortiment.getSelectionModel().getSelectedItem().getTitel(),
 						tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser(),
 						"" + tabelleSortiment.getSelectionModel().getSelectedItem().getGenre(),
@@ -244,7 +238,7 @@ public class FilterAzFensterController implements Initializable {
 
 			if (row >= 0) {
 				HinweisController hinweis = fxmlLoader.getController();
-				hinweis.hinweisText("Aktion erfolgreich durchgeführt!!");
+				hinweis.hinweisText("Aktion erfolgreich durchgefï¿½hrt!!");
 
 				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/merkliste", "root",
 						"");
@@ -259,18 +253,17 @@ public class FilterAzFensterController implements Initializable {
 				Statement sta = connection.createStatement();
 				int x = sta.executeUpdate(query);
 				if (x == 0) {
-					System.out.println("Funktion wird nicht durchgeführt");
+					System.out.println("Funktion wird nicht durchgefï¿½hrt");
 
 				} else {
-					System.out.println("Funktion wird durchgeführt");
+					System.out.println("Funktion wird durchgefï¿½hrt");
 
 				}
 				connection.close();
 				System.out.println(query);
 			}
-		}
 
-		catch (Exception exception) {
+		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
 	}
@@ -292,7 +285,7 @@ public class FilterAzFensterController implements Initializable {
 
 			if (row >= 0) {
 				HinweisController hinweis = fxmlLoader.getController();
-				hinweis.hinweisText("Aktion erfolgreich durchgeführt!!");
+				hinweis.hinweisText("Aktion erfolgreich durchgefï¿½hrt!!");
 
 				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/leihliste", "root",
 						"");
@@ -307,16 +300,16 @@ public class FilterAzFensterController implements Initializable {
 				Statement sta = connection.createStatement();
 				int x = sta.executeUpdate(query);
 				if (x == 0) {
-					System.out.println("Funktion wird nicht durchgeführt");
+					System.out.println("Funktion wird nicht durchgefï¿½hrt");
 				} else {
-					System.out.println("Funktion wird durchgeführt");
+					System.out.println("Funktion wird durchgefï¿½hrt");
 				}
 				connection.close();
 				System.out.println(query);
 			}
+
 		} catch (Exception exception) {
 			exception.printStackTrace();
-
 		}
 	}
 
@@ -337,9 +330,9 @@ public class FilterAzFensterController implements Initializable {
 
 			if (row >= 0) {
 				HinweisController hinweis = fxmlLoader.getController();
-				hinweis.hinweisText("Aktion erfolgreich durchgeführt!!");
+				hinweis.hinweisText("Aktion erfolgreich durchgefï¿½hrt!!");
 
-				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/reservierliste",
+				Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/reservierliste",
 						"root", "");
 				String query = "INSERT INTO reservieren(titel, genre, verfasser, jahr, verlag, isbn, beschreibung) VALUES ('"
 						+ tabelleSortiment.getSelectionModel().getSelectedItem().getTitel() + "', '"
@@ -352,9 +345,9 @@ public class FilterAzFensterController implements Initializable {
 				Statement sta = connection.createStatement();
 				int x = sta.executeUpdate(query);
 				if (x == 0) {
-					System.out.println("Funktion wird nicht durchgeführt");
+					System.out.println("Funktion wird nicht durchgefï¿½hrt");
 				} else {
-					System.out.println("Funktion wird durchgeführt");
+					System.out.println("Funktion wird durchgefï¿½hrt");
 				}
 				connection.close();
 				System.out.println(query);
@@ -366,14 +359,8 @@ public class FilterAzFensterController implements Initializable {
 	}
 
 	@FXML
-	private void handleTfSucheAction(ActionEvent event) {
-		System.out.println("Gebe hier einen Suchbegriff ein");
-
-	}
-
-	@FXML
 	private void handleButtonOkAction(ActionEvent event) {
-		System.out.println("Du hast deine Eingabe bestaetigt");
+		System.out.println("Du gelangst zur Suchbegriff-Suche.");
 		// Aufruf neues Fenster: Anastasia
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
@@ -414,6 +401,7 @@ public class FilterAzFensterController implements Initializable {
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
+
 	}
 
 	@FXML
@@ -538,26 +526,6 @@ public class FilterAzFensterController implements Initializable {
 	}
 
 	@FXML
-	private void handleTfJahrAction(ActionEvent event) {
-		System.out.println("Filter Erscheinungsjahr");
-		// Aufruf neues Fenster: Diandra
-		Node source = (Node) event.getSource();
-		Stage oldStage = (Stage) source.getScene().getWindow();
-		oldStage.close();
-
-		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JahrFenster.fxml"));
-			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-			Stage stage = new Stage();
-			stage.setTitle("Online Buecherei - Jahr");
-			stage.setScene(new Scene(root3));
-			stage.show();
-		} catch (IOException iOException) {
-			System.out.println("Fenster wurde nicht geoeffnet");
-		}
-	}
-
-	@FXML
 	private void handleButtonISBNSuchenAction(ActionEvent event) {
 		System.out.println("Filter ISBN");
 		// Aufruf neues Fenster: Diandra
@@ -570,6 +538,27 @@ public class FilterAzFensterController implements Initializable {
 			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
 			Stage stage = new Stage();
 			stage.setTitle("Online Buecherei - ISBN");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
+
+	}
+
+	@FXML
+	private void handleButtonJahrSuchenAction(ActionEvent event) {
+		System.out.println("Filter Jahr");
+		// Aufruf neues Fenster: Diandra
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
+
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JahrFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Jahr");
 			stage.setScene(new Scene(root3));
 			stage.show();
 		} catch (IOException iOException) {
@@ -657,7 +646,4 @@ public class FilterAzFensterController implements Initializable {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
-
-
-
 }

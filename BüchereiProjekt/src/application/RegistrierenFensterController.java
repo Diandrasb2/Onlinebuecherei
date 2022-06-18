@@ -19,11 +19,6 @@ import java.sql.Statement;
 
 public class RegistrierenFensterController {
 
-//	String passwort;
-//	String name;
-//	String email;
-//	String passwort2;
-
 	// Aufrufe FXML: Anastasia
 	@FXML
 	private AnchorPane flaecheRegistrierenFenster;
@@ -55,18 +50,13 @@ public class RegistrierenFensterController {
 	private Tooltip ttHinweisPwReg;
 	@FXML
 	private Tooltip ttHinweisPwWiedReg;
-	
-	
 
-
-	// Verknüpfungen Funktionen: Anastasia
+	// Verknuepfungen Funktionen: Anastasia
 	@FXML
 	private void handleButtonOkAction(ActionEvent event) {
 		String tfNameR = tfName.getText();
 		String tfEmailR = tfEmail.getText();
 		String pfPasswortR = pfPasswort.getText();
-//Plan: bei OK drücken alles prüfen und nicht schon vorher
-		
 
 		// Abfragen: Semih und Timm
 		if (tfName.getText().isEmpty()) {
@@ -115,8 +105,9 @@ public class RegistrierenFensterController {
 				System.out.println("Fenster wurde nicht geoeffnet");
 			}
 		}
+
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/benutzerdatabase", "root",
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/benutzerdatabase", "root",
 					"");
 			String query = "INSERT INTO benutzer(username, email, passwort) VALUES('" + tfNameR + "','" + tfEmailR
 					+ "','" + pfPasswortR + "')";
@@ -128,9 +119,10 @@ public class RegistrierenFensterController {
 			} else {
 				rPasswortAnforderung.setText("Erfolgreich regisrtriert");
 			}
-			
+
 			connection.close();
 			System.out.println(tfName.getText() + " "+ tfEmail.getText()+" "+pfPasswort.getText());
+
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}

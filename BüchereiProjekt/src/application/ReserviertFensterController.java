@@ -110,7 +110,7 @@ public class ReserviertFensterController implements Initializable {
 
 	// Verknuepfung Funktionen: Diandra (Vorlage: Timm)
 
-	// Datenbankverknüpfung Anastasia
+	// Datenbankverknuepfung Anastasia
 	ObservableList<Buch> liste = FXCollections.observableArrayList();
 
 	@Override
@@ -124,7 +124,7 @@ public class ReserviertFensterController implements Initializable {
 		beschreibung.setCellValueFactory(new PropertyValueFactory<Buch, String>("beschreibung"));
 
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/reservierliste", "root",
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/reservierliste", "root",
 					"");
 			System.out.println("Verbunden");
 
@@ -145,8 +145,8 @@ public class ReserviertFensterController implements Initializable {
 				liste.add(b);
 
 				tabelleSortiment.setItems(liste);
-
 			}
+
 		} catch (SQLException ex) {
 			System.out.println("Fehler");
 		}
@@ -163,13 +163,13 @@ public class ReserviertFensterController implements Initializable {
 			stage.setScene(new Scene(root3));
 			stage.show();
 
-			// Ausgabe aus der Tabelle wird für gewählte Zeile in neuem Fenster ausgegeben
-			// um alles lesen zu können
+			// Ausgabe aus der Tabelle wird fï¿½r gewï¿½hlte Zeile in neuem Fenster ausgegeben
+			// um alles lesen zu kï¿½nnen
 			BuchdetailsController buchdetailsController = fxmlLoader.getController();
 
 			int row = tabelleSortiment.getSelectionModel().getSelectedIndex();
 
-			if (row >= 0) { // Nur wenn ein Feld ausgewählt ist, ist dieser Aufruf möglich
+			if (row >= 0) { // Nur wenn ein Feld ausgewï¿½hlt ist, ist dieser Aufruf mï¿½glich
 				buchdetailsController.setData("" + tabelleSortiment.getSelectionModel().getSelectedItem().getTitel(),
 						tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser(),
 						"" + tabelleSortiment.getSelectionModel().getSelectedItem().getGenre(),
@@ -202,7 +202,7 @@ public class ReserviertFensterController implements Initializable {
 
 			if (row >= 0) {
 				HinweisController hinweis = fxmlLoader.getController();
-				hinweis.hinweisText("Aktion erfolgreich durchgeführt!!");
+				hinweis.hinweisText("Aktion erfolgreich durchgefï¿½hrt!!");
 				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/reservierliste",
 						"root", "");
 				String query = "delete from reservieren where titel like ('"
@@ -210,14 +210,15 @@ public class ReserviertFensterController implements Initializable {
 				Statement sta = connection.createStatement();
 				int x = sta.executeUpdate(query);
 				if (x == 0) {
-					System.out.println("Funktion wird nicht durchgeführt");
+					System.out.println("Funktion wird nicht durchgefï¿½hrt");
 				} else {
-					System.out.println("Funktion wird durchgeführt");
+					System.out.println("Funktion wird durchgefï¿½hrt");
 				}
 				connection.close();
 				System.out.println(query);
 				entfernen(zeile);
 			}
+
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
@@ -327,7 +328,6 @@ public class ReserviertFensterController implements Initializable {
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
-
 	}
 
 	@FXML
@@ -347,7 +347,6 @@ public class ReserviertFensterController implements Initializable {
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
-
 	}
 
 	@FXML

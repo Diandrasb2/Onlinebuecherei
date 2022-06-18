@@ -19,32 +19,6 @@
 
 <AnchorPane fx:id="flaecheSuche" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="757.0" style="-fx-background-color: #1d1d1b;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.JahrFensterController">
    <children>
-      <TextField fx:id="tfSuche" alignment="CENTER" layoutX="294.0" layoutY="14.0" onAction="#handleTfSucheAction" prefHeight="28.0" prefWidth="277.0" promptText="suchbegriff">
-         <font>
-            <Font name="Franklin Gothic Demi Cond" size="14.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="TEXT" />
-         </cursor>
-         <tooltip>
-            <Tooltip fx:id="ttHinweisSuche" text="Geben Sie hier einen&#10;Suchbegriff ein.">
-               <font>
-                  <Font name="Franklin Gothic Demi" size="12.0" />
-               </font>
-            </Tooltip>
-         </tooltip>
-      </TextField>
-      <Button fx:id="buttonOK" layoutX="575.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleButtonOkAction" prefHeight="28.0" prefWidth="44.0" style="-fx-background-color: #ff9900;" text="OK!" textFill="WHITE">
-         <font>
-            <Font name="Franklin Gothic Demi Cond" size="14.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </Button>
       <Pane prefHeight="400.0" prefWidth="143.0" style="-fx-background-color: #4d4e4f;">
          <children>
             <Accordion layoutY="49.0" prefHeight="311.0" prefWidth="143.0">
@@ -139,21 +113,19 @@
                   <content>
                     <AnchorPane fx:id="feldJahr" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #4d4e4f;">
                            <children>
-                              <Label fx:id="labelBeschreibung1" layoutX="12.0" layoutY="21.0" prefHeight="48.0" prefWidth="122.0" text="Geben Sie hier die &#10;Jahre ein, nach denen &#10;gesucht werden soll:" textFill="WHITE">
+                              <Label fx:id="labelBeschreibung1" layoutX="12.0" layoutY="21.0" prefHeight="61.0" prefWidth="122.0" text="Klicken Sie hier, um &#10;nach einem &#10;bestimmten Jahr &#10;zu suchen:" textFill="WHITE">
                                  <font>
                                     <Font name="Franklin Gothic Demi" size="12.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="tfJahrVon" layoutX="12.0" layoutY="81.0" onAction="#handleTfJahrAction" prefHeight="27.0" prefWidth="44.0">
+                              <Button fx:id="buttonJahrSuchen" layoutX="12.0" layoutY="89.0" mnemonicParsing="false" onAction="#handleButtonJahrSuchenAction" prefHeight="22.0" prefWidth="115.0" style="-fx-background-color: #ff9900;" text="Jahr Suche" textFill="WHITE">
+                                 <font>
+                                    <Font name="Franklin Gothic Demi" size="12.0" />
+                                 </font>
                                  <cursor>
-                                    <Cursor fx:constant="TEXT" />
-                                 </cursor></TextField>
-                              <TextField fx:id="tfJahrBis" layoutX="81.0" layoutY="81.0" onAction="#handleTfJahrAction" prefHeight="27.0" prefWidth="44.0">
-                                 <cursor>
-                                    <Cursor fx:constant="TEXT" />
+                                    <Cursor fx:constant="HAND" />
                                  </cursor>
-                              </TextField>
-                              <Label fx:id="labelBis" layoutX="60.0" layoutY="85.0" text="bis" textFill="WHITE" />
+                              </Button>
                            </children>
                         </AnchorPane>
                   </content>
@@ -323,5 +295,29 @@
             </Button>
          </children>
       </Pane>
+      <Label fx:id="labelBeschreibung3" layoutX="545.0" layoutY="79.0" text="Jahr Eingabe:" textFill="#ff9900">
+         <font>
+            <Font name="Franklin Gothic Demi" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfJahr" layoutX="627.0" layoutY="70.0" onAction="#handleTfJahrAction" prefHeight="27.0" prefWidth="115.0">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+         <tooltip>
+            <Tooltip fx:id="ttIsbn" text="Geben Sie hier die ISBN Nummer ein." />
+         </tooltip>
+      </TextField>
+      <Button fx:id="buttonOKSuchen" layoutX="339.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleButtonOkAction" prefHeight="28.0" prefWidth="227.0" style="-fx-background-color: #ff9900;" text="Suchen" textFill="WHITE">
+         <font>
+            <Font name="Franklin Gothic Demi Cond" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
    </children>
 </AnchorPane>

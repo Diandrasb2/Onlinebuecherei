@@ -51,20 +51,20 @@ public class AdminFensterController {
 	private void handleButtonNutzerlisteAction(ActionEvent event) {
 		System.out.println("Liste aller Nutzer");
 		// Neues Fenster: Anastasia
-				Node source = (Node) event.getSource();
-				Stage oldStage = (Stage) source.getScene().getWindow();
-				oldStage.close();
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
 
-				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AdminNutzerliste.fxml"));
-					AnchorPane root1 = (AnchorPane) fxmlLoader.load();
-					Stage stage = new Stage();
-					stage.setTitle("Online Buecherei - Buchsortiment");
-					stage.setScene(new Scene(root1));
-					stage.show();
-				} catch (IOException iOException) {
-					System.out.println("Fenster wurde nicht geoeffnet");
-				}
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AdminNutzerliste.fxml"));
+			AnchorPane root1 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Buchsortiment");
+			stage.setScene(new Scene(root1));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
 	}
 
 	@FXML

@@ -46,7 +46,7 @@ public class LogInFensterController {
 	@FXML
 	private Button buttonZurueck;
 
-//Verknüpfung Funktionen: Anastasia
+	//Verknuepfung Funktionen: Anastasia
 	@FXML
 	private void handleTfEmailAction(ActionEvent event) {
 		System.out.println("Tippe deine Email ein");
@@ -88,45 +88,46 @@ public class LogInFensterController {
 		ResultSet resultSet = null;
 		// Neues Fenster: Anastasia
 		// Login 
-	try {
-        connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/benutzerdatabase", "root", "");
-        System.out.println("Verbunden");
-        
-        preparedStatement = connection.prepareStatement("select passwort from benutzer where email = ?");
-        preparedStatement.setString(1, tfEmailL);
-        resultSet = preparedStatement.executeQuery();
-       
-        if (!resultSet.isBeforeFirst()) {
-        	lLoginAnforderung.setText("Dieser Benutzer existiert nicht");
-        	System.out.println("benutzer wurde nicht gefunden");
-        	
-        } else {
-        	while (resultSet.next()) {
-        		String erhaltePasswort = resultSet.getString("passwort");
-        		if (erhaltePasswort.equals(pfPasswortL)) {
-        			try {
-        				Node source = (Node) event.getSource();
-        				Stage oldStage = (Stage) source.getScene().getWindow();
-        				oldStage.close();
-        				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Willkommen.fxml"));
-        				AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-        				Stage stage = new Stage();
-        				stage.setTitle("Online Buecherei - Willkommen");
-        				stage.setScene(new Scene(root3));
-        				stage.show(); 
-        				return;
-        			} catch (IOException iOException) {
-        				System.out.println("Fenster wurde nicht geoeffnet");
-        			}
-        				} else {	
-        					lLoginAnforderung.setText("Passwort ist nicht korrekt");
-        					System.out.println("passwörter stimmen nicht überein");
-        			}
-        		}
-        	}
-        		connection.close();
-    } catch (Exception exception) {
-        exception.printStackTrace();
-    }
+		try {
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/benutzerdatabase", "root", "");
+			System.out.println("Verbunden");
+
+			preparedStatement = connection.prepareStatement("select passwort from benutzer where email = ?");
+			preparedStatement.setString(1, tfEmailL);
+			resultSet = preparedStatement.executeQuery();
+
+			if (!resultSet.isBeforeFirst()) {
+				lLoginAnforderung.setText("Dieser Benutzer existiert nicht");
+				System.out.println("benutzer wurde nicht gefunden");
+
+			} else {
+				while (resultSet.next()) {
+					String erhaltePasswort = resultSet.getString("passwort");
+					if (erhaltePasswort.equals(pfPasswortL)) {
+						try {
+							Node source = (Node) event.getSource();
+							Stage oldStage = (Stage) source.getScene().getWindow();
+							oldStage.close();
+							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Willkommen.fxml"));
+							AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+							Stage stage = new Stage();
+							stage.setTitle("Online Buecherei - Willkommen");
+							stage.setScene(new Scene(root3));
+							stage.show(); 
+							return;
+						} catch (IOException iOException) {
+							System.out.println("Fenster wurde nicht geoeffnet");
+						}
+					} else {	
+						lLoginAnforderung.setText("Passwort ist nicht korrekt");
+						System.out.println("passwï¿½rter stimmen nicht ï¿½berein");
+					}
+				}
+			}
+
+			connection.close();
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
 	}
 }

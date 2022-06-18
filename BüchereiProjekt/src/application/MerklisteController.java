@@ -31,7 +31,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import pojo.Buch;
 
-
 public class MerklisteController implements Initializable{
 	// Aufrufe FXML: Timm
 	@FXML
@@ -74,7 +73,7 @@ public class MerklisteController implements Initializable{
 	private Label labelMerkliste;
 	@FXML
 	private Pane paneScrollbereich;
-	
+
 	@FXML
 	private Button buttonAnzeigen;
 	@FXML
@@ -93,12 +92,12 @@ public class MerklisteController implements Initializable{
 	private TableColumn<Buch, Long> isbn;
 	@FXML
 	private TableColumn<Buch, String> beschreibung;
-	
+
 	@FXML
 	private Label labelKonto;
 	@FXML
 	private Button buttonEntf;
-	
+
 	@FXML
 	private ImageView imgKonto;
 	@FXML
@@ -121,7 +120,7 @@ public class MerklisteController implements Initializable{
 		beschreibung.setCellValueFactory(new PropertyValueFactory<Buch, String>("beschreibung"));
 
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/merkliste", "root", "");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/merkliste", "root", "");
 			System.out.println("Verbunden");
 
 			//Buecher aufrufen
@@ -141,18 +140,14 @@ public class MerklisteController implements Initializable{
 				b.setBeschreibung(rs.getString("beschreibung"));
 				liste.add(b);
 
-				
 				tabelleSortiment.setItems(liste);
-				
-				
-				
-				
 			}
+
 		} catch (SQLException ex) {
 			System.out.println("Fehler");
 		}
 	}
-	
+
 	@FXML
 	private void handleButtonAnzeigenAction(ActionEvent event) throws SQLException {
 		//von Anastasia
@@ -163,26 +158,27 @@ public class MerklisteController implements Initializable{
 			stage.setTitle("Online Buecherei - Buchdetails");
 			stage.setScene(new Scene(root3));
 			stage.show();
-			
-			//Ausgabe aus der Tabelle wird für gewählte Zeile in neuem Fenster ausgegeben um alles lesen zu können
+
+			//Ausgabe aus der Tabelle wird fï¿½r gewï¿½hlte Zeile in neuem Fenster ausgegeben um alles lesen zu kï¿½nnen
 			BuchdetailsController buchdetailsController=fxmlLoader.getController();
-			
+
 			int row = tabelleSortiment.getSelectionModel().getSelectedIndex();
 
-			if(row>=0) { //Nur wenn ein Feld ausgewählt ist, ist dieser Aufruf möglich
-			buchdetailsController.setData(""+tabelleSortiment.getSelectionModel().getSelectedItem().getTitel(), 
-			tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser(),
-			""+tabelleSortiment.getSelectionModel().getSelectedItem().getGenre(),
-			+tabelleSortiment.getSelectionModel().getSelectedItem().getJahr(),
-			""+tabelleSortiment.getSelectionModel().getSelectedItem().getVerlag(),
-			+tabelleSortiment.getSelectionModel().getSelectedItem().getIsbn(),
-			""+tabelleSortiment.getSelectionModel().getSelectedItem().getBeschreibung());
+			if(row>=0) { //Nur wenn ein Feld ausgewï¿½hlt ist, ist dieser Aufruf mï¿½glich
+				buchdetailsController.setData(""+tabelleSortiment.getSelectionModel().getSelectedItem().getTitel(), 
+						tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser(),
+						""+tabelleSortiment.getSelectionModel().getSelectedItem().getGenre(),
+						+tabelleSortiment.getSelectionModel().getSelectedItem().getJahr(),
+						""+tabelleSortiment.getSelectionModel().getSelectedItem().getVerlag(),
+						+tabelleSortiment.getSelectionModel().getSelectedItem().getIsbn(),
+						""+tabelleSortiment.getSelectionModel().getSelectedItem().getBeschreibung());
 			}
-			
+
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
+
 	@FXML
 	private void handleButtonEntfAction(ActionEvent event) {
 
@@ -201,22 +197,23 @@ public class MerklisteController implements Initializable{
 
 			if (row >= 0) {
 				HinweisController hinweis = fxmlLoader.getController();
-				hinweis.hinweisText("Aktion erfolgreich durchgeführt!!");
-				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/reservierliste",
+				hinweis.hinweisText("Aktion erfolgreich durchgefï¿½hrt!!");
+				Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/reservierliste",
 						"root", "");
 				String query = "delete from reservieren where titel like ('"
 						+ tabelleSortiment.getSelectionModel().getSelectedItem().getTitel() + "')";
 				Statement sta = connection.createStatement();
 				int x = sta.executeUpdate(query);
 				if (x == 0) {
-					System.out.println("Funktion wird nicht durchgeführt");
+					System.out.println("Funktion wird nicht durchgefï¿½hrt");
 				} else {
-					System.out.println("Funktion wird durchgeführt");
+					System.out.println("Funktion wird durchgefï¿½hrt");
 				}
 				connection.close();
 				System.out.println(query);
 				entfernen(zeile);
 			}
+
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
@@ -227,49 +224,49 @@ public class MerklisteController implements Initializable{
 			tabelleSortiment.getItems().remove(zeile);
 		}
 	}
-	
+
 	@FXML
 	public void handleButtonMerklisteAction(ActionEvent event) {
 		System.out.println("Du bist bereits im Merkliste Fenster");
 	}	
-	
+
 	@FXML
 	public void handleButtonReserviertAction(ActionEvent event) {
 		System.out.println("Reserviert");
-		  Node source = (Node) event.getSource();
-			Stage oldStage = (Stage) source.getScene().getWindow();
-			oldStage.close();
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
 
-			try {
-				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ReserviertFenster.fxml"));
-				AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-				Stage stage = new Stage();
-				stage.setTitle("Online Buecherei - Reserviert");
-				stage.setScene(new Scene(root3));
-				stage.show();
-			} catch (IOException iOException) {
-				System.out.println("Fenster wurde nicht geoeffnet");
-			}  
-		}
-	
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ReserviertFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Reserviert");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}  
+	}
+
 	@FXML
 	public void handleButtonAusgeliehenAction(ActionEvent event) {
 		System.out.println("Ausgeliehen");
-		  Node source = (Node) event.getSource();
-			Stage oldStage = (Stage) source.getScene().getWindow();
-			oldStage.close();
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
 
-			try {
-				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AusgeliehenFenster.fxml"));
-				AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-				Stage stage = new Stage();
-				stage.setTitle("Online Buecherei - Ausgeliehen");
-				stage.setScene(new Scene(root3));
-				stage.show();
-			} catch (IOException iOException) {
-				System.out.println("Fenster wurde nicht geoeffnet");
-			}  
-		}
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AusgeliehenFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Ausgeliehen");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}  
+	}
 
 	@FXML
 	public void handleButtonEinstellungenAction(ActionEvent event) {
@@ -289,7 +286,7 @@ public class MerklisteController implements Initializable{
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}  
 	}
-	
+
 	@FXML
 	public void handleButtonImpressumAction(ActionEvent event) {
 		System.out.println("Impressum");
@@ -308,7 +305,7 @@ public class MerklisteController implements Initializable{
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}	
 	}
-	
+
 	@FXML
 	private void handleButtonKontoAction(ActionEvent event) {
 		System.out.println("Konto");
@@ -326,8 +323,8 @@ public class MerklisteController implements Initializable{
 		} catch (IOException iOException) {	
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}	
-
 	}
+
 	@FXML
 	private void handleButtonStartfensterAction(ActionEvent event) {
 		System.out.println("Willkommensfenster");
@@ -345,12 +342,13 @@ public class MerklisteController implements Initializable{
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
-
 	}
+
 	@FXML
 	public void handleButtonAusloggenAction(ActionEvent event) {
 		System.out.println("Ausloggen");
 	}
+
 	@FXML
 	public void handleButtonHilfeAction(ActionEvent event) {
 		System.out.println("Hilfefenster");
@@ -370,6 +368,4 @@ public class MerklisteController implements Initializable{
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
-
-
 }

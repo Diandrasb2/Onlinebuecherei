@@ -1,6 +1,5 @@
 //Erstellung Ausloggen und Controller-Klasse: Anastasia
 
-
 package application;
 
 import java.io.IOException;
@@ -24,7 +23,7 @@ public class AusloggenAdminController {
 	private Button buttonOk;
 	@FXML
 	private Button buttonBack;
-	
+
 	@FXML
 	private void handleButtonOkAction(ActionEvent event) {
 		System.out.println("Du wirst nun ausgeloggt");
@@ -43,10 +42,11 @@ public class AusloggenAdminController {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
+
 	@FXML
 	private void handleButtonBackAction(ActionEvent event) {
 		System.out.println("Zurueck zum Startfenster");
-		
+
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
 		oldStage.close();

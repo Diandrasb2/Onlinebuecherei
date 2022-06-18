@@ -1,4 +1,5 @@
 //Erstellung Reserviert und Controller-Klasse: Diandra (Vorlage: Timm)
+
 package application;
 
 import javafx.fxml.FXML;
@@ -97,7 +98,6 @@ public class AusgeliehenController implements Initializable{
 	private TableColumn<Buch, String> beschreibung;
 	@FXML
 	private Button buttonEntf;
-	
 	@FXML
 	private ImageView imgKonto;
 	@FXML
@@ -108,8 +108,8 @@ public class AusgeliehenController implements Initializable{
 	private ImageView imgHilfe;
 
 	// Verknuepfung Funktionen: Diandra (Vorlage: Timm)
-	
-	//Datenbankverknüpfung Anastasia
+
+	//Datenbankverknuepfung Anastasia
 	ObservableList<Buch> liste = FXCollections.observableArrayList();
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
@@ -122,7 +122,7 @@ public class AusgeliehenController implements Initializable{
 		beschreibung.setCellValueFactory(new PropertyValueFactory<Buch, String>("beschreibung"));
 
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/leihliste", "root", "");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/leihliste", "root", "");
 			System.out.println("Verbunden");
 
 			//Buecher aufrufen
@@ -142,18 +142,15 @@ public class AusgeliehenController implements Initializable{
 				b.setBeschreibung(rs.getString("beschreibung"));
 				liste.add(b);
 
-				
+
 				tabelleSortiment.setItems(liste);
-				
-				
-				
-				
 			}
+
 		} catch (SQLException ex) {
 			System.out.println("Fehler");
 		}
 	}
-	
+
 	@FXML
 	private void handleButtonAnzeigenAction(ActionEvent event) throws SQLException {
 		//von Anastasia
@@ -164,27 +161,27 @@ public class AusgeliehenController implements Initializable{
 			stage.setTitle("Online Buecherei - Buchdetails");
 			stage.setScene(new Scene(root3));
 			stage.show();
-			
-			//Ausgabe aus der Tabelle wird für gewählte Zeile in neuem Fenster ausgegeben um alles lesen zu können
+
+			//Ausgabe aus der Tabelle wird fuer gewaehlte Zeile in neuem Fenster ausgegeben um alles lesen zu koennen
 			BuchdetailsController buchdetailsController=fxmlLoader.getController();
-			
+
 			int row = tabelleSortiment.getSelectionModel().getSelectedIndex();
 
-			if(row>=0) { //Nur wenn ein Feld ausgewählt ist, ist dieser Aufruf möglich
-			buchdetailsController.setData(""+tabelleSortiment.getSelectionModel().getSelectedItem().getTitel(), 
-			tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser(),
-			""+tabelleSortiment.getSelectionModel().getSelectedItem().getGenre(),
-			+tabelleSortiment.getSelectionModel().getSelectedItem().getJahr(),
-			""+tabelleSortiment.getSelectionModel().getSelectedItem().getVerlag(),
-			+tabelleSortiment.getSelectionModel().getSelectedItem().getIsbn(),
-			""+tabelleSortiment.getSelectionModel().getSelectedItem().getBeschreibung());
+			if(row>=0) { //Nur wenn ein Feld ausgewaehlt ist, ist dieser Aufruf moeglich
+				buchdetailsController.setData(""+tabelleSortiment.getSelectionModel().getSelectedItem().getTitel(), 
+						tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser(),
+						""+tabelleSortiment.getSelectionModel().getSelectedItem().getGenre(),
+						+tabelleSortiment.getSelectionModel().getSelectedItem().getJahr(),
+						""+tabelleSortiment.getSelectionModel().getSelectedItem().getVerlag(),
+						+tabelleSortiment.getSelectionModel().getSelectedItem().getIsbn(),
+						""+tabelleSortiment.getSelectionModel().getSelectedItem().getBeschreibung());
 			}
-			
+
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
-	
+
 	@FXML
 	private void handleButtonEntfAction(ActionEvent event) {
 
@@ -203,7 +200,7 @@ public class AusgeliehenController implements Initializable{
 
 			if (row >= 0) {
 				HinweisController hinweis = fxmlLoader.getController();
-				hinweis.hinweisText("Aktion erfolgreich durchgeführt!!");
+				hinweis.hinweisText("Aktion erfolgreich durchgefï¿½hrt!!");
 				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/reservierliste",
 						"root", "");
 				String query = "delete from reservieren where titel like ('"
@@ -211,9 +208,9 @@ public class AusgeliehenController implements Initializable{
 				Statement sta = connection.createStatement();
 				int x = sta.executeUpdate(query);
 				if (x == 0) {
-					System.out.println("Funktion wird nicht durchgeführt");
+					System.out.println("Funktion wird nicht durchgefï¿½hrt");
 				} else {
-					System.out.println("Funktion wird durchgeführt");
+					System.out.println("Funktion wird durchgefï¿½hrt");
 				}
 				connection.close();
 				System.out.println(query);
@@ -229,50 +226,50 @@ public class AusgeliehenController implements Initializable{
 			tabelleSortiment.getItems().remove(zeile);
 		}
 	}
-	
+
 	@FXML
 	public void handleButtonMerklisteAction(ActionEvent event) {
 		System.out.println("Merkliste Fenster");
-		 Node source = (Node) event.getSource();
-			Stage oldStage = (Stage) source.getScene().getWindow();
-			oldStage.close();
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
 
-			try {
-				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MerklisteFenster.fxml"));
-				AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-				Stage stage = new Stage();
-				stage.setTitle("Online Buecherei - Merkliste");
-				stage.setScene(new Scene(root3));
-				stage.show();
-			} catch (IOException iOException) {
-				System.out.println("Fenster wurde nicht geoeffnet");
-			}  
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MerklisteFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Merkliste");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}  
 	}	
 
 	@FXML
 	public void handleButtonReserviertAction(ActionEvent event) {
 		System.out.println("Reserviert");
-		 Node source = (Node) event.getSource();
-			Stage oldStage = (Stage) source.getScene().getWindow();
-			oldStage.close();
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
 
-			try {
-				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ReserviertFenster.fxml"));
-				AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-				Stage stage = new Stage();
-				stage.setTitle("Online Buecherei - Reserviert");
-				stage.setScene(new Scene(root3));
-				stage.show();
-			} catch (IOException iOException) {
-				System.out.println("Fenster wurde nicht geoeffnet");
-			}  
-		}
-	
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ReserviertFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Reserviert");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}  
+	}
+
 	@FXML
 	public void handleButtonAusgeliehenAction(ActionEvent event) {
 		System.out.println("Du bist bereits bei Ausgeliehen");
-		 
-		}
+
+	}
 
 	@FXML
 	public void handleButtonEinstellungenAction(ActionEvent event) {
@@ -292,7 +289,7 @@ public class AusgeliehenController implements Initializable{
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}  
 	}
-	
+
 	@FXML
 	public void handleButtonImpressumAction(ActionEvent event) {
 		System.out.println("Impressum");
@@ -311,7 +308,7 @@ public class AusgeliehenController implements Initializable{
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}	
 	}
-	
+
 	@FXML
 	private void handleButtonKontoAction(ActionEvent event) {
 		System.out.println("Konto");
@@ -348,8 +345,8 @@ public class AusgeliehenController implements Initializable{
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
-
 	}
+
 	@FXML
 	public void handleButtonAusloggenAction(ActionEvent event) {
 		System.out.println("Du willst dich Ausloggen");
@@ -368,6 +365,7 @@ public class AusgeliehenController implements Initializable{
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
+
 	@FXML
 	public void handleButtonHilfeAction(ActionEvent event) {
 		System.out.println("Hilfefenster");

@@ -25,7 +25,6 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -63,8 +62,6 @@ public class GenreThrillerFensterController implements Initializable{
 	@FXML
 	private Label labelWillkommen;
 	@FXML
-	private TextField tfSuche;
-	@FXML
 	private Tooltip ttKonto;
 	@FXML
 	private Tooltip ttStartfenster;
@@ -81,7 +78,7 @@ public class GenreThrillerFensterController implements Initializable{
 	@FXML
 	private ScrollBar scrollbarScroll;
 	@FXML
-	private Button buttonOK;
+	private Button buttonOKSuchen;
 	@FXML
 	private Button buttonAz;
 	@FXML
@@ -103,11 +100,6 @@ public class GenreThrillerFensterController implements Initializable{
 	@FXML
 	private Label labelBeschreibung2;
 	@FXML
-	private TextField tfJahrVon;
-	@FXML
-	private TextField tfJahrBis;
-
-	@FXML
 	private Button buttonKonto;
 	@FXML
 	private Button buttonStartfenster;
@@ -115,8 +107,6 @@ public class GenreThrillerFensterController implements Initializable{
 	private Button buttonAusloggen;
 	@FXML
 	private Button buttonHilfe;
-	@FXML
-	private Label labelBis;
 	@FXML
 	private TableView<Buch> tabelleSortiment;
 	@FXML
@@ -140,8 +130,8 @@ public class GenreThrillerFensterController implements Initializable{
 	@FXML
 	private Button buttonReservieren;
 	@FXML
-    private Button buttonAusleihen;
-	
+	private Button buttonAusleihen;
+
 	@FXML
 	private ImageView imgKonto;
 	@FXML
@@ -154,9 +144,11 @@ public class GenreThrillerFensterController implements Initializable{
 	private Tooltip ttIsbn;
 	@FXML 
 	private Button buttonISBNSuchen;
+	@FXML
+	private Button buttonJahrSuchen;
 
 	// Verknuepfung Funktionen: Anastasia
-	
+
 	ObservableList<Buch> liste = FXCollections.observableArrayList();
 
 	@Override
@@ -170,7 +162,7 @@ public class GenreThrillerFensterController implements Initializable{
 		beschreibung.setCellValueFactory(new PropertyValueFactory<Buch, String>("beschreibung"));
 
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/buecherliste", "root", "");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3307/buecherliste", "root", "");
 			System.out.println("Verbunden");
 
 			// Suchalgorithmus nach Thrillerbuechern
@@ -190,20 +182,14 @@ public class GenreThrillerFensterController implements Initializable{
 				b.setBeschreibung(rs.getString("beschreibung"));
 				liste.add(b);
 
-				
 				tabelleSortiment.setItems(liste);
-				
-				
-				
-				
 			}
+
 		} catch (SQLException ex) {
 			System.out.println("Fehler");
 		}
-
-		
 	}
-	
+
 	@FXML
 	private void handleButtonAnzeigenAction(ActionEvent event) throws SQLException {
 		//von Anastasia
@@ -214,24 +200,25 @@ public class GenreThrillerFensterController implements Initializable{
 			stage.setTitle("Online Buecherei - Buchdetails");
 			stage.setScene(new Scene(root3));
 			stage.show();
-			
-			//Ausgabe aus der Tabelle wird für gewählte Zeile in neuem Fenster ausgegeben um alles lesen zu können
+
+			//Ausgabe aus der Tabelle wird fï¿½r gewï¿½hlte Zeile in neuem Fenster ausgegeben um alles lesen zu kï¿½nnen
 			BuchdetailsController buchdetailsController=fxmlLoader.getController();
-			
+
 			int row = tabelleSortiment.getSelectionModel().getSelectedIndex();
 
-			if(row>=0) { //Nur wenn ein Feld ausgewählt ist, ist dieser Aufruf möglich
-			buchdetailsController.setData(""+tabelleSortiment.getSelectionModel().getSelectedItem().getTitel(), 
-			tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser(),
-			""+tabelleSortiment.getSelectionModel().getSelectedItem().getGenre(),
-			+tabelleSortiment.getSelectionModel().getSelectedItem().getJahr(),
-			""+tabelleSortiment.getSelectionModel().getSelectedItem().getVerlag(),
-			+tabelleSortiment.getSelectionModel().getSelectedItem().getIsbn(),
-			""+tabelleSortiment.getSelectionModel().getSelectedItem().getBeschreibung());}
+			if(row>=0) { //Nur wenn ein Feld ausgewï¿½hlt ist, ist dieser Aufruf mï¿½glich
+				buchdetailsController.setData(""+tabelleSortiment.getSelectionModel().getSelectedItem().getTitel(), 
+						tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser(),
+						""+tabelleSortiment.getSelectionModel().getSelectedItem().getGenre(),
+						+tabelleSortiment.getSelectionModel().getSelectedItem().getJahr(),
+						""+tabelleSortiment.getSelectionModel().getSelectedItem().getVerlag(),
+						+tabelleSortiment.getSelectionModel().getSelectedItem().getIsbn(),
+						""+tabelleSortiment.getSelectionModel().getSelectedItem().getBeschreibung());}
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
+
 	@FXML
 	private void handleButtonMerkeAction(ActionEvent event) throws SQLException {
 		// Von Anastasia
@@ -249,7 +236,7 @@ public class GenreThrillerFensterController implements Initializable{
 
 			if (row >= 0) {
 				HinweisController hinweis = fxmlLoader.getController();
-				hinweis.hinweisText("Aktion erfolgreich durchgeführt!!");
+				hinweis.hinweisText("Aktion erfolgreich durchgefï¿½hrt!!");
 
 				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/merkliste", "root",
 						"");
@@ -264,18 +251,16 @@ public class GenreThrillerFensterController implements Initializable{
 				Statement sta = connection.createStatement();
 				int x = sta.executeUpdate(query);
 				if (x == 0) {
-					System.out.println("Funktion wird nicht durchgeführt");
+					System.out.println("Funktion wird nicht durchgefï¿½hrt");
 
 				} else {
-					System.out.println("Funktion wird durchgeführt");
-
+					System.out.println("Funktion wird durchgefï¿½hrt");
 				}
 				connection.close();
 				System.out.println(query);
 			}
-		}
 
-		catch (Exception exception) {
+		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
 	}
@@ -297,7 +282,7 @@ public class GenreThrillerFensterController implements Initializable{
 
 			if (row >= 0) {
 				HinweisController hinweis = fxmlLoader.getController();
-				hinweis.hinweisText("Aktion erfolgreich durchgeführt!!");
+				hinweis.hinweisText("Aktion erfolgreich durchgefï¿½hrt!!");
 
 				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/leihliste", "root",
 						"");
@@ -312,16 +297,16 @@ public class GenreThrillerFensterController implements Initializable{
 				Statement sta = connection.createStatement();
 				int x = sta.executeUpdate(query);
 				if (x == 0) {
-					System.out.println("Funktion wird nicht durchgeführt");
+					System.out.println("Funktion wird nicht durchgefï¿½hrt");
 				} else {
-					System.out.println("Funktion wird durchgeführt");
+					System.out.println("Funktion wird durchgefï¿½hrt");
 				}
 				connection.close();
 				System.out.println(query);
 			}
+
 		} catch (Exception exception) {
 			exception.printStackTrace();
-
 		}
 	}
 
@@ -342,7 +327,7 @@ public class GenreThrillerFensterController implements Initializable{
 
 			if (row >= 0) {
 				HinweisController hinweis = fxmlLoader.getController();
-				hinweis.hinweisText("Aktion erfolgreich durchgeführt!!");
+				hinweis.hinweisText("Aktion erfolgreich durchgefï¿½hrt!!");
 
 				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/reservierliste",
 						"root", "");
@@ -357,24 +342,17 @@ public class GenreThrillerFensterController implements Initializable{
 				Statement sta = connection.createStatement();
 				int x = sta.executeUpdate(query);
 				if (x == 0) {
-					System.out.println("Funktion wird nicht durchgeführt");
+					System.out.println("Funktion wird nicht durchgefï¿½hrt");
 				} else {
-					System.out.println("Funktion wird durchgeführt");
+					System.out.println("Funktion wird durchgefï¿½hrt");
 				}
 				connection.close();
 				System.out.println(query);
 			}
+
 		} catch (Exception exception) {
 			exception.printStackTrace();
-
 		}
-	}
-
-
-	
-	@FXML
-	private void handleTfSucheAction(ActionEvent event) {
-		System.out.println("Gebe hier einen Suchbegriff ein");
 	}
 
 	@FXML
@@ -416,44 +394,45 @@ public class GenreThrillerFensterController implements Initializable{
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
-	
+
 	@FXML
 	private void handleButtonZaAction(ActionEvent event) {
 		System.out.println("Filter z-a");
 		//Aufruf neues Fenster: Anastasia
-				Node source = (Node) event.getSource();
-				Stage oldStage = (Stage) source.getScene().getWindow();
-				oldStage.close();
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
 
-				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FilterZaFenster.fxml"));
-					AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-					Stage stage = new Stage();
-					stage.setTitle("Online Buecherei - Filter z-a");
-					stage.setScene(new Scene(root3));
-					stage.show();
-				} catch (IOException iOException) {
-					System.out.println("Fenster wurde nicht geoeffnet");
-				}
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FilterZaFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Filter z-a");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
 	}
+
 	@FXML
 	private void handleButtonBestsellerAction(ActionEvent event) {
 		System.out.println("Filter Bestseller");
 		//Aufruf neues Fenster: Anastasia
-				Node source = (Node) event.getSource();
-				Stage oldStage = (Stage) source.getScene().getWindow();
-				oldStage.close();
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
 
-				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FilterBestsellerFenster.fxml"));
-					AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-					Stage stage = new Stage();
-					stage.setTitle("Online Buecherei - Bestseller");
-					stage.setScene(new Scene(root3));
-					stage.show();
-				} catch (IOException iOException) {
-					System.out.println("Fenster wurde nicht geoeffnet");
-				}
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FilterBestsellerFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Bestseller");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
 	}
 
 	@FXML
@@ -542,26 +521,6 @@ public class GenreThrillerFensterController implements Initializable{
 	}
 
 	@FXML
-	private void handleTfJahrAction(ActionEvent event) {
-		System.out.println("Filter Erscheinungsjahr");
-		// Aufruf neues Fenster: Diandra
-		Node source = (Node) event.getSource();
-		Stage oldStage = (Stage) source.getScene().getWindow();
-		oldStage.close();
-
-		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JahrFenster.fxml"));
-			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-			Stage stage = new Stage();
-			stage.setTitle("Online Buecherei - Jahr");
-			stage.setScene(new Scene(root3));
-			stage.show();
-		} catch (IOException iOException) {
-			System.out.println("Fenster wurde nicht geoeffnet");
-		}
-	}
-
-	@FXML
 	private void handleButtonISBNSuchenAction(ActionEvent event) {
 		System.out.println("Filter ISBN");
 		// Aufruf neues Fenster: Diandra
@@ -582,6 +541,27 @@ public class GenreThrillerFensterController implements Initializable{
 	}
 
 	@FXML
+	private void handleButtonJahrSuchenAction(ActionEvent event) {
+		System.out.println("Filter Jahr");
+		// Aufruf neues Fenster: Diandra
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
+
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JahrFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Jahr");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
+
+	}
+
+	@FXML
 	private void handleButtonKontoAction(ActionEvent event) {
 		System.out.println("Konto");
 		Node source = (Node) event.getSource();
@@ -598,7 +578,6 @@ public class GenreThrillerFensterController implements Initializable{
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
-
 	}
 
 	@FXML
@@ -619,7 +598,6 @@ public class GenreThrillerFensterController implements Initializable{
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
-
 	}
 
 	@FXML

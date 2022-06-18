@@ -75,7 +75,7 @@ public class EinstellungenFensterController {
 	private Pane paneScrollbereich;
 	@FXML
 	private ScrollBar scrollbarScroll;
-	
+
 	@FXML
 	private ImageView imgKonto;
 	@FXML
@@ -108,20 +108,20 @@ public class EinstellungenFensterController {
 	@FXML
 	public void handleButtonReserviertAction(ActionEvent event) {
 		System.out.println("Reserviert");
-		  Node source = (Node) event.getSource();
-			Stage oldStage = (Stage) source.getScene().getWindow();
-			oldStage.close();
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
 
-			try {
-				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ReserviertFenster.fxml"));
-				AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-				Stage stage = new Stage();
-				stage.setTitle("Online Buecherei - Reserviert");
-				stage.setScene(new Scene(root3));
-				stage.show();
-			} catch (IOException iOException) {
-				System.out.println("Fenster wurde nicht geoeffnet");
-			}  
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ReserviertFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Reserviert");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}  
 	}
 
 	@FXML
@@ -166,18 +166,21 @@ public class EinstellungenFensterController {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}	
 	}
+
 	@FXML
 	public void handleLabelNameEingabeAction(ActionEvent event) {
 		System.out.println("Hier wird Benutzername aufgerufen und im Textfeld angezeigt");
 	}
+
 	@FXML
 	public void handleLabelEmailEingabeAction(ActionEvent event) {
 		System.out.println("Hier wird Benutzeremail aufgerufen und im Textfeld angezeigt");
 	}
+
 	@FXML
 	public void handleButtonLoeschenAction(ActionEvent event) {
-		System.out.println("Bestätigungsfenster wird geöffnet");
-		
+		System.out.println("Bestï¿½tigungsfenster wird geï¿½ffnet");
+
 		Node source = (Node) event.getSource();
 		Stage oldStage = (Stage) source.getScene().getWindow();
 		oldStage.close();
@@ -272,6 +275,7 @@ public class EinstellungenFensterController {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
+
 	@FXML
 	private void handleButtonOkAction(ActionEvent event) {
 		System.out.println("Hier kommt das Bestaetigungsfenster zum Konto loeschen");

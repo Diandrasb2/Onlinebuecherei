@@ -57,7 +57,6 @@ public class HilfeController {
 	private ImageView imgAusloggen;
 	@FXML
 	private ImageView imgHilfe;
-	
 
 	// Verknuepfung Funktionen: Diandra (Vorlage Anastasia)
 
@@ -78,7 +77,6 @@ public class HilfeController {
 		} catch (IOException iOException) {	
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}	
-
 	}
 
 	@FXML
@@ -98,7 +96,6 @@ public class HilfeController {
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
-
 	}
 
 	@FXML
@@ -137,7 +134,5 @@ public class HilfeController {
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
-
 	}
-
 }

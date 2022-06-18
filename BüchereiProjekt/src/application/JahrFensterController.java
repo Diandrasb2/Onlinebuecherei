@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -37,7 +38,7 @@ import pojo.Buch;
 
 public class JahrFensterController implements Initializable{
 
-	// Aufrufe FXML: Anastasia
+	// Aufrufe FXML: Diandra (Vorlage: Anastasia)
 	@FXML
 	private AnchorPane flaecheSuche;
 	@FXML
@@ -63,8 +64,6 @@ public class JahrFensterController implements Initializable{
 	@FXML
 	private Label labelWillkommen;
 	@FXML
-	private TextField tfSuche;
-	@FXML
 	private Tooltip ttKonto;
 	@FXML
 	private Tooltip ttStartfenster;
@@ -81,7 +80,7 @@ public class JahrFensterController implements Initializable{
 	@FXML
 	private ScrollBar scrollbarScroll;
 	@FXML
-	private Button buttonOK;
+	private Button buttonOKSuchen;
 	@FXML
 	private Button buttonAz;
 	@FXML
@@ -103,13 +102,7 @@ public class JahrFensterController implements Initializable{
 	@FXML
 	private Label labelBeschreibung2;
 	@FXML
-	private TextField tfJahrVon;
-	@FXML
-	private TextField tfJahrBis;
-	@FXML
-	private TextField tfISBN;
-	@FXML
-	private Label labelBis;
+	private TextField tfJahr;
 	@FXML
 	private Button buttonKonto;
 	@FXML
@@ -119,9 +112,6 @@ public class JahrFensterController implements Initializable{
 	@FXML
 	private Button buttonHilfe;
 
-	private String jahrVon;
-	private String jahrBis;
-	
 	@FXML
 	private TableView<Buch> tabelleSortiment;
 	@FXML
@@ -145,7 +135,7 @@ public class JahrFensterController implements Initializable{
 	@FXML
 	private Button buttonReservieren;
 	@FXML
-    private Button buttonAusleihen;
+	private Button buttonAusleihen;
 	@FXML
 	private ImageView imgKonto;
 	@FXML
@@ -158,12 +148,25 @@ public class JahrFensterController implements Initializable{
 	private Tooltip ttIsbn;
 	@FXML 
 	private Button buttonISBNSuchen;
-	//Datenbankverknüpfung+aufruf (von Anastastia)
-	
-		ObservableList<Buch> liste = FXCollections.observableArrayList();
+	@FXML
+	private Button buttonJahrSuchen;
+	@FXML
+	private Label labelBeschreibung3;
 
-		@Override
-		public void initialize(URL url, ResourceBundle rb) {
+	//Datenbankverknuepfung + Aufruf (von Anastastia)
+
+	private Connection con = null;
+	private PreparedStatement preparedStatement = null;
+	private ResultSet rs = null;
+
+	private ObservableList<Buch> liste;
+
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3307/buecherliste", "root", "");
+			liste = FXCollections.observableArrayList();
+
 			titel.setCellValueFactory(new PropertyValueFactory<Buch, String>("titel"));
 			genre.setCellValueFactory(new PropertyValueFactory<Buch, String>("genre"));
 			verfasser.setCellValueFactory(new PropertyValueFactory<Buch, String>("verfasser"));
@@ -172,41 +175,63 @@ public class JahrFensterController implements Initializable{
 			isbn.setCellValueFactory(new PropertyValueFactory<Buch, Long>("isbn"));
 			beschreibung.setCellValueFactory(new PropertyValueFactory<Buch, String>("beschreibung"));
 
-			try {
-				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/buecherliste", "root", "");
-				System.out.println("Verbunden");
+			loadDataFromDatabase();
+			sucheJahr();
 
-				// ausgabe alle Buecher
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
-				ResultSet rs = connection.createStatement()
-						.executeQuery("select * from alleBuecher"); //Gibt aktuell unsortiert alle Buecher aus
-
-				while (rs.next()) {
-					Buch b = new Buch(rs.getString("titel"), rs.getString("genre"), rs.getString("verfasser"),
-							rs.getInt("jahr"), rs.getString("verlag"), rs.getLong("isbn"), rs.getString("beschreibung"));
-					b.setTitel(rs.getString("titel"));
-					b.setVerfasser(rs.getString("verfasser"));
-					b.setGenre(rs.getString("genre"));
-					b.setJahr(rs.getInt("jahr"));
-					b.setVerlag(rs.getString("verlag"));
-					b.setIsbn(rs.getLong("isbn"));
-					b.setBeschreibung(rs.getString("beschreibung"));
-					liste.add(b);
-
-					
-					tabelleSortiment.setItems(liste);
-					
-					
-					
-					
-				}
-			} catch (SQLException ex) {
-				System.out.println("Fehler");
+	private void loadDataFromDatabase() {
+		try {
+			preparedStatement = con.prepareStatement("Select*from alleBuecher where jahr");
+			rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				Buch b = new Buch(rs.getString("titel"), rs.getString("genre"), rs.getString("verfasser"),
+						rs.getInt("jahr"), rs.getString("verlag"), rs.getLong("isbn"), rs.getString("beschreibung"));
+				b.setTitel(rs.getString("titel"));
+				b.setVerfasser(rs.getString("verfasser"));
+				b.setGenre(rs.getString("genre"));
+				b.setJahr(rs.getInt("jahr"));
+				b.setVerlag(rs.getString("verlag"));
+				b.setIsbn(rs.getLong("isbn"));
+				b.setBeschreibung(rs.getString("beschreibung"));
+				liste.add(b);
 			}
 
-			
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-	
+
+		tabelleSortiment.setItems(liste);
+	}
+
+	private void sucheJahr() {
+		tfJahr.setOnKeyReleased(e -> {
+			if (tfJahr.getText().equals("")) {
+				loadDataFromDatabase();
+			} else {
+				liste.clear();
+				String sql = "select * from alleBuecher where jahr LIKE '%" + tfJahr.getText() + "%'";
+				try {
+					System.out.println(tfJahr.getText());
+
+					PreparedStatement preparedStatement = con.prepareStatement(sql);
+					rs = preparedStatement.executeQuery();
+					while (rs.next()) {
+						System.out.println("" + rs.getString("titel"));
+						liste.add(new Buch(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4),
+								rs.getString(5), rs.getLong(6), rs.getString(7)));
+					}
+					tabelleSortiment.setItems(liste);
+				} catch (SQLException ex) {
+					System.out.println("Fehler bei der Suche");
+				}
+			}
+		});
+	}
+
 	// Verknuepfung Funktionen: Anastasia
 	@FXML
 	private void handleButtonAnzeigenAction(ActionEvent event) throws SQLException {
@@ -218,21 +243,22 @@ public class JahrFensterController implements Initializable{
 			stage.setTitle("Online Buecherei - Buchdetails");
 			stage.setScene(new Scene(root3));
 			stage.show();
-			
-			//Ausgabe aus der Tabelle wird für gewählte Zeile in neuem Fenster ausgegeben um alles lesen zu können
+
+			//Ausgabe aus der Tabelle wird fuer gewaehlte Zeile in neuem Fenster ausgegeben um alles lesen zu koennen
 			BuchdetailsController buchdetailsController=fxmlLoader.getController();
-			
+
 			int row = tabelleSortiment.getSelectionModel().getSelectedIndex();
 
-			if(row>=0) { //Nur wenn ein Feld ausgewählt ist, ist dieser Aufruf möglich
-			buchdetailsController.setData(""+tabelleSortiment.getSelectionModel().getSelectedItem().getTitel(), 
-			tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser(),
-			""+tabelleSortiment.getSelectionModel().getSelectedItem().getGenre(),
-			+tabelleSortiment.getSelectionModel().getSelectedItem().getJahr(),
-			""+tabelleSortiment.getSelectionModel().getSelectedItem().getVerlag(),
-			+tabelleSortiment.getSelectionModel().getSelectedItem().getIsbn(),
-			""+tabelleSortiment.getSelectionModel().getSelectedItem().getBeschreibung());
+			if(row>=0) { //Nur wenn ein Feld ausgewaehlt ist, ist dieser Aufruf moeglich
+				buchdetailsController.setData(""+tabelleSortiment.getSelectionModel().getSelectedItem().getTitel(), 
+						tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser(),
+						""+tabelleSortiment.getSelectionModel().getSelectedItem().getGenre(),
+						+tabelleSortiment.getSelectionModel().getSelectedItem().getJahr(),
+						""+tabelleSortiment.getSelectionModel().getSelectedItem().getVerlag(),
+						+tabelleSortiment.getSelectionModel().getSelectedItem().getIsbn(),
+						""+tabelleSortiment.getSelectionModel().getSelectedItem().getBeschreibung());
 			}
+
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
@@ -254,7 +280,7 @@ public class JahrFensterController implements Initializable{
 
 			if (row >= 0) {
 				HinweisController hinweis = fxmlLoader.getController();
-				hinweis.hinweisText("Aktion erfolgreich durchgeführt!!");
+				hinweis.hinweisText("Aktion erfolgreich durchgefï¿½hrt!!");
 
 				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/merkliste", "root",
 						"");
@@ -269,18 +295,17 @@ public class JahrFensterController implements Initializable{
 				Statement sta = connection.createStatement();
 				int x = sta.executeUpdate(query);
 				if (x == 0) {
-					System.out.println("Funktion wird nicht durchgeführt");
+					System.out.println("Funktion wird nicht durchgefuehrt");
 
 				} else {
-					System.out.println("Funktion wird durchgeführt");
-
+					System.out.println("Funktion wird durchgefuehrt");
 				}
+
 				connection.close();
 				System.out.println(query);
 			}
-		}
 
-		catch (Exception exception) {
+		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
 	}
@@ -302,7 +327,7 @@ public class JahrFensterController implements Initializable{
 
 			if (row >= 0) {
 				HinweisController hinweis = fxmlLoader.getController();
-				hinweis.hinweisText("Aktion erfolgreich durchgeführt!!");
+				hinweis.hinweisText("Aktion erfolgreich durchgefï¿½hrt!!");
 
 				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/leihliste", "root",
 						"");
@@ -317,13 +342,14 @@ public class JahrFensterController implements Initializable{
 				Statement sta = connection.createStatement();
 				int x = sta.executeUpdate(query);
 				if (x == 0) {
-					System.out.println("Funktion wird nicht durchgeführt");
+					System.out.println("Funktion wird nicht durchgefï¿½hrt");
 				} else {
-					System.out.println("Funktion wird durchgeführt");
+					System.out.println("Funktion wird durchgefï¿½hrt");
 				}
 				connection.close();
 				System.out.println(query);
 			}
+
 		} catch (Exception exception) {
 			exception.printStackTrace();
 
@@ -347,7 +373,7 @@ public class JahrFensterController implements Initializable{
 
 			if (row >= 0) {
 				HinweisController hinweis = fxmlLoader.getController();
-				hinweis.hinweisText("Aktion erfolgreich durchgeführt!!");
+				hinweis.hinweisText("Aktion erfolgreich durchgefï¿½hrt!!");
 
 				Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/reservierliste",
 						"root", "");
@@ -362,24 +388,43 @@ public class JahrFensterController implements Initializable{
 				Statement sta = connection.createStatement();
 				int x = sta.executeUpdate(query);
 				if (x == 0) {
-					System.out.println("Funktion wird nicht durchgeführt");
+					System.out.println("Funktion wird nicht durchgefuehrt");
 				} else {
-					System.out.println("Funktion wird durchgeführt");
+					System.out.println("Funktion wird durchgefuehrt");
 				}
 				connection.close();
 				System.out.println(query);
 			}
+
 		} catch (Exception exception) {
 			exception.printStackTrace();
-
 		}
 	}
 
-
-	
 	@FXML
-	private void handleTfSucheAction(ActionEvent event) {
-		System.out.println("Gebe hier einen Suchbegriff ein");
+	private void handleTfJahrAction(ActionEvent event) {
+		System.out.println("Filter Jahr");
+		System.out.println(tfJahr.getText());
+		if (tfJahr.getText().equals("")) {
+			loadDataFromDatabase();
+		} else {
+			liste.clear();
+			String sql = "select * from alleBuecher where jahr LIKE '%" + tfJahr.getText() + "%'";
+			try {
+				System.out.println(tfJahr.getText());
+
+				PreparedStatement preparedStatement = con.prepareStatement(sql);
+				rs = preparedStatement.executeQuery();
+				while (rs.next()) {
+					System.out.println("" + rs.getString("titel"));
+					liste.add(new Buch(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),
+							rs.getLong(6), rs.getString(7)));
+				}
+				tabelleSortiment.setItems(liste);
+			} catch (SQLException ex) {
+				System.out.println("Fehler bei der Suche");
+			}
+		}
 	}
 
 	@FXML
@@ -421,44 +466,45 @@ public class JahrFensterController implements Initializable{
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
-	
+
 	@FXML
 	private void handleButtonZaAction(ActionEvent event) {
 		System.out.println("Filter z-a");
 		//Aufruf neues Fenster: Anastasia
-				Node source = (Node) event.getSource();
-				Stage oldStage = (Stage) source.getScene().getWindow();
-				oldStage.close();
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
 
-				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FilterZaFenster.fxml"));
-					AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-					Stage stage = new Stage();
-					stage.setTitle("Online Buecherei - Filter z-a");
-					stage.setScene(new Scene(root3));
-					stage.show();
-				} catch (IOException iOException) {
-					System.out.println("Fenster wurde nicht geoeffnet");
-				}
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FilterZaFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Filter z-a");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
 	}
+
 	@FXML
 	private void handleButtonBestsellerAction(ActionEvent event) {
 		System.out.println("Filter Bestseller");
 		//Aufruf neues Fenster: Anastasia
-				Node source = (Node) event.getSource();
-				Stage oldStage = (Stage) source.getScene().getWindow();
-				oldStage.close();
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
 
-				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FilterBestsellerFenster.fxml"));
-					AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-					Stage stage = new Stage();
-					stage.setTitle("Online Buecherei - Bestseller");
-					stage.setScene(new Scene(root3));
-					stage.show();
-				} catch (IOException iOException) {
-					System.out.println("Fenster wurde nicht geoeffnet");
-				}
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FilterBestsellerFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Bestseller");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
 	}
 
 	@FXML
@@ -565,18 +611,6 @@ public class JahrFensterController implements Initializable{
 	}
 
 	@FXML
-	private void handleTfJahrAction(ActionEvent event) {
-		// Diandra
-		System.out.println("Filter Erscheinungsjahr");
-
-		jahrVon = tfJahrVon.getText();
-		jahrBis = tfJahrBis.getText();
-
-		labelJahr.setText("Jahr: " + jahrVon + " - " + jahrBis); // Problem: funktioniert erst, wenn man bereits Jahre
-																	// eingegeben hat und dann erneut Jahre eingibt
-	}
-
-	@FXML
 	private void handleButtonISBNSuchenAction(ActionEvent event) {
 		System.out.println("Filter ISBN");
 		// Aufruf neues Fenster: Diandra
@@ -597,6 +631,12 @@ public class JahrFensterController implements Initializable{
 	}
 
 	@FXML
+	private void handleButtonJahrSuchenAction(ActionEvent event) {
+		System.out.println("Du bist bereits bei Jahr.");
+
+	}
+
+	@FXML
 	private void handleButtonKontoAction(ActionEvent event) {
 		System.out.println("Konto");
 		Node source = (Node) event.getSource();
@@ -613,7 +653,6 @@ public class JahrFensterController implements Initializable{
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
-
 	}
 
 	@FXML
@@ -634,7 +673,6 @@ public class JahrFensterController implements Initializable{
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
-
 	}
 
 	@FXML

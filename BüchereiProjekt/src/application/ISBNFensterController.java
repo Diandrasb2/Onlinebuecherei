@@ -38,7 +38,7 @@ import pojo.Buch;
 
 public class ISBNFensterController implements Initializable {
 
-	// Aufrufe FXML: Anastasia
+	// Aufrufe FXML: Diandra (Vorlage Anastasia)
 	@FXML
 	private AnchorPane flaecheSuche;
 	@FXML
@@ -64,8 +64,6 @@ public class ISBNFensterController implements Initializable {
 	@FXML
 	private Label labelWillkommen;
 	@FXML
-	private TextField tfSuche;
-	@FXML
 	private Tooltip ttKonto;
 	@FXML
 	private Tooltip ttStartfenster;
@@ -84,7 +82,7 @@ public class ISBNFensterController implements Initializable {
 	@FXML
 	private ScrollBar scrollbarScroll;
 	@FXML
-	private Button buttonOK;
+	private Button buttonOKSuchen;
 	@FXML
 	private Button buttonAz;
 	@FXML
@@ -110,15 +108,9 @@ public class ISBNFensterController implements Initializable {
 	@FXML
 	private Label labelBeschreibung2;
 	@FXML
-	private TextField tfJahrVon;
-	@FXML
-	private TextField tfJahrBis;
-	@FXML
 	private TextField tfISBN;
 	@FXML
 	private TextField tfISBN1;
-	@FXML
-	private Label labelBis;
 	@FXML
 	private Button buttonStartfenster;
 	@FXML
@@ -160,10 +152,12 @@ public class ISBNFensterController implements Initializable {
 	private ImageView imgHilfe;
 	@FXML
 	private Tooltip ttIsbn;
-	
+	@FXML
+	private Button buttonJahrSuchen;
+
 	@FXML
 	private Label labelBeschreibung3;
-	
+
 	public String enteredISBN;
 	public String enteredISBN2;
 
@@ -172,12 +166,13 @@ public class ISBNFensterController implements Initializable {
 	private ResultSet rs = null;
 
 	private ObservableList<Buch> liste;
-	// Datenbankverkn�pfung+aufruf (von Anastastia)
+
+	// Datenbankverkneupfung + Aufruf (von Anastastia)
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://127.0.0.2:3307/buecherliste", "root", "");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3307/buecherliste", "root", "");
 			liste = FXCollections.observableArrayList();
 
 			titel.setCellValueFactory(new PropertyValueFactory<Buch, String>("titel"));
@@ -192,10 +187,8 @@ public class ISBNFensterController implements Initializable {
 			sucheIsbn();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	private void loadDataFromDatabase() {
@@ -215,10 +208,11 @@ public class ISBNFensterController implements Initializable {
 				liste.add(b);
 
 			}
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		tabelleSortiment.setItems(liste);
 	}
 
@@ -260,13 +254,13 @@ public class ISBNFensterController implements Initializable {
 			stage.setScene(new Scene(root3));
 			stage.show();
 
-			// Ausgabe aus der Tabelle wird f�r gew�hlte Zeile in neuem Fenster ausgegeben
-			// um alles lesen zu k�nnen
+			// Ausgabe aus der Tabelle wird fuer gewaehlte Zeile in neuem Fenster ausgegeben
+			// um alles lesen zu koennen
 			BuchdetailsController buchdetailsController = fxmlLoader.getController();
 
 			int row = tabelleSortiment.getSelectionModel().getSelectedIndex();
 
-			if (row >= 0) { // Nur wenn ein Feld ausgew�hlt ist, ist dieser Aufruf m�glich
+			if (row >= 0) { // Nur wenn ein Feld ausgewaehlt ist, ist dieser Aufruf moeglich
 				buchdetailsController.setData("" + tabelleSortiment.getSelectionModel().getSelectedItem().getTitel(),
 						tabelleSortiment.getSelectionModel().getSelectedItem().getVerfasser(),
 						"" + tabelleSortiment.getSelectionModel().getSelectedItem().getGenre(),
@@ -321,9 +315,8 @@ public class ISBNFensterController implements Initializable {
 				connection.close();
 				System.out.println(query);
 			}
-		}
 
-		catch (Exception exception) {
+		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
 	}
@@ -364,12 +357,13 @@ public class ISBNFensterController implements Initializable {
 				} else {
 					System.out.println("Funktion wird durchgeführt");
 				}
+
 				connection.close();
 				System.out.println(query);
 			}
+
 		} catch (Exception exception) {
 			exception.printStackTrace();
-
 		}
 	}
 
@@ -412,16 +406,15 @@ public class ISBNFensterController implements Initializable {
 				connection.close();
 				System.out.println(query);
 			}
+
 		} catch (Exception exception) {
 			exception.printStackTrace();
-
 		}
 	}
 
 	@FXML
 	private void handleTfISBNAction(ActionEvent event) {
 		System.out.println("Filter ISBN");
-//sucheIsbn();
 		System.out.println(tfISBN.getText());
 		if (tfISBN.getText().equals("")) {
 			loadDataFromDatabase();
@@ -439,20 +432,36 @@ public class ISBNFensterController implements Initializable {
 							rs.getLong(6), rs.getString(7)));
 				}
 				tabelleSortiment.setItems(liste);
+
 			} catch (SQLException ex) {
 				System.out.println("Fehler bei der Suche");
 			}
 		}
 	}
+
 	@FXML
 	private void handleButtonISBNSuchenAction(ActionEvent event) {
 		System.out.println("Du bist bereits auf dem ISBN-Filter");
 	}
 
 	@FXML
-	private void handleTfSucheAction(ActionEvent event) {
-		System.out.println("Gebe hier einen Suchbegriff ein");
+	private void handleButtonJahrSuchenAction(ActionEvent event) {
+		System.out.println("Filter Jahr");
+		// Aufruf neues Fenster: Diandra
+		Node source = (Node) event.getSource();
+		Stage oldStage = (Stage) source.getScene().getWindow();
+		oldStage.close();
 
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JahrFenster.fxml"));
+			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Online Buecherei - Jahr");
+			stage.setScene(new Scene(root3));
+			stage.show();
+		} catch (IOException iOException) {
+			System.out.println("Fenster wurde nicht geoeffnet");
+		}
 	}
 
 	@FXML
@@ -629,26 +638,6 @@ public class ISBNFensterController implements Initializable {
 			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
 			Stage stage = new Stage();
 			stage.setTitle("Online Buecherei - Fremdsprache");
-			stage.setScene(new Scene(root3));
-			stage.show();
-		} catch (IOException iOException) {
-			System.out.println("Fenster wurde nicht geoeffnet");
-		}
-	}
-
-	@FXML
-	private void handleTfJahrAction(ActionEvent event) {
-		System.out.println("Filter Erscheinungsjahr");
-		// Aufruf neues Fenster: Diandra
-		Node source = (Node) event.getSource();
-		Stage oldStage = (Stage) source.getScene().getWindow();
-		oldStage.close();
-
-		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JahrFenster.fxml"));
-			AnchorPane root3 = (AnchorPane) fxmlLoader.load();
-			Stage stage = new Stage();
-			stage.setTitle("Online Buecherei - Jahr");
 			stage.setScene(new Scene(root3));
 			stage.show();
 		} catch (IOException iOException) {

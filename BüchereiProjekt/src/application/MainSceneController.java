@@ -38,7 +38,7 @@ public class MainSceneController {
 	@FXML
 	private ImageView imgHilfe;
 
-	// Verknüpfung Funktionen: Anastasia
+	// Verknuepfung Funktionen: Anastasia
 	@FXML
 	private void handleButtonLogInAction(ActionEvent event) {
 		System.out.println("Hier neues Fenster zum Login oeffnen");
@@ -58,7 +58,6 @@ public class MainSceneController {
 		} catch (IOException iOException) {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
-
 	}
 
 	@FXML
@@ -81,7 +80,7 @@ public class MainSceneController {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
-	
+
 	@FXML 
 	private void handleButtonAdminAction(ActionEvent event) {
 		System.out.println("Hier loggen sich Admins an");
@@ -102,5 +101,4 @@ public class MainSceneController {
 			System.out.println("Fenster wurde nicht geoeffnet");
 		}
 	}
-
 }
